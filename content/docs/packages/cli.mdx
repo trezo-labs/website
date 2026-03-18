@@ -1,0 +1,124 @@
+---
+title: Trezo CLI
+description: The entry point for creating and configuring Trezo applications.
+---
+
+## Overview
+
+Instead of manually setting up:
+
+- Blockchain SDKs
+- Project structure
+- Dependencies
+
+The CLI handles everything for you in a guided, interactive flow.
+
+It allows you to:
+
+- Select the blockchain package you want to use
+- Choose a project template
+- Automatically scaffold a working project
+- Optionally run post-setup commands
+
+---
+
+<Steps>
+
+### Initialize Project
+
+Start by running:
+
+```bash
+npx trezo@latest init
+```
+
+This launches an interactive setup.
+
+---
+
+### Interactive Setup Flow
+
+You’ll be guided through a series of prompts to configure your project.
+
+Typical flow:
+
+```bash
+Welcome to Trezo CLI
+
+◇ What package would you like to use?
+  ● @trezo/evm – Ethereum (EVM)
+  ○ @trezo/strk – Starknet
+
+◇ Select a template:
+  ● NextJs
+  ○ Vite
+
+◇ Project name:
+  trezo-project
+
+✔ Project created successfully!
+
+You're all set!
+```
+
+During this process, the CLI will:
+
+- Let you choose a **network package** (e.g. EVM, Starknet, Solana)
+- Select a **template** (framework + setup)
+- Ask for your **project name**
+- Scaffold the project into a new directory
+
+If you already have a project name **trezo-project** in your directory, you'll get this command
+
+```bash
+◇ trezo-project already exists. What would you like to do?
+  ● Overwrite existing project
+  ○ Rename project
+  ○ Cancel operation
+```
+
+---
+
+### Post-Setup Commands (Optional)
+
+Some templates include additional setup steps.
+
+```bash
+Post-setup commands
+
+These commands are optional:
+
+1. cd trezo-project
+2. pnpm install
+
+◇ Would you like to run these commands now?
+  ● Yes / ○ No
+```
+
+- If available, the CLI will display them
+- You can choose to run them automatically
+- Some templates may not include this step
+
+</Steps>
+
+## What Gets Generated
+
+After setup, your project is ready with:
+
+- Pre-configured Trezo integration
+- Selected blockchain package installed
+- Wallet connection support
+- Project structure based on your template
+
+Your app will start with everything already wired up.
+
+## Why Use Trezo CLI
+
+Trezo CLI removes the need to manually:
+
+- Install multiple Web3 libraries
+- Configure wallet providers
+- Set up contract interaction layers
+- Structure your application
+
+Instead, you get a **working Web3 app out of the box**, ready for development.

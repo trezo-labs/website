@@ -13,8 +13,8 @@ export async function GET(request: Request) {
       <div tw="flex border absolute border-stone-700 inset-x-0 h-[1px] bottom-16" />
       <div tw="flex absolute flex-row bottom-24 right-24 text-white">
         <svg
-          width="246"
-          height="246"
+          width="80"
+          height="80"
           viewBox="0 0 246 246"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

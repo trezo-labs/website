@@ -5,6 +5,11 @@ import { fontVariable } from "@/fonts";
 import { siteConfig } from "@/config/site.config";
 import { BASE_URL, META_THEME_COLORS } from "@/lib/constants";
 import { ThemeProvider } from "@/components/provider/theme.provider";
+import { LayoutProvider } from "@/hooks/use-layout";
+import { ActiveThemeProvider } from "@/components/shared/active-theme";
+import { TailwindIndicator } from "@/components/shared/tailwind-indicator";
+import { TooltipProvider } from "@/ui/tooltip";
+import { Toaster } from "@/ui/sonner";
 
 export const metadata: Metadata = {
   title: {
@@ -94,7 +99,17 @@ export default function RootLayout(props: LayoutProps<"/">) {
           "text-foreground group/body overscroll-none font-sans antialiased [--footer-height:calc(var(--spacing)*14)] [--header-height:calc(var(--spacing)*14)] xl:[--footer-height:calc(var(--spacing)*24)]",
         )}
       >
-        <ThemeProvider>{props.children}</ThemeProvider>
+        <ThemeProvider>
+          <LayoutProvider>
+            <ActiveThemeProvider>
+              <TooltipProvider delay={0}>
+                {props.children}
+                <Toaster position="top-center" />
+              </TooltipProvider>
+              <TailwindIndicator />
+            </ActiveThemeProvider>
+          </LayoutProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

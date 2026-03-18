@@ -1,0 +1,98 @@
+---
+title: Trezo EVM
+description: Install and configure the Trezo EVM toolkit to interact with smart contracts and wallets in a Next.js application.
+---
+
+<Steps>
+
+### Install Package
+
+Install the Trezo EVM package.
+
+```bash
+npm install @trezo/evm
+```
+
+The package provides a **type-safe orchestration layer for EVM smart contracts**, wallet connections, and reactive Web3 state management.
+
+---
+
+### Create Configuration
+
+Create a configuration file that defines your contract, supported chains, and wallet kit.
+
+```tsx title="lib/evm.config.ts" showLineNumbers
+"use client";
+
+import { create, EvmChains } from "@trezo/evm";
+
+const MyContractAbi = [] as const;
+
+export const evmConfig = create({
+  address: "0x...",
+  abi: MyContractAbi,
+  chains: [EvmChains.optimismSepolia],
+  kit: {
+    name: "connectkit",
+    config: {
+      projectId: process.env.NEXT_PUBLIC_WC_PROJECT_ID,
+    },
+  },
+});
+
+export const { Provider, ConnectButton } = evmConfig;
+```
+
+This configuration generates:
+
+- A **Provider** for your application
+- A **ConnectButton** for wallet connections
+- A **hook interface** for contract interactions
+
+---
+
+### Add Provider
+
+Wrap your application with the generated `Provider`.
+
+```tsx {7} title="app/layout.tsx" showLineNumbers
+import { Provider } from "@/lib/evm.config";
+
+export default function RootLayout({ children }) {
+  return (
+    <html>
+      <body>
+        <Provider>{children}</Provider>
+      </body>
+    </html>
+  );
+}
+```
+
+The provider initializes the wallet kit and synchronizes Web3 state across your application.
+
+---
+
+### Use in a Component
+
+You can now access wallet state and render the wallet connection button.
+
+```tsx {3,6} title="app/page.tsx" showLineNumbers
+"use client";
+
+import { evmConfig, ConnectButton } from "@/lib/evm.config";
+
+export default function Home() {
+  const { wallet } = evmConfig();
+
+  return (
+    <div>
+      <ConnectButton />
+
+      {wallet.account.isConnected && <p>Connected: {wallet.account.address}</p>}
+    </div>
+  );
+}
+```
+
+</Steps>

@@ -2,21 +2,28 @@
 
 import * as React from "react";
 import Link, { LinkProps } from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { Button, buttonVariants } from "@/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/popover";
 import { Route } from "next";
+import { source } from "@/lib/source";
+import { EXCLUDED_PAGES, TOP_LEVEL_SECTIONS } from "@/lib/constants";
+import { getCurrentBase, getPagesFromFolder } from "@/lib/page-tree";
 
 export function MobileNav({
+  tree,
   items,
   className,
 }: {
+  tree: typeof source.pageTree;
   items: { href: string; label: string }[];
   className?: string;
 }) {
   const [open, setOpen] = React.useState(false);
+  const pathname = usePathname();
+  const currentBase = getCurrentBase(pathname);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -51,7 +58,7 @@ export function MobileNav({
         </span>
       </PopoverTrigger>
       <PopoverContent
-        className="bg-background/90 no-scrollbar h-dvh w-dvw overflow-y-auto rounded-none border-none p-0 shadow-none backdrop-blur duration-100"
+        className="no-scrollbar h-(--radix-popper-available-height) w-(--radix-popper-available-width) overflow-y-auto rounded-none border-none bg-background/90 p-0 shadow-none backdrop-blur duration-100 data-open:animate-none!"
         align="start"
         side="bottom"
         alignOffset={-16}
@@ -76,6 +83,42 @@ export function MobileNav({
                 </MobileLink>
               ))}
             </div>
+          </div>
+          <div className="flex flex-col gap-8">
+            {tree?.children?.map((group, index) => {
+              if (group.type !== "folder") return null;
+
+              const pages = getPagesFromFolder(group, currentBase).filter(
+                (page) => !EXCLUDED_PAGES.includes(page.url),
+              );
+
+              // If no pages left after filtering, don't render the group
+              if (pages.length === 0) return null;
+
+              return (
+                <div
+                  key={`${group.name}-${index}`}
+                  className="flex flex-col gap-4"
+                >
+                  <div className="text-sm font-medium text-muted-foreground">
+                    {group.name}
+                  </div>
+
+                  <div className="flex flex-col gap-3">
+                    {pages.map((item, i) => (
+                      <MobileLink
+                        key={`${item.url}-${i}`}
+                        href={item.url as Route}
+                        onOpenChange={setOpen}
+                        className="flex items-center gap-2"
+                      >
+                        {item.name}
+                      </MobileLink>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </PopoverContent>
