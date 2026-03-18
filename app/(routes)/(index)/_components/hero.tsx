@@ -35,12 +35,12 @@ export const HomeHero = () => {
                     <span>Get Started</span>
                   </Link>
                   <Link
-                    href="/"
+                    href="/docs/installation#select-a-network-package"
                     className={buttonVariants({
                       variant: "link",
                     })}
                   >
-                    <span>View Components</span>
+                    <span>Explore Packages</span>
                     <Icons.ArrowRight02Icon />
                   </Link>
                 </div>
