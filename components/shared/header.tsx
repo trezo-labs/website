@@ -29,7 +29,7 @@ export const Header = () => {
             className={buttonVariants({
               variant: "ghost",
               size: "icon-xs",
-              className: "hidden! lg:flex!",
+              className: "hidden! lg:flex! mr-2",
             })}
           >
             <Icons.logo className="size-6" />

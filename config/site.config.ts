@@ -17,5 +17,13 @@ export const siteConfig = {
       label: "Docs",
       href: "/docs",
     },
+    {
+      label: "CLI",
+      href: "/docs/packages/cli",
+    },
+    {
+      label: "Installation",
+      href: "/docs/installation",
+    },
   ],
 };

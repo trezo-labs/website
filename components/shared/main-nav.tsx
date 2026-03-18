@@ -18,7 +18,13 @@ export function MainNav({
   return (
     <nav className={cn("items-center gap-0.5", className)} {...props}>
       {items.map((item, index) => (
-        <Button key={index} variant="ghost" asChild size="sm">
+        <Button
+          key={index}
+          variant="ghost"
+          asChild
+          size="sm"
+          className="h-8! px-"
+        >
           <Link
             href={item.href as Route}
             className={cn(pathname === item.href && "text-primary")}

@@ -9,7 +9,11 @@ import { Button, buttonVariants } from "@/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/popover";
 import { Route } from "next";
 import { source } from "@/lib/source";
-import { EXCLUDED_PAGES, TOP_LEVEL_SECTIONS } from "@/lib/constants";
+import {
+  EXCLUDED_PAGES,
+  EXCLUDED_SECTIONS,
+  TOP_LEVEL_SECTIONS,
+} from "@/lib/constants";
 import { getCurrentBase, getPagesFromFolder } from "@/lib/page-tree";
 
 export function MobileNav({
@@ -73,15 +77,22 @@ export function MobileNav({
               <MobileLink href="/" onOpenChange={setOpen}>
                 Home
               </MobileLink>
-              {items.map((item, index) => (
-                <MobileLink
-                  key={index}
-                  href={item.href as Route}
-                  onOpenChange={setOpen}
-                >
-                  {item.label}
-                </MobileLink>
-              ))}
+              {items.map((item, index) => {
+                if (
+                  EXCLUDED_SECTIONS.includes(item.label.toLowerCase() ?? "")
+                ) {
+                  return null;
+                }
+                return (
+                  <MobileLink
+                    key={index}
+                    href={item.href as Route}
+                    onOpenChange={setOpen}
+                  >
+                    {item.label}
+                  </MobileLink>
+                );
+              })}
             </div>
           </div>
           <div className="flex flex-col gap-8">

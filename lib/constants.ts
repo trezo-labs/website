@@ -8,7 +8,7 @@ export const TOP_LEVEL_SECTIONS = [
   },
   { name: "Trezo CLI", href: "/docs/packages/cli" },
 ];
-export const EXCLUDED_SECTIONS = ["installation", "/docs"];
+export const EXCLUDED_SECTIONS = ["installation", "cli"];
 export const EXCLUDED_PAGES = ["/docs"];
 
 export const BASE_URL =

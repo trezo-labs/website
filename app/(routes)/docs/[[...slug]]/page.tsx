@@ -4,7 +4,6 @@ import { findNeighbour } from "fumadocs-core/page-tree";
 
 import { source } from "@/lib/source";
 import { absoluteUrl } from "@/lib/utils";
-import { DocsCopyPage } from "@/components/shared/docs-copy-page";
 import { DocsTableOfContents } from "@/components/shared/docs-toc";
 import { mdxComponents } from "@/mdx-components";
 import { Button, buttonVariants } from "@/ui/button";
@@ -89,9 +88,6 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
                   {doc.title}
                 </h1>
                 <div className="docs-nav flex items-center gap-2">
-                  <div className="hidden sm:block">
-                    <DocsCopyPage page={raw} url={absoluteUrl(page.url)} />
-                  </div>
                   <div className="ml-auto flex gap-2">
                     {neighbours.previous && (
                       <Link

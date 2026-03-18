@@ -31,7 +31,7 @@ export const HomeHero = () => {
                 </p>
 
                 <div className="mt-8 mb-12 flex flex-row items-center justify-center gap-2 lg:justify-start">
-                  <Link href="/" className={buttonVariants()}>
+                  <Link href="/docs/installation" className={buttonVariants()}>
                     <span>Get Started</span>
                   </Link>
                   <Link
