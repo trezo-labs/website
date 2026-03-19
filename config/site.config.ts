@@ -9,7 +9,7 @@ export const siteConfig = {
     "The modular toolkit for building dapps with type-safe contract interactions, pluggable wallet kits, and high-performance Web3 state management.",
   acronym: "Transaction Runtime & Execution for Web3 Zone Orchestration",
   links: {
-    github: "https://github.com/thelastofinusa/trezo",
+    github: "https://github.com/trezo-labs",
     githubApi: "https://api.github.com/orgs/trezo-labs/repos",
   },
   navItems: [
