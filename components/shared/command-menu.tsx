@@ -1,16 +1,15 @@
 "use client";
 
 import * as React from "react";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useDocsSearch } from "fumadocs-core/search/client";
 
 import { trackEvent } from "@/lib/events";
-import { getCurrentBase, getPagesFromFolder } from "@/lib/page-tree";
+import { getAllPagesFromFolder } from "@/lib/page-tree";
 import { type source } from "@/lib/source";
 import { cn } from "@/lib/utils";
 import { useConfig } from "@/hooks/use-config";
 import { useMutationObserver } from "@/hooks/use-mutation-observer";
-import { copyToClipboardWithMeta } from "@/components/shared/copy-button";
 import { buttonVariants } from "@/ui/button";
 import {
   Command,
@@ -28,7 +27,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/ui/dialog";
-import { Separator } from "@/ui/separator";
 import { Icons } from "hugeicons-proxy";
 import { Route } from "next";
 import { useIsMac } from "@/hooks/use-is-mac";
@@ -42,16 +40,10 @@ export function CommandMenu({
   navItems?: { href: string; label: string }[];
 }) {
   const router = useRouter();
-  const pathname = usePathname();
   const [config] = useConfig();
   const isMac = useIsMac();
-  const currentBase = getCurrentBase(pathname);
   const [open, setOpen] = React.useState(false);
   const [renderDelayedGroups, setRenderDelayedGroups] = React.useState(false);
-  const [selectedType, setSelectedType] = React.useState<
-    "color" | "page" | "component" | "block" | null
-  >(null);
-  const [copyPayload, setCopyPayload] = React.useState("");
 
   const { search, setSearch, query } = useDocsSearch({
     type: "fetch",
@@ -130,22 +122,6 @@ export function CommandMenu({
     [],
   );
 
-  const handlePageHighlight = React.useCallback(
-    (isComponent: boolean, item: { url: string; name?: React.ReactNode }) => {
-      if (isComponent) {
-        const componentName = item.url.split("/").pop();
-        setSelectedType("component");
-        setCopyPayload(
-          `${packageManager} dlx shadcn@latest add ${componentName}`,
-        );
-      } else {
-        setSelectedType("page");
-        setCopyPayload("");
-      }
-    },
-    [packageManager, setSelectedType, setCopyPayload],
-  );
-
   const runCommand = React.useCallback(
     (command: () => unknown) => {
       setOpen(false);
@@ -164,23 +140,21 @@ export function CommandMenu({
         heading="Pages"
         className="p-0! **:[[cmdk-group-heading]]:scroll-mt-16 **:[[cmdk-group-heading]]:p-3! **:[[cmdk-group-heading]]:pb-1!"
       >
-        {navItems.map((item) => (
-          <CommandMenuItem
-            key={item.href}
-            value={`Navigation ${item.label}`}
-            keywords={["nav", "navigation", item.label.toLowerCase()]}
-            onHighlight={() => {
-              setSelectedType("page");
-              setCopyPayload("");
-            }}
-            onSelect={() => {
-              runCommand(() => router.push(item.href as Route));
-            }}
-          >
-            <Icons.ArrowRight02Icon />
-            {item.label}
-          </CommandMenuItem>
-        ))}
+        {navItems.map((item) => {
+          return (
+            <CommandMenuItem
+              key={item.href}
+              value={`Navigation ${item.label}`}
+              keywords={["nav", "navigation", item.label.toLowerCase()]}
+              onSelect={() => {
+                runCommand(() => router.push(item.href as Route));
+              }}
+            >
+              <Icons.ArrowRight02Icon />
+              {item.label}
+            </CommandMenuItem>
+          );
+        })}
       </CommandGroup>
     );
   }, [navItems, runCommand, router]);
@@ -191,7 +165,7 @@ export function CommandMenu({
         return null;
       }
 
-      const pages = getPagesFromFolder(group, currentBase);
+      const pages = getAllPagesFromFolder(group);
 
       if (pages.length === 0) {
         return null;
@@ -213,7 +187,6 @@ export function CommandMenu({
                   item.name?.toString() ? `${group.name} ${item.name}` : ""
                 }
                 keywords={isComponent ? ["component"] : undefined}
-                onHighlight={() => handlePageHighlight(isComponent, item)}
                 onSelect={() => {
                   runCommand(() => router.push(item.url as Route));
                 }}
@@ -230,7 +203,7 @@ export function CommandMenu({
         </CommandGroup>
       );
     });
-  }, [tree.children, currentBase, handlePageHighlight, runCommand, router]);
+  }, [tree.children, runCommand, router]);
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -247,36 +220,11 @@ export function CommandMenu({
         e.preventDefault();
         setOpen((open) => !open);
       }
-
-      if (e.key === "c" && (e.metaKey || e.ctrlKey)) {
-        runCommand(() => {
-          if (selectedType === "color") {
-            copyToClipboardWithMeta(copyPayload, {
-              name: "copy_color",
-              properties: { color: copyPayload },
-            });
-          }
-
-          if (selectedType === "block") {
-            copyToClipboardWithMeta(copyPayload, {
-              name: "copy_npm_command",
-              properties: { command: copyPayload, pm: packageManager },
-            });
-          }
-
-          if (selectedType === "page" || selectedType === "component") {
-            copyToClipboardWithMeta(copyPayload, {
-              name: "copy_npm_command",
-              properties: { command: copyPayload, pm: packageManager },
-            });
-          }
-        });
-      }
     };
 
     document.addEventListener("keydown", down);
     return () => document.removeEventListener("keydown", down);
-  }, [copyPayload, runCommand, selectedType, packageManager]);
+  }, [runCommand, packageManager]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -300,7 +248,7 @@ export function CommandMenu({
       </DialogTrigger>
       <DialogContent
         showCloseButton={false}
-        className="rounded-3xl lg:rounded-[38px] bg-card overflow-hidden ring-secondary corner-shape border-none bg-clip-padding p-4 pb-11 shadow-2xl ring-4"
+        className="bg-card overflow-hidden ring-secondary corner-shape border-none bg-clip-padding p-4 pb-11 shadow-2xl ring-4"
       >
         <DialogHeader className="sr-only">
           <DialogTitle>Search documentation...</DialogTitle>
@@ -343,21 +291,8 @@ export function CommandMenu({
             <CommandMenuKbd>
               <Icons.ArrowTurnBackwardIcon />
             </CommandMenuKbd>{" "}
-            {selectedType === "page" || selectedType === "component"
-              ? "Go to Page"
-              : null}
-            {selectedType === "color" ? "Copy OKLCH" : null}
+            <span>Go to Page</span>
           </div>
-          {copyPayload && (
-            <>
-              <Separator orientation="vertical" className="h-4!" />
-              <div className="flex items-center gap-1">
-                <CommandMenuKbd>⌘</CommandMenuKbd>
-                <CommandMenuKbd>C</CommandMenuKbd>
-                {copyPayload}
-              </div>
-            </>
-          )}
         </div>
       </DialogContent>
     </Dialog>
@@ -392,7 +327,7 @@ function CommandMenuItem({
     <CommandItem
       ref={ref}
       className={cn(
-        "h-9 corner-shape rounded-[10px] sm:rounded-[24px] border border-transparent px-3! font-medium data-[selected=true]:border-input data-[selected=true]:bg-input/50",
+        "h-9 corner-shape border border-transparent px-3! font-medium data-[selected=true]:border-input data-[selected=true]:bg-input/50",
         className,
       )}
       {...props}
@@ -466,7 +401,7 @@ function SearchResults({
               router.push(item.url as Route);
               setOpen(false);
             }}
-            className="h-9 corner-shape rounded-[10px] sm:rounded-[24px] border border-transparent px-3! font-normal data-[selected=true]:border-input data-[selected=true]:bg-input/50"
+            className="h-9 corner-shape border border-transparent px-3! font-normal data-[selected=true]:border-input data-[selected=true]:bg-input/50"
             keywords={[item.content]}
             value={`${item.content} ${item.type}`}
           >

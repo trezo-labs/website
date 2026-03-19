@@ -71,11 +71,11 @@ function CommandInput({
       data-slot="command-input-wrapper"
       className="py-0 bg-transparent! border-none"
     >
-      <InputGroup className="h-full!  corner-shape rounded-[10px]! md:rounded-[24px]! shadow-none! *:data-[slot=input-group-addon]:pl-2!">
+      <InputGroup className="h-full!  corner-shape shadow-none! *:data-[slot=input-group-addon]:pl-2!">
         <CommandPrimitive.Input
           data-slot="command-input"
           className={cn(
-            "w-full text-sm outline-hidden corner-shape rounded-[10px]! md:rounded-[24px]! border-none! disabled:cursor-not-allowed disabled:opacity-50",
+            "w-full text-sm outline-hidden corner-shape border-none! disabled:cursor-not-allowed disabled:opacity-50",
             className,
           )}
           {...props}

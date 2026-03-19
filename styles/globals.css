@@ -250,6 +250,7 @@
 
 @utility corner-shape {
   corner-shape: squircle;
+  @apply rounded-xl sm:rounded-2xl md:rounded-3xl lg:rounded-4xl;
 }
 
 @utility border-grid {

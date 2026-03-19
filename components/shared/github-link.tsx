@@ -2,10 +2,12 @@ import Link from "next/link";
 import { Route } from "next";
 import * as React from "react";
 
-import { buttonVariants } from "@/ui/button";
-import { Skeleton } from "@/ui/skeleton";
-import { siteConfig } from "@/config/site.config";
+import { name as packageName } from "@/package.json";
+
 import { Icons } from "./icons";
+import { Skeleton } from "@/ui/skeleton";
+import { buttonVariants } from "@/ui/button";
+import { siteConfig } from "@/config/site.config";
 
 export function GitHubLink() {
   const repo = siteConfig.links.github as Route;
@@ -36,12 +38,16 @@ export async function StarsCount({ githubApi }: { githubApi: string }) {
     next: { revalidate: 86400 }, // Cache for 1 day (86400 seconds)
   });
   const result = await data.json();
+  // Organization urls
+  const repo = result.find(
+    (item: { name: string }) => item.name === packageName,
+  );
 
   return (
     <span className="text-muted-foreground mt-px text-xs font-mono">
-      {result.stargazers_count >= 1000
-        ? `${(result.stargazers_count / 1000).toFixed(1)}k`
-        : result.stargazers_count.toLocaleString()}
+      {repo.stargazers_count >= 1000
+        ? `${(repo.stargazers_count / 1000).toFixed(0)}k`
+        : repo.stargazers_count.toLocaleString()}
     </span>
   );
 }

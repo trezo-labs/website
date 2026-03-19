@@ -1,0 +1,104 @@
+---
+title: Wallets
+description: Different types of wallets and their use cases
+---
+
+The following wallet types are supported:
+
+| Wallet Type         | Blockchain(s)                 | Description                                                                 |
+| ------------------- | ----------------------------- | --------------------------------------------------------------------------- |
+| `Injected Wallets`  | EVM (Ethereum, Polygon, etc.) | Browser-injected wallets. Easy to use for dApps. Example: MetaMask.         |
+| `Mobile Wallets`    | EVM, Solana, Others           | Mobile-first wallets with deep linking support. Example: Trust Wallet.      |
+| `Extension Wallets` | EVM, Solana                   | Browser extensions with full UI control. Example: MetaMask, Phantom.        |
+| `Hardware Wallets`  | EVM, Bitcoin, Others          | Physical devices for secure key storage. Example: Ledger, Trezor.           |
+| `Smart Wallets`     | EVM                           | Contract-based wallets with account abstraction. Example: Safe (Gnosis).    |
+| `MPC Wallets`       | Multi-chain                   | Use multi-party computation for key management. No single private key.      |
+| `Custodial Wallets` | Multi-chain                   | Managed by a third party (e.g. exchanges). Lower control, easier onboarding |
+| `Non-Custodial`     | Multi-chain                   | User fully controls private keys. Standard in Web3 applications             |
+| `Web Wallets`       | Multi-chain                   | Browser-based wallets without extensions                                    |
+| `Desktop Wallets`   | Multi-chain                   | Installed applications for managing crypto assets                           |
+
+---
+
+## Wallet Examples
+
+### Injected / Extension Wallets
+
+- [MetaMask](https://metamask.io/)
+- [Phantom](https://phantom.app/)
+- [Coinbase Wallet](https://www.coinbase.com/wallet)
+
+---
+
+### Mobile Wallets
+
+- [Trust Wallet](https://trustwallet.com/)
+- [Rainbow Wallet](https://rainbow.me/)
+- [Phantom (Mobile)](https://phantom.app/)
+
+---
+
+### Hardware Wallets
+
+- [Ledger](https://www.ledger.com/)
+
+---
+
+### Smart Wallets (Account Abstraction)
+
+- [Safe (formerly Gnosis Safe)](https://safe.global/)
+- [Argent](https://www.argent.xyz/)
+
+---
+
+### MPC Wallets
+
+- [Fireblocks](https://www.fireblocks.com/)
+- [ZenGo](https://zengo.com/)
+
+---
+
+### Custodial Wallets
+
+- [Coinbase](https://www.coinbase.com/)
+- [Binance](https://www.binance.com/)
+
+---
+
+### Web Wallets
+
+- [Blockchain.com Wallet](https://www.blockchain.com/wallet)
+- [MetaMask (Web)](https://metamask.io/)
+
+---
+
+### Desktop Wallets
+
+- [Exodus](https://www.exodus.com/)
+- [Atomic Wallet](https://atomicwallet.io/)
+
+---
+
+## Practical Mapping
+
+| Wallet          | Type                 | Blockchain     |
+| --------------- | -------------------- | -------------- |
+| MetaMask        | Injected / Extension | EVM            |
+| Phantom         | Extension / Mobile   | Solana (+ EVM) |
+| Coinbase Wallet | Mobile / Injected    | EVM            |
+| Trust Wallet    | Mobile               | Multi-chain    |
+| Ledger          | Hardware             | Multi-chain    |
+| Safe (Gnosis)   | Smart Wallet         | EVM            |
+
+## Key Notes
+
+- **EVM wallets** → Use libraries like `wagmi`, `viem`, `ethers.js`
+- **Solana wallets** → Use `@solana/wallet-adapter`
+- **Multi-chain wallets** → Increasingly common (e.g. Phantom, Trust Wallet)
+
+## When to Use What
+
+- Use **Injected wallets** → Standard dApp UX
+- Use **Smart wallets** → Better UX (no seed phrases, gas abstraction)
+- Use **Hardware wallets** → High-value security
+- Use **MPC / Custodial** → Onboarding non-crypto users

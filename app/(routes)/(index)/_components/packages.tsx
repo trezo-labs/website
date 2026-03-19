@@ -38,7 +38,7 @@ export const Packages = () => {
                   >
                     <div className="flex items-center justify-between gap-2">
                       <h3 className="text-base font-medium">{pkg.name}</h3>
-                      <p className="px-1.5 py-0.5 rounded-[24px] bg-secondary corner-shape text-xs font-medium">
+                      <p className="px-1.5 py-0.5 bg-secondary corner-shape text-xs font-medium">
                         {pkg.published ? pkg.version : "Upcoming"}
                       </p>
                     </div>

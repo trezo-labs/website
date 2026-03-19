@@ -1,16 +1,5 @@
 import { siteConfig } from "@/config/site.config";
 
-export const TOP_LEVEL_SECTIONS = [
-  { name: "Introduction", href: "/docs" },
-  {
-    name: "Installation",
-    href: "/docs/installation",
-  },
-  { name: "Trezo CLI", href: "/docs/packages/cli" },
-];
-export const EXCLUDED_SECTIONS = ["installation", "cli"];
-export const EXCLUDED_PAGES = ["/docs"];
-
 export const BASE_URL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000"
@@ -27,7 +16,7 @@ export const CORE_PACKAGES = [
     description:
       "The entry point for creating and configuring Trezo applications.",
     version: "v0.1.0",
-    path: "/docs/packages/cli",
+    path: "/docs/cli",
     published: true,
   },
   {

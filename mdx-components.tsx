@@ -38,10 +38,7 @@ function ComponentsListWrapper() {
   }
 
   return (
-    <ComponentsList
-      componentsFolder={componentsFolder as PageTreeFolder}
-      currentBase="radix"
-    />
+    <ComponentsList componentsFolder={componentsFolder as PageTreeFolder} />
   );
 }
 
@@ -139,13 +136,13 @@ export const mdxComponents = {
     />
   ),
   img: ({ className, alt, ...props }: React.ComponentProps<"img">) => (
-    <img className={cn("rounded-md", className)} alt={alt} {...props} />
+    <img className={cn("corner-shape", className)} alt={alt} {...props} />
   ),
   hr: ({ ...props }: React.ComponentProps<"hr">) => (
     <hr className="my-4 md:my-8" {...props} />
   ),
   table: ({ className, ...props }: React.ComponentProps<"table">) => (
-    <div className="my-6 no-scrollbar w-full overflow-y-auto rounded-xl border">
+    <div className="my-6 no-scrollbar w-full overflow-y-auto corner-shape border">
       <table
         className={cn(
           "relative w-full overflow-hidden border-none text-sm [&_tbody_tr:last-child]:border-b-0",
@@ -170,7 +167,7 @@ export const mdxComponents = {
   td: ({ className, ...props }: React.ComponentProps<"td">) => (
     <td
       className={cn(
-        "px-4 py-2 text-left whitespace-nowrap [&[align=center]]:text-center [&[align=right]]:text-right",
+        "px-4 py-3 text-left whitespace-nowrap [&[align=center]]:text-center [&[align=right]]:text-right",
         className,
       )}
       {...props}
@@ -237,7 +234,7 @@ export const mdxComponents = {
       return (
         <code
           className={cn(
-            "relative rounded-md bg-muted px-[0.3rem] py-[0.2rem] font-mono text-[0.8rem] break-words outline-none",
+            "relative bg-muted corner-shape px-[0.4rem] py-[0.2rem] font-mono text-[0.8rem] wrap-break-word outline-none",
             className,
           )}
           {...props}
@@ -293,7 +290,7 @@ export const mdxComponents = {
     ...props
   }: React.ComponentProps<"img">) => (
     <Image
-      className={cn("mt-6 rounded-md border", className)}
+      className={cn("mt-6 corner-shape border", className)}
       src={(src as string) || ""}
       width={Number(width)}
       height={Number(height)}
@@ -369,7 +366,7 @@ export const mdxComponents = {
   LinkedCard: ({ className, ...props }: React.ComponentProps<typeof Link>) => (
     <Link
       className={cn(
-        "flex w-full flex-col items-center corner-shape rounded-2xl md:rounded-3xl lg:rounded-4xl bg-surface p-6 text-surface-foreground transition-colors hover:bg-surface/80 sm:p-10",
+        "flex w-full flex-col items-center corner-shape bg-surface p-6 text-surface-foreground transition-colors hover:bg-surface/80 sm:p-10",
         className,
       )}
       {...props}

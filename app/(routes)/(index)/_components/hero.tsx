@@ -14,13 +14,11 @@ export const HomeHero = () => {
           <div className="relative overflow-hidden">
             <div className="lg:flex lg:items-center lg:gap-12">
               <div className="relative z-10 mx-auto max-w-xl text-center lg:ml-0 lg:w-1/2 lg:text-left">
-                <div className="mx-auto flex w-fit items-center corner-shape gap-2 rounded-[10px] md:rounded-[18px] border p-1 pr-3 lg:ml-0">
-                  <span className="bg-secondary uppercase px-2 py-1 rounded-[6px] md:rounded-[16px] corner-shape text-xs font-semibold">
+                <div className="mx-auto flex w-fit items-center corner-shape gap-2 border p-1 pr-3 lg:ml-0">
+                  <span className="bg-secondary uppercase px-2 py-1 corner-shape text-xs font-semibold">
                     {siteConfig.title}
                   </span>
                   <span className="text-sm">Open Source Web3 Framework</span>
-                  {/* <span className="block h-4 w-px bg-(--color-border)" />
-                  <Icons.ChevronRight className="size-5 -mr-1" /> */}
                 </div>
 
                 <h1 className="mt-6 text-4xl font-serif leading-[1.2] font-medium sm:text-5xl">

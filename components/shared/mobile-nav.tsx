@@ -2,19 +2,14 @@
 
 import * as React from "react";
 import Link, { LinkProps } from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import { Button, buttonVariants } from "@/ui/button";
+import { buttonVariants } from "@/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/ui/popover";
 import { Route } from "next";
 import { source } from "@/lib/source";
-import {
-  EXCLUDED_PAGES,
-  EXCLUDED_SECTIONS,
-  TOP_LEVEL_SECTIONS,
-} from "@/lib/constants";
-import { getCurrentBase, getPagesFromFolder } from "@/lib/page-tree";
+import { getAllPagesFromFolder } from "@/lib/page-tree";
 
 export function MobileNav({
   tree,
@@ -26,8 +21,6 @@ export function MobileNav({
   className?: string;
 }) {
   const [open, setOpen] = React.useState(false);
-  const pathname = usePathname();
-  const currentBase = getCurrentBase(pathname);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -78,11 +71,6 @@ export function MobileNav({
                 Home
               </MobileLink>
               {items.map((item, index) => {
-                if (
-                  EXCLUDED_SECTIONS.includes(item.label.toLowerCase() ?? "")
-                ) {
-                  return null;
-                }
                 return (
                   <MobileLink
                     key={index}
@@ -99,9 +87,8 @@ export function MobileNav({
             {tree?.children?.map((group, index) => {
               if (group.type !== "folder") return null;
 
-              const pages = getPagesFromFolder(group, currentBase).filter(
-                (page) => !EXCLUDED_PAGES.includes(page.url),
-              );
+              const pages = getAllPagesFromFolder(group);
+              // .filter((page) => !EXCLUDED_PAGES.includes(page.url));
 
               // If no pages left after filtering, don't render the group
               if (pages.length === 0) return null;

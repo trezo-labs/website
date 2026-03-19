@@ -5,16 +5,16 @@ import * as React from "react";
 
 export const ExamplesIndex: Record<string, Record<string, any>> = {
   "connect-wallet": {
-    // name: "connect-wallet",
-    // filePath: "examples/connect-wallet.tsx",
-    // component: React.lazy(async () => {
-    //   const mod = await import("./connect-wallet");
-    //   const exportName =
-    //     Object.keys(mod).find(
-    //       (key) =>
-    //         typeof mod[key] === "function" || typeof mod[key] === "object",
-    //     ) || "connect-wallet";
-    //   return { default: mod.default || mod[exportName] };
-    // }),
+    name: "connect-wallet",
+    filePath: "examples/connect-wallet.tsx",
+    component: React.lazy(async () => {
+      const mod = await import("./connect-wallet");
+      const exportName =
+        Object.keys(mod).find(
+          (key) =>
+            typeof mod[key] === "function" || typeof mod[key] === "object",
+        ) || "connect-wallet";
+      return { default: mod.default || mod[exportName] };
+    }),
   },
 };

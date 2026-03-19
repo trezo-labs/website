@@ -1,0 +1,10 @@
+{
+  "title": "Get Started",
+  "pages": [
+    "index",
+    "installation",
+    "wallets",
+    "cli",
+    "[Changelog](/docs/changelog)"
+  ]
+}

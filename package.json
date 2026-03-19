@@ -1,9 +1,9 @@
 {
-  "name": "trezo-website",
+  "name": "website",
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack --port 4000",
+    "dev": "rm -rf .next && clear && next dev --turbopack --port 4000",
     "build": "next build",
     "start": "next start --port 4000",
     "preview": "next build && next start --port 4000",
@@ -22,6 +22,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
+    "front-matter": "^4.0.2",
     "fumadocs-core": "16.0.5",
     "fumadocs-docgen": "2.0.0",
     "fumadocs-mdx": "13.0.2",

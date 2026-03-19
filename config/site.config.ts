@@ -10,7 +10,7 @@ export const siteConfig = {
   acronym: "Transaction Runtime & Execution for Web3 Zone Orchestration",
   links: {
     github: "https://github.com/thelastofinusa/trezo",
-    githubApi: "https://api.github.com/repos/thelastofinusa/trezo",
+    githubApi: "https://api.github.com/orgs/trezo-labs/repos",
   },
   navItems: [
     {
@@ -18,12 +18,12 @@ export const siteConfig = {
       href: "/docs",
     },
     {
-      label: "CLI",
-      href: "/docs/packages/cli",
+      label: "Wallets",
+      href: "/docs/wallets",
     },
     {
-      label: "Installation",
-      href: "/docs/installation",
+      label: "Changelog",
+      href: "/docs/changelog",
     },
   ],
 };
