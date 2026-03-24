@@ -1,24 +1,23 @@
-import {
-  Geist_Mono as FontMono,
-  Geist as FontSans,
-  Lora as FontSerif,
-} from "next/font/google";
+import localFont from "next/font/local";
 
 import { cn } from "@/lib/utils";
 
-const fontSans = FontSans({
-  subsets: ["latin"],
+const fontSans = localFont({
+  src: "./Geist/Geist-VariableFont_wght.ttf",
   variable: "--font-sans",
+  preload: true,
 });
 
-const fontSerif = FontSerif({
-  subsets: ["latin"],
+const fontSerif = localFont({
+  src: "./Lora/Lora-VariableFont_wght.ttf",
   variable: "--font-serif",
+  preload: true,
 });
 
-const fontMono = FontMono({
-  subsets: ["latin"],
+const fontMono = localFont({
+  src: "./GeistMono/GeistMono-VariableFont_wght.ttf",
   variable: "--font-mono",
+  preload: true,
 });
 
 const fontVariable = (className?: string) =>

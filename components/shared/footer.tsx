@@ -8,12 +8,12 @@ export const Footer = () => {
           <div className="text-muted-foreground w-full px-1 text-center text-xs leading-loose sm:text-sm">
             Built by{" "}
             <a
-              href={`https://x.com/${process.env.NEXT_PUBLIC_USERNAME}`}
+              href="https://x.com/thelastofinusa"
               target="_blank"
               rel="noreferrer"
               className="font-medium underline underline-offset-4 capitalize"
             >
-              {process.env.NEXT_PUBLIC_NICKNAME}
+              Holiday
             </a>
             . The source code is available on{" "}
             <a

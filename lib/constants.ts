@@ -1,9 +1,7 @@
-import { siteConfig } from "@/config/site.config";
-
 export const BASE_URL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000"
-    : siteConfig.url;
+    : process.env.NEXT_PUBLIC_BASE_URL;
 
 export const META_THEME_COLORS = {
   light: "#ffffff",

@@ -87,8 +87,12 @@ export function MobileNav({
             {tree?.children?.map((group, index) => {
               if (group.type !== "folder") return null;
 
-              const pages = getAllPagesFromFolder(group);
-              // .filter((page) => !EXCLUDED_PAGES.includes(page.url));
+              const pages = getAllPagesFromFolder(group).filter(
+                (page) =>
+                  !["/docs", "/docs/wallets", "/docs/changelog"].includes(
+                    page.url,
+                  ),
+              );
 
               // If no pages left after filtering, don't render the group
               if (pages.length === 0) return null;

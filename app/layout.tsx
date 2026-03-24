@@ -20,8 +20,8 @@ export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL as string),
   authors: [
     {
-      name: process.env.NEXT_PUBLIC_NICKNAME,
-      url: `https://x.com/${process.env.NEXT_PUBLIC_USERNAME}`,
+      name: "Holiday",
+      url: "https://x.com/thelastofinusa",
     },
   ],
   openGraph: {
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     title: siteConfig.title,
     description: siteConfig.description,
     images: [`${BASE_URL}/assets/images/opengraph.png`],
-    creator: `@${process.env.NEXT_PUBLIC_USERNAME}`,
+    creator: "@thelastofinusa",
   },
   icons: {
     shortcut: "/favicon_dark/favicon.ico",
