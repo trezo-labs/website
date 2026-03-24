@@ -30,7 +30,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
 // This is only used on /docs/components/ index page, so default to radix.
 function ComponentsListWrapper() {
   const componentsFolder = source.pageTree.children.find(
-    (page) => page.$id === "components",
+    (page) => page.$id === "packages",
   );
 
   if (componentsFolder?.type !== "folder") {

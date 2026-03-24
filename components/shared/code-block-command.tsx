@@ -8,13 +8,7 @@ import { useConfig } from "@/hooks/use-config";
 import { copyToClipboardWithMeta } from "@/components/shared/copy-button";
 import { Button } from "@/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/ui/tabs";
-
-const packageManagerIcons = {
-  pnpm: SiPnpm,
-  npm: SiNpm,
-  yarn: SiYarn,
-  bun: SiBun,
-};
+import { Icons } from "./icons";
 
 export function CodeBlockCommand({
   __npm__,
@@ -64,8 +58,7 @@ export function CodeBlockCommand({
     setHasCopied(true);
   }, [packageManager, tabs]);
 
-  const ActiveIcon =
-    packageManagerIcons[packageManager as keyof typeof packageManagerIcons];
+  const ActiveIcon = Icons[packageManager as keyof typeof Icons];
 
   return (
     <div className="overflow-x-auto">
@@ -80,9 +73,7 @@ export function CodeBlockCommand({
         }}
       >
         <div className="flex items-center gap-2 border-b border-border/50 px-3 py-1">
-          <div className="flex size-5 items-center justify-center corner-shape bg-foreground opacity-70">
-            <ActiveIcon className="size-4 text-code" />
-          </div>
+          <ActiveIcon className="size-4" />
           <TabsList className="rounded-none bg-transparent p-0">
             {Object.entries(tabs).map(([key]) => {
               return (

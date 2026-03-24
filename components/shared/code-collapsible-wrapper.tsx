@@ -30,7 +30,7 @@ export function CodeCollapsibleWrapper({
           className={buttonVariants({
             variant: "ghost",
             size: "sm",
-            className: "h-7 rounded-md px-2 text-muted-foreground",
+            className: "h-7 corner-shape px-2 text-muted-foreground",
           })}
         >
           {isOpened ? "Collapse" : "Expand"}

@@ -1,6 +1,6 @@
 ---
-title: Trezo EVM
-description: Install and configure the Trezo EVM toolkit to interact with smart contracts and wallets in a Next.js application.
+title: Ethereum (EVM)
+description: Type-safe toolkit for interacting with EVM smart contracts and wallets.
 ---
 
 <Steps>
@@ -21,7 +21,7 @@ The package provides a **type-safe orchestration layer for EVM smart contracts**
 
 Create a configuration file that defines your contract, supported chains, and wallet kit.
 
-```tsx title="lib/evm.config.ts" showLineNumbers
+```ts title="lib/evm.config.ts" showLineNumbers
 "use client";
 
 import { create, EvmChains } from "@trezo/evm";

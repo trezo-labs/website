@@ -33,11 +33,8 @@ import { useIsMac } from "@/hooks/use-is-mac";
 
 export function CommandMenu({
   tree,
-  navItems,
-  ...props
 }: React.ComponentProps<typeof Dialog> & {
   tree: typeof source.pageTree;
-  navItems?: { href: string; label: string }[];
 }) {
   const router = useRouter();
   const [config] = useConfig();
@@ -129,35 +126,6 @@ export function CommandMenu({
     },
     [setOpen],
   );
-
-  const navItemsSection = React.useMemo(() => {
-    if (!navItems || navItems.length === 0) {
-      return null;
-    }
-
-    return (
-      <CommandGroup
-        heading="Pages"
-        className="p-0! **:[[cmdk-group-heading]]:scroll-mt-16 **:[[cmdk-group-heading]]:p-3! **:[[cmdk-group-heading]]:pb-1!"
-      >
-        {navItems.map((item) => {
-          return (
-            <CommandMenuItem
-              key={item.href}
-              value={`Navigation ${item.label}`}
-              keywords={["nav", "navigation", item.label.toLowerCase()]}
-              onSelect={() => {
-                runCommand(() => router.push(item.href as Route));
-              }}
-            >
-              <Icons.ArrowRight02Icon />
-              {item.label}
-            </CommandMenuItem>
-          );
-        })}
-      </CommandGroup>
-    );
-  }, [navItems, runCommand, router]);
 
   const pageGroupsSection = React.useMemo(() => {
     return tree.children.map((group) => {
@@ -273,7 +241,6 @@ export function CommandMenu({
             <CommandEmpty className="py-12 text-center text-sm text-muted-foreground">
               {query.isLoading ? "Searching..." : "No results found."}
             </CommandEmpty>
-            {navItemsSection}
             {renderDelayedGroups ? (
               <>
                 {pageGroupsSection}

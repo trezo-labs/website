@@ -1,12 +1,9 @@
-import React from "react";
 import Link from "next/link";
 import { ModeSwitcher } from "./mode-switcher";
 import { Separator } from "@/ui/separator";
-import { Container } from "./container";
-import { GitHubLink } from "./github-link";
 import { MainNav } from "./main-nav";
 import { siteConfig } from "@/config/site.config";
-import { Button, buttonVariants } from "@/ui/button";
+import { buttonVariants } from "@/ui/button";
 import { MobileNav } from "./mobile-nav";
 import { CommandMenu } from "./command-menu";
 import { SiteConfig } from "./site-config";
@@ -38,16 +35,13 @@ export const Header = () => {
           <MainNav items={siteConfig.navItems} className="hidden lg:flex" />
           <div className="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">
             <div className="hidden w-full flex-1 md:flex md:w-auto md:flex-none">
-              <CommandMenu
-                tree={source.pageTree}
-                navItems={siteConfig.navItems}
-              />
+              <CommandMenu tree={source.pageTree} />
             </div>
-            <Separator
+            {/* <Separator
               orientation="vertical"
               className="ml-2 hidden mt-2 lg:block"
             />
-            <GitHubLink />
+            <GitHubLink /> */}
             <Separator
               orientation="vertical"
               className="hidden mt-2 2xl:flex"

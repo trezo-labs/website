@@ -71,7 +71,6 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
   const MDX = doc.body;
 
   const neighbours = findNeighbour(source.pageTree, page.url);
-  const raw = await page.data.getText("raw");
 
   return (
     <div
@@ -119,7 +118,7 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
                 </div>
               </div>
               {doc.description && (
-                <p className="text-[1.05rem] text-muted-foreground sm:text-base sm:text-balance md:max-w-[80%]">
+                <p className="text-[1.05rem] text-muted-foreground sm:text-base sm:text-balance">
                   {doc.description}
                 </p>
               )}
