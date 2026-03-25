@@ -5,20 +5,14 @@ description: The entry point for creating and configuring Trezo applications.
 
 ## Overview
 
-Instead of manually setting up:
+Trezo CLI simplifies Web3 project setup. It handles:
 
-- Blockchain SDKs
-- Project structure
-- Dependencies
+- Blockchain package selection
+- Project templates
+- Directory conflicts (overwrite, rename, cancel)
+- Optional post-setup commands
 
-The CLI handles everything for you in a guided, interactive flow.
-
-It allows you to:
-
-- Select the blockchain package you want to use
-- Choose a project template
-- Automatically scaffold a working project
-- Optionally run post-setup commands
+This saves you from manually configuring SDKs, dependencies, and project structure.
 
 ---
 
@@ -29,10 +23,10 @@ It allows you to:
 Start by running:
 
 ```bash
-npx trezo@latest init
+npx trezo init
 ```
 
-This launches an interactive setup.
+This launches an interactive setup that will guide you step by step.
 
 ---
 
@@ -40,76 +34,73 @@ This launches an interactive setup.
 
 You’ll be guided through a series of prompts to configure your project.
 
-Typical flow:
+```terminal
+████████╗██████╗ ███████╗███████╗ ██████╗      ██████╗██╗     ██╗
+╚══██╔══╝██╔══██╗██╔════╝╚══███╔╝██╔═══██╗    ██╔════╝██║     ██║
+   ██║   ██████╔╝█████╗    ███╔╝ ██║   ██║    ██║     ██║     ██║
+   ██║   ██╔══██╗██╔══╝   ███╔╝  ██║   ██║    ██║     ██║     ██║
+   ██║   ██║  ██║███████╗███████╗╚██████╔╝    ╚██████╗███████╗██║
+   ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝ ╚═════╝      ╚═════╝╚══════╝╚═╝
 
-```bash
 Welcome to Trezo CLI
 
-◇ What package would you like to use?
-  ● @trezo/evm – Ethereum (EVM)
-  ○ @trezo/strk – Starknet
+? What package would you like to use?
+> @trezo/evm – Ethereum (EVM)
+  @trezo/sol – Solana
 
-◇ Select a template:
-  ● NextJs
-  ○ Vite
+? Choose a template to start with:
+> NextJs
+  Vite
 
-◇ Project name:
-  trezo-project
+? What would you like to name your project? (trezo-app)
 
 ✔ Project created successfully!
-
-You're all set!
 ```
 
-During this process, the CLI will:
+### Handling Existing Directories
 
-- Let you choose a **network package** (e.g. EVM, Starknet, Solana)
-- Select a **template** (framework + setup)
-- Ask for your **project name**
-- Scaffold the project into a new directory
+If a directory with the chosen project name already exists:
 
-If you already have a project name **trezo-project** in your directory, you'll get this command
-
-```bash
-◇ trezo-project already exists. What would you like to do?
-  ● Overwrite existing project
-  ○ Rename project
-  ○ Cancel operation
+```terminal
+? A directory named "trezo-project" already exists. What would you like to do?
+> Overwrite existing project
+  Rename project
+  Cancel operation
 ```
 
----
+- **Overwrite** – deletes the existing folder and continues
+- **Rename** – prompts for a new project name and validates it
+- **Cancel** – exits the CLI safely
+
+> Pressing CTRL+C at any point will cancel the operation.
 
 ### Post-Setup Commands
 
-Some templates include additional setup steps.
+Some templates include additional setup commands:
 
-```bash
-Post-setup commands
-
-These commands are optional:
+```terminal
+The following post-setup commands will complete your project setup:
 
 1. cd trezo-project
 2. pnpm install
 
-◇ Would you like to run these commands now?
-  ● Yes / ○ No
+? Would you like to run these commands now? (Y/n)
 ```
 
-- If available, the CLI will display them
-- You can choose to run them automatically
-- Some templates may not include this step
+- You can run them automatically from the CLI
+- If skipped, run them manually later
 
 </Steps>
 
-## What Gets Generated
+---
 
-After setup, your project is ready with:
+## Generated Project
+
+After setup, your project includes:
 
 - Pre-configured Trezo integration
 - Selected blockchain package installed
 - Wallet connection support
 - Project structure based on your template
 
-Your app will start with everything already wired up. Instead, you get a **working Web3 app out of the box**, ready for development.
-
-> To submit a new template to the CLI, go to [**New CLI Template**](/cli/templates/new) page. Your template will be reviewed and approved before becoming available for others to use, and it **must** include at least one Trezo package.
+Your project is ready for development — a fully working Web3 app out of the box.

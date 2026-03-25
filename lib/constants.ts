@@ -13,7 +13,7 @@ export const CORE_PACKAGES = [
     name: "Trezo CLI",
     description:
       "The entry point for creating and configuring Trezo applications.",
-    version: "v0.1.0",
+    version: "v1.0.1",
     path: "/docs/cli",
     published: true,
   },
