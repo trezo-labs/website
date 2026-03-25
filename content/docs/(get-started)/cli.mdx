@@ -7,10 +7,9 @@ description: The entry point for creating and configuring Trezo applications.
 
 Trezo CLI simplifies Web3 project setup. It handles:
 
-- Blockchain package selection
+- Network Package selection
 - Project templates
-- Directory conflicts (overwrite, rename, cancel)
-- Optional post-setup commands
+- Post-setup commands
 
 This saves you from manually configuring SDKs, dependencies, and project structure.
 
@@ -20,13 +19,25 @@ This saves you from manually configuring SDKs, dependencies, and project structu
 
 ### Initialize Project
 
-Start by running:
+Run the CLI:
 
 ```bash
 npx trezo init
 ```
 
-This launches an interactive setup that will guide you step by step.
+You can also specify a project name after the `init` command.
+
+### Global Installation
+
+You can also install the CLI globally:
+
+```bash
+npm install -g trezo
+```
+
+After installing, you can run `trezo init` directly without using npx.
+
+> This will launch an interactive setup to guide you through project creation.
 
 ---
 
@@ -54,23 +65,6 @@ Welcome to Trezo CLI
 
 ✔ Project created successfully!
 ```
-
-### Handling Existing Directories
-
-If a directory with the chosen project name already exists:
-
-```terminal
-? A directory named "trezo-project" already exists. What would you like to do?
-> Overwrite existing project
-  Rename project
-  Cancel operation
-```
-
-- **Overwrite** – deletes the existing folder and continues
-- **Rename** – prompts for a new project name and validates it
-- **Cancel** – exits the CLI safely
-
-> Pressing CTRL+C at any point will cancel the operation.
 
 ### Post-Setup Commands
 
