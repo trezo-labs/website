@@ -36,7 +36,14 @@ export const presetType = defineType({
   preview: {
     select: {
       title: "label",
-      subtitle: "slug",
+      visible: "visible",
+    },
+    prepare(selection) {
+      const { title, visible } = selection;
+      return {
+        title,
+        subtitle: visible ? "✅ Visible in CLI" : "🚫 Hidden from CLI",
+      };
     },
   },
 });

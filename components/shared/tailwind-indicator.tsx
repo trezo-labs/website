@@ -12,7 +12,7 @@ export function TailwindIndicator({
   return (
     <div
       data-tailwind-indicator=""
-      className="fixed bottom-2 right-2 z-50 flex size-8 items-center justify-center rounded-full bg-secondary p-3 font-mono text-xs text-foreground"
+      className="fixed bottom-2 left-2 z-50 flex size-8 items-center justify-center rounded-full bg-secondary p-3 font-mono text-xs text-foreground"
     >
       <div className="block sm:hidden">xs</div>
       <div className="hidden sm:block md:hidden">sm</div>

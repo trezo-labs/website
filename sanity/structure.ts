@@ -4,12 +4,12 @@ export const structure: StructureResolver = (S) =>
   S.list()
     .title("Content")
     .items([
-      // Templates grouped by ONLY visible + published presets
+      // Section: Visible Templates grouped by preset
       S.listItem()
-        .title("Templates")
+        .title("Visible Templates by Preset")
         .child(
           S.documentList()
-            .title("Templates by Preset")
+            .title("Presets (Visible Templates)")
             .filter(
               '_type == "preset" && visible == true && !(_id in path("drafts.**"))',
             )
@@ -23,9 +23,14 @@ export const structure: StructureResolver = (S) =>
 
       S.divider(),
 
-      // Presets (all)
-      S.documentTypeListItem("preset").title("Presets"),
+      // Section: All Presets
+      S.listItem()
+        .title("All Presets")
+        .child(S.documentList().title("Presets").filter('_type == "preset"')),
 
+      S.divider(),
+
+      // Other document types
       ...S.documentTypeListItems().filter(
         (item) =>
           item.getId() && !["preset", "template"].includes(item.getId()!),
