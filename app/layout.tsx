@@ -13,7 +13,7 @@ import { Toaster } from "@/ui/sonner";
 
 export const metadata: Metadata = {
   title: {
-    default: siteConfig.title.toUpperCase(),
+    default: `${siteConfig.title} - ${siteConfig.acronym}`,
     template: `%s - ${siteConfig.title}`,
   },
   description: siteConfig.description,
