@@ -26,13 +26,13 @@ export const CORE_PACKAGES = [
     published: true,
   },
   {
-    name: "@trezo/starknet",
+    name: "@trezo/strk",
     description:
       "Type-safe toolkit for building Starknet applications and contract interactions.",
     published: false,
   },
   {
-    name: "@trezo/solana",
+    name: "@trezo/sol",
     description:
       "Developer toolkit for interacting with Solana programs and wallets.",
     published: false,
