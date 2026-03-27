@@ -1,9 +1,17 @@
 import { NextResponse } from "next/server";
-import { client } from "@/sanity/lib/client";
+import { client, writeClient } from "@/sanity/lib/client";
 import { groq } from "next-sanity";
 
 export async function GET() {
   try {
+    await writeClient.createIfNotExists({
+      _id: "cli-usage",
+      _type: "usage",
+      usage: 0,
+    });
+
+    await writeClient.patch("cli-usage").inc({ usage: 1 }).commit();
+
     // Use a read-only client (CDN) for published content
     const readClient = client.withConfig({ useCdn: true, token: undefined });
 

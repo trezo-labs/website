@@ -4,6 +4,7 @@ export const structure: StructureResolver = (S) =>
   S.list()
     .title("Content")
     .items([
+      S.divider(),
       // Section: Visible Templates grouped by preset
       S.listItem()
         .title("Visible Templates by Preset")
@@ -21,8 +22,6 @@ export const structure: StructureResolver = (S) =>
             ),
         ),
 
-      S.divider(),
-
       // Section: All Presets
       S.listItem()
         .title("All Presets")
@@ -30,9 +29,15 @@ export const structure: StructureResolver = (S) =>
 
       S.divider(),
 
+      // ✅ Usage (single document)
+      S.listItem().title("CLI Usage").child(
+        S.document().schemaType("usage").documentId("cli-usage"), // must match your API patch ID
+      ),
+
       // Other document types
       ...S.documentTypeListItems().filter(
         (item) =>
-          item.getId() && !["preset", "template"].includes(item.getId()!),
+          item.getId() &&
+          !["preset", "template", "usage"].includes(item.getId()!),
       ),
     ]);

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 
 import "@/styles/globals.css";
 import { fontVariable } from "@/fonts";
@@ -107,6 +108,7 @@ export default function RootLayout(props: LayoutProps<"/">) {
                 <Toaster position="top-center" />
               </TooltipProvider>
               <TailwindIndicator />
+              <Analytics />
             </ActiveThemeProvider>
           </LayoutProvider>
         </ThemeProvider>
