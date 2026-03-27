@@ -13,7 +13,7 @@ export const CORE_PACKAGES = [
     name: "Trezo CLI",
     description:
       "The entry point for creating and configuring Trezo applications.",
-    version: "v1.0.1",
+    version: "v1.0.2",
     path: "/docs/cli",
     published: true,
   },
@@ -21,7 +21,7 @@ export const CORE_PACKAGES = [
     name: "@trezo/evm",
     description:
       "Type-safe toolkit for interacting with EVM smart contracts and wallets.",
-    version: "v0.1.6",
+    version: "v1.0.1",
     path: "/docs/packages/evm",
     published: true,
   },
