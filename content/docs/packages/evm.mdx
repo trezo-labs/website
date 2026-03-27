@@ -1,37 +1,36 @@
 ---
-title: Ethereum (EVM)
+title: "@trezo/evm – Ethereum"
 description: Type-safe toolkit for interacting with EVM smart contracts and wallets.
 ---
 
-<Steps>
-
-### Install Package
-
-Install the Trezo EVM package.
+## Install Package
 
 ```bash
 npm install @trezo/evm
 ```
 
-The package provides a **type-safe orchestration layer for EVM smart contracts**, wallet connections, and reactive Web3 state management.
+This gives you a **type-safe layer** for:
+
+- Contract reads & writes
+- Wallet connections
+- Event-driven UI updates
 
 ---
 
-### Create Configuration
-
-Create a configuration file that defines your contract, supported chains, and wallet kit.
+## Create Configuration
 
 ```ts title="lib/evm.config.ts" showLineNumbers
 "use client";
 
 import { create, EvmChains } from "@trezo/evm";
 
-const MyContractAbi = [] as const;
+const contractAbi = [] as const;
 
 export const evmConfig = create({
   address: "0x...",
-  abi: MyContractAbi,
+  abi: contractAbi,
   chains: [EvmChains.optimismSepolia],
+  rpcUrl: "https://optimism-sepolia-public.nodies.app",
   kit: {
     name: "connectkit",
     config: {
@@ -43,19 +42,23 @@ export const evmConfig = create({
 export const { Provider, ConnectButton } = evmConfig;
 ```
 
-This configuration generates:
+This configuration is the core of your app. It:
 
-- A **Provider** for your application
-- A **ConnectButton** for wallet connections
-- A **hook interface** for contract interactions
+- Connects your contract (address + ABI)
+- Defines supported chains
+- Sets up wallet integration
+
+It also generates:
+
+- `Provider` → wraps your app
+- `ConnectButton` → ready-to-use wallet UI
+- `evmConfig()` → hook for interacting with everything
 
 ---
 
-### Add Provider
+## Add Provider
 
-Wrap your application with the generated `Provider`.
-
-```tsx {7} title="app/layout.tsx" showLineNumbers
+```tsx title="app/layout.tsx" showLineNumbers
 import { Provider } from "@/lib/evm.config";
 
 export default function RootLayout({ children }) {
@@ -69,30 +72,232 @@ export default function RootLayout({ children }) {
 }
 ```
 
-The provider initializes the wallet kit and synchronizes Web3 state across your application.
+The provider initializes:
+
+- Wallet connection state
+- RPC client
+- Internal reactive store
+
+Without this, nothing works.
 
 ---
 
-### Use in a Component
+## Basic Usage
 
-You can now access wallet state and render the wallet connection button.
-
-```tsx {3,6} title="app/page.tsx" showLineNumbers
+```tsx title="app/page.tsx" showLineNumbers
 "use client";
 
 import { evmConfig, ConnectButton } from "@/lib/evm.config";
 
 export default function Home() {
-  const { wallet } = evmConfig();
+  const { wallet, call } = evmConfig();
 
   return (
     <div>
       <ConnectButton />
 
-      {wallet.account.isConnected && <p>Connected: {wallet.account.address}</p>}
+      {wallet.account.isConnected ? (
+        <p>{wallet.account.address}</p>
+      ) : (
+        <p>...</p>
+      )}
     </div>
   );
 }
 ```
 
-</Steps>
+- `wallet` → connection state
+- `call` → contract interaction helpers
+
+---
+
+## Read from Contract (`queryFn`)
+
+```ts
+const result = await call.queryFn("fetchAllTasks", []);
+```
+
+Use this for **view/pure functions**.
+
+```ts
+if (result.error) {
+  console.error(result.error.message);
+} else {
+  console.log(result.data);
+}
+```
+
+**Key points:**
+
+- No wallet required
+- No gas cost
+- Fully typed from ABI
+- Safe to call anytime
+
+---
+
+## Write to Contract (`mutateFn`)
+
+```ts
+const result = await call.mutateFn("addTask", ["New Task"]);
+```
+
+Use this for **state-changing functions**.
+
+```ts
+if (result.error) {
+  console.error(result.error.message);
+} else {
+  console.log(result.data);
+}
+```
+
+**Key points:**
+
+- Requires wallet connection
+- Prompts user signature
+- Sends a transaction
+- Returns transaction data
+
+Always guard writes:
+
+```ts
+if (!wallet.account.isConnected) return;
+```
+
+---
+
+## Listen to a Single Event (`listenFn`)
+
+```ts
+const unwatch = call.listenFn("TaskAdded", (...args) => {
+  console.log("Task added:", args);
+});
+```
+
+This subscribes to a contract event and runs every time it fires.
+
+Cleanup is important:
+
+```ts
+unwatch();
+```
+
+**Use case:**
+
+- Trigger refetch
+- Update UI in real-time
+
+---
+
+## Listen to Multiple Events (`listenMany`)
+
+```ts
+const cleanup = call.listenMany({
+  add: {
+    eventName: "TaskAdded",
+    listener: () => console.log("Added"),
+  },
+  update: {
+    eventName: "TaskUpdated",
+    listener: () => console.log("Updated"),
+  },
+});
+```
+
+Cleanup:
+
+```ts
+cleanup();
+```
+
+**Why this exists:**
+
+- Avoid multiple `listenFn` calls
+- Keep event logic centralized
+- Cleaner for larger apps
+
+---
+
+## Wallet State
+
+```ts
+const { wallet } = evmConfig();
+
+wallet.account.isConnected;
+wallet.account.address;
+wallet.account.isConnecting;
+```
+
+**Common usage:**
+
+- Gate UI
+- Prevent invalid transactions
+- Display user address
+
+---
+
+## Provider State
+
+```ts
+const { web3Provider } = evmConfig();
+
+web3Provider.isAvailable;
+```
+
+Checks if an injected wallet (MetaMask, etc.) exists.
+
+---
+
+## Error Handling Pattern
+
+All calls follow the same structure:
+
+```ts
+const result = await call.queryFn("getTask", [1]);
+
+if (result.error) {
+  console.error(result.error.message);
+  return;
+}
+
+console.log(result.data);
+```
+
+This avoids:
+
+- try/catch everywhere
+- inconsistent error shapes
+
+---
+
+## Recommended Pattern
+
+Combine everything:
+
+```ts
+// 1. Read
+await call.queryFn(...)
+
+// 2. Write
+await call.mutateFn(...)
+
+// 3. React to blockchain updates
+call.listenMany(...)
+```
+
+**Best practice:**
+
+- Don’t manually refetch after mutations
+- Let events drive updates instead
+
+---
+
+## Summary
+
+- `queryFn` → read contract data
+- `mutateFn` → write to contract
+- `listenFn` → single event listener
+- `listenMany` → multiple event listeners
+- `wallet` → connection state
+- `web3Provider` → provider availability
