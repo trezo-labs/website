@@ -21,7 +21,7 @@ export const CORE_PACKAGES = [
     name: "@trezo/evm",
     description:
       "Type-safe toolkit for interacting with EVM smart contracts and wallets.",
-    version: "v1.0.1",
+    version: "v1.5.17",
     path: "/docs/packages/evm",
     published: true,
   },

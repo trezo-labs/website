@@ -1,0 +1,66 @@
+---
+title: 30th March, 2026 - @trezo/evm v1.5.17
+description: Provider architecture overhaul, new contract interaction APIs, event listening, error handling, and bundling improvements.
+date: 2026-03-30
+---
+
+### Provider & Setup
+
+- React is now externalized and properly deduplicated
+- Wallet modal is initialized **synchronously** (no hook timing bugs)
+- Supports multiple modal providers (auto-typed via `modalConfig`)
+
+### ConnectButton
+
+- Supports **render props** for full UI control
+- Provides `truncatedAddress`, `isConnected`, `isConnecting`
+- `open()` supports typed view options
+- Shared render prop type across all providers
+
+### queryFn (Read)
+
+- Fully **ABI-driven** (correct struct mapping)
+- Auto-injects `from` (fixes `msg.sender` issues)
+- Supports query options (`blockTag`, `gasLimit`, etc.)
+- No need for empty args if function has no inputs
+
+### mutateFn (Write)
+
+- **Pre-simulates transactions** (shows revert errors early)
+- Faster wallet prompt via async signer
+- Supports full gas + tx options
+- Returns `{ data, error }` (no throwing)
+- Validates chain before sending
+
+### listenFn (Events)
+
+- Supports **single or multiple listeners**
+- Fully typed event arguments
+- Uses fresh provider (prevents stale listeners)
+- Falls back to polling if RPC doesn’t support filters
+- Designed for re-registration on wallet change
+
+### Error Handling
+
+- Unified `{ message, raw }` error format
+- Extracts readable revert reasons across providers
+
+### Internals
+
+- Shared helpers (`buildOverrides`, `simulateCall`, etc.)
+- ABI-driven result parsing
+- No stale contract instances (always fresh)
+
+### Bundling
+
+- React moved to `peerDependencies`
+- Wallet libraries bundled (less setup for users)
+- Clean `exports` structure
+- Separate Vite plugin entry
+
+### Overall
+
+- Fully type-safe (ABI-driven)
+- Minimal setup
+- Handles edge cases internally
+- Designed for reliable, reactive dApps
