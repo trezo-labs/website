@@ -107,18 +107,14 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
 
 ### Next.js:
 
-```tsx title="app/layout.tsx" showLineNumbers {1,11}
+```tsx title="app/layout.tsx" showLineNumbers {1,7}
 import { Provider } from "@/lib/evm.config";
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout(props: LayoutProps<"/">) {
   return (
-    <html lang="en">
-      <body>
-        <Provider>{children}</Provider>
+    <html lang="en" suppressHydrationWarning>
+      <body className="font-sans antialiased">
+        <Provider>{props.children}</Provider>
       </body>
     </html>
   );
