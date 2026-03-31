@@ -16,7 +16,7 @@ export const HomeHero = () => {
               <div className="relative z-10 mx-auto max-w-xl text-center lg:ml-0 lg:w-1/2 lg:text-left">
                 <div className="mx-auto flex w-fit items-center corner-shape gap-2 border p-1 pr-3 lg:ml-0">
                   <span className="bg-secondary uppercase px-2 py-1 corner-shape text-xs font-semibold">
-                    {siteConfig.title}
+                    {siteConfig.name}
                   </span>
                   <span className="text-sm">Open Source Web3 Framework</span>
                 </div>
@@ -33,7 +33,7 @@ export const HomeHero = () => {
                     <span>Get Started</span>
                   </Link>
                   <Link
-                    href="/docs/installation#select-a-network-package"
+                    href="/docs/installation#packages"
                     className={buttonVariants({
                       variant: "link",
                     })}

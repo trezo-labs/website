@@ -9,8 +9,6 @@ import { Callout } from "@/components/shared/callout";
 import { CodeBlockCommand } from "@/components/shared/code-block-command";
 import { CodeCollapsibleWrapper } from "@/components/shared/code-collapsible-wrapper";
 import { CodeTabs } from "@/components/shared/code-tabs";
-import { ComponentPreview } from "@/components/shared/component-preview";
-import { ComponentSource } from "@/components/shared/component-source";
 import { ComponentsList } from "@/components/shared/components-list";
 import { CopyButton } from "@/components/shared/copy-button";
 import { getIconForLanguageExtension } from "@/components/shared/icons";
@@ -353,8 +351,6 @@ export const mdxComponents = {
   AlertDescription,
   AspectRatio,
   CodeTabs,
-  ComponentPreview,
-  ComponentSource,
   CodeCollapsibleWrapper,
   ComponentsList: ComponentsListWrapper,
   Link: ({ className, ...props }: React.ComponentProps<typeof Link>) => (

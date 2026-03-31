@@ -13,11 +13,13 @@ npx trezo init
 
 For the full details and updated flow, see the [CLI documentation](/docs/cli).
 
-## Network Packages
+---
 
-Each network package provides a type-safe integration layer, wallet connectivity, and developer-friendly APIs for interacting with that blockchain.
+## Packages
 
-<div className="mt-8 grid gap-4 sm:grid-cols-2 sm:gap-6">
+Each network package provides a type-safe integration layer, wallet connectivity, and contract interaction APIs — all preconfigured and ready to use.
+
+<div className="my-8 grid gap-4 sm:grid-cols-2 sm:gap-6">
   <LinkedCard href="/docs/packages/evm">
     <figure className="flex flex-col items-center">
       <Image
@@ -33,3 +35,5 @@ Each network package provides a type-safe integration layer, wallet connectivity
     </figure>
   </LinkedCard>
 </div>
+
+> Install only the package for the blockchain you're building on. Each package bundles its own dependencies, so a single install is all you need.

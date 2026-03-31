@@ -28,9 +28,12 @@ export const Packages = () => {
               return (
                 <Card
                   key={pkg.name}
-                  className={cn("p-0! overflow-hidden", {
-                    "opacity-50 pointer-events-none": !pkg.published,
-                  })}
+                  className={cn(
+                    "p-0! overflow-hidden hover:-translate-y-1 transition-all duration-500 hover:scale-[102%] ease-out",
+                    {
+                      "opacity-50 pointer-events-none": !pkg.published,
+                    },
+                  )}
                 >
                   <Comp
                     href={pkg.path as Route}
@@ -38,7 +41,7 @@ export const Packages = () => {
                   >
                     <div className="flex items-center justify-between gap-2">
                       <h3 className="text-base font-medium">{pkg.name}</h3>
-                      <p className="px-1.5 py-0.5 bg-secondary corner-shape text-xs font-medium">
+                      <p className="px-1.5 py-0.5 bg-foreground text-background corner-shape text-xs font-medium">
                         {pkg.published ? pkg.version : "Upcoming"}
                       </p>
                     </div>

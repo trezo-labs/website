@@ -66,9 +66,7 @@ export function DocsTableOfContents({
   );
   const activeHeading = useActiveItem(itemIds);
 
-  if (!toc?.length) {
-    return null;
-  }
+  if (!toc?.length) return null;
 
   if (variant === "dropdown") {
     return (

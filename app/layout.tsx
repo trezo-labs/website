@@ -14,8 +14,8 @@ import { Toaster } from "@/ui/sonner";
 
 export const metadata: Metadata = {
   title: {
-    default: `${siteConfig.title} - ${siteConfig.acronym}`,
-    template: `%s - ${siteConfig.title}`,
+    default: `${siteConfig.name} - ${siteConfig.title}`,
+    template: `%s - ${siteConfig.name}`,
   },
   description: siteConfig.description,
   metadataBase: new URL(BASE_URL as string),
@@ -29,21 +29,21 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: BASE_URL,
-    title: siteConfig.title,
+    title: siteConfig.name,
     description: siteConfig.description,
-    siteName: siteConfig.title,
+    siteName: siteConfig.name,
     images: [
       {
         url: `${BASE_URL}/assets/images/opengraph.png`,
         width: 1200,
         height: 630,
-        alt: siteConfig.title,
+        alt: siteConfig.name,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: siteConfig.title,
+    title: siteConfig.name,
     description: siteConfig.description,
     images: [`${BASE_URL}/assets/images/opengraph.png`],
     creator: "@thelastofinusa",

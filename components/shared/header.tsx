@@ -30,7 +30,7 @@ export const Header = () => {
             })}
           >
             <Icons.logo className="size-6" />
-            <span className="sr-only">{siteConfig.title}</span>
+            <span className="sr-only">{siteConfig.name}</span>
           </Link>
           <MainNav items={siteConfig.navItems} className="hidden lg:flex" />
           <div className="ml-auto flex items-center gap-2 md:flex-1 md:justify-end">

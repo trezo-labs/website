@@ -5,86 +5,45 @@ description: The modular toolkit for building modern decentralized applications.
 
 **Trezo is not a blockchain SDK. It is an architecture for building Web3 applications.**
 
-Most Web3 development today requires stitching together multiple tools: wallet libraries, contract SDKs, RPC clients, state managers, and UI integrations. Each blockchain ecosystem introduces its own tooling and patterns, which often leads to fragmented developer experiences and complex project setups.
+Most Web3 development means stitching together wallet libraries, contract SDKs, RPC clients, and state managers — with each blockchain ecosystem adding its own tooling on top.
 
-Trezo is designed to solve this problem.
-
-Instead of forcing developers to assemble and maintain a stack of independent libraries, Trezo provides a **modular framework that unifies blockchain integrations, wallet connectivity, and application state management**.
-
-It allows developers to focus on building decentralized applications while Trezo handles the underlying orchestration.
-
-Trezo is built around the following principles:
-
-- **Modular Architecture:** Each blockchain integration exists as a dedicated package that can be installed independently.
-- **Unified Developer Experience:** Interact with different blockchain ecosystems through consistent patterns.
-- **Type-Safe Integrations:** Contract interactions are designed to provide strong typing and predictable APIs.
-- **CLI-Driven Setup:** Projects can be scaffolded and configured automatically using the Trezo CLI.
-- **Extensible Ecosystem:** New blockchain adapters and wallet integrations can be added without modifying the core framework.
+Trezo replaces that with a **modular framework that unifies blockchain integrations, wallet connectivity, and application state** so you can focus on building instead of configuring.
 
 ---
 
 ## Modular Architecture
 
-Trezo is organized as a collection of focused packages rather than a single monolithic SDK.
-
-Each blockchain integration lives in its own package, such as:
+Trezo is organized as a collection of focused packages rather than a single monolithic SDK. Each blockchain integration lives in its own package, such as:
 
 - `@trezo/evm`
 - `@trezo/strk` _coming soon_
 - `@trezo/sol` _coming soon_
 - `@trezo/sui` _coming soon_
 
-This approach allows developers to **install only the integrations they need**, keeping projects lightweight and easier to maintain.
+Install only what you need. Projects stay lightweight and each package handles its own dependencies.
 
 ---
 
 ## Unified Developer Experience
 
-Every blockchain ecosystem has its own tooling, SDKs, and wallet integrations. Trezo abstracts these differences into a consistent interface so developers can build applications using familiar patterns regardless of the underlying network.
+Every blockchain ecosystem has its own tooling and wallet integrations. Trezo abstracts these differences into a consistent interface — `wallet connections`, `contract interactions`, `state management`, and `network configuration` all follow the same patterns regardless of the underlying chain.
 
-For example, Trezo standardizes how applications handle:
-
-- Wallet connections
-- Contract interactions
-- Application state
-- Network configuration
-
-This consistency reduces the learning curve when working across different blockchain environments.
+This reduces the learning curve when working across different blockchain environments.
 
 ---
 
 ## Type-Safe Integrations
 
-Trezo prioritizes developer safety and reliability.
-
-Contract interactions are designed to provide **type-safe APIs** that improve developer productivity and reduce runtime errors.
-
-This ensures:
-
-- Predictable contract calls
-- Better editor autocomplete
-- Compile-time validation where possible
+Contract interactions are built around your ABI. When you pass your contract ABI typed `as const`, Trezo infers function names, argument types, and return types at compile time — giving you `autocomplete`, `compile-time validation`, and `predictable contract calls` with no runtime surprises.
 
 ---
 
 ## CLI-Driven Setup
 
-Trezo includes a command-line interface that simplifies project initialization and configuration.
-
-Using the CLI, developers can:
-
-- Scaffold a new Trezo project
-- Select the blockchain network they want to build on
-- Automatically install and configure the required packages
-
-This eliminates the manual setup typically required when starting a Web3 project.
+Trezo includes a CLI that eliminates the manual setup typically required when starting a Web3 project. Run one command, select your chain, and your project is scaffolded and configured automatically.
 
 ---
 
 ## Extensible Ecosystem
 
-Trezo is designed to grow alongside the Web3 ecosystem.
-
-New blockchain integrations, wallet kits, and developer tools can be added as standalone packages without requiring changes to the core framework.
-
-This modular approach ensures that Trezo can support **multiple blockchain ecosystems while maintaining a unified developer experience**.
+New blockchain integrations, wallet kits, and developer tools can be added as standalone packages without touching the core framework. Trezo is designed to grow alongside the Web3 ecosystem while keeping a unified developer experience across every chain it supports.

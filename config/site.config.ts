@@ -1,7 +1,8 @@
 import { BASE_URL } from "@/lib/constants";
 
 export const siteConfig = {
-  title: "Trezo",
+  name: "Trezo",
+  title: "Build Modern dApps Without Complexity",
   url: BASE_URL,
   ogImage: `${BASE_URL}/og.jpg`,
   description:
