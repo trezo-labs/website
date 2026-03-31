@@ -11,17 +11,17 @@ export const META_THEME_COLORS = {
 export const CORE_PACKAGES = [
   {
     name: "Trezo CLI",
+    package: "trezo",
     description:
       "The entry point for creating and configuring Trezo applications.",
-    version: "v1.0.3",
     path: "/docs/cli",
     published: true,
   },
   {
     name: "@trezo/evm",
+    package: "@trezo/evm",
     description:
       "Type-safe toolkit for interacting with EVM smart contracts and wallets.",
-    version: "v1.5.17",
     path: "/docs/packages/evm",
     published: true,
   },
