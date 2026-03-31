@@ -10,7 +10,7 @@ export const Features = () => {
         <Container size="sm" className="px-0! py-16 md:py-32">
           <div className="relative">
             <div className="relative z-10 grid grid-cols-6 gap-4">
-              <Card className="bg-card/40 relative col-span-full flex overflow-hidden lg:hidden">
+              <Card className="bg-card/40 hover:-translate-y-1 transition-all duration-500 hover:scale-[102%] ease-out relative col-span-full flex overflow-hidden lg:hidden">
                 <CardContent className="relative m-auto size-fit pt-6">
                   <div className="relative flex h-24 w-56 items-center">
                     <svg
@@ -33,7 +33,7 @@ export const Features = () => {
                   </h2>
                 </CardContent>
               </Card>
-              <Card className="bg-card/40 relative col-span-full overflow-hidden sm:col-span-3 lg:col-span-2">
+              <Card className="bg-card/40 hover:-translate-y-1 transition-all duration-500 hover:scale-[102%] ease-out relative col-span-full overflow-hidden sm:col-span-3 lg:col-span-2">
                 <CardContent className="pt-6">
                   <div className="relative mx-auto flex aspect-square size-32 rounded-full border before:absolute before:-inset-2 before:rounded-full before:border dark:border-white/10 dark:before:border-white/5">
                     <Icons.Blockchain04Icon className="m-auto h-fit w-20" />
@@ -43,13 +43,12 @@ export const Features = () => {
                       Wallet kit abstraction layer
                     </h2>
                     <p className="text-muted-foreground">
-                      Pluggable wallet connectors (e.g. Connectkit, Reown,
-                      Rainbowkit, e.t.c)
+                      Pluggable wallet connectors
                     </p>
                   </div>
                 </CardContent>
               </Card>
-              <Card className="bg-card/40 relative col-span-full hidden lg:flex overflow-hidden lg:col-span-2">
+              <Card className="bg-card/40 hover:-translate-y-1 transition-all duration-500 hover:scale-[102%] ease-out relative col-span-full hidden lg:flex overflow-hidden lg:col-span-2">
                 <CardContent className="relative m-auto size-fit pt-6">
                   <div className="relative flex h-24 w-56 items-center">
                     <svg
@@ -72,7 +71,7 @@ export const Features = () => {
                   </h2>
                 </CardContent>
               </Card>
-              <Card className="bg-card/40 relative col-span-full overflow-hidden sm:col-span-3 lg:col-span-2">
+              <Card className="bg-card/40 hover:-translate-y-1 transition-all duration-500 hover:scale-[102%] ease-out relative col-span-full overflow-hidden sm:col-span-3 lg:col-span-2">
                 <CardContent className="pt-6">
                   <div className="relative mx-auto flex aspect-square size-32 rounded-full">
                     <Icons.PackageDeliveredIcon className="m-auto h-fit w-22" />
@@ -82,12 +81,12 @@ export const Features = () => {
                       Optimized bundle size
                     </h2>
                     <p className="text-muted-foreground">
-                      Dynamic imports and tree-shaking keep your app fast.
+                      Dynamic imports and tree-shaking
                     </p>
                   </div>
                 </CardContent>
               </Card>
-              <Card className="bg-card/40 relative col-span-full overflow-hidden lg:col-span-3">
+              <Card className="bg-card/40 hover:-translate-y-1 transition-all duration-500 hover:scale-[102%] ease-out relative col-span-full overflow-hidden lg:col-span-3">
                 <CardContent className="grid pt-6 sm:grid-cols-2">
                   <div className="relative z-10 flex flex-col justify-between space-y-12 lg:space-y-6">
                     <div className="relative flex aspect-square size-12 items-center justify-center rounded-full border before:absolute before:-inset-2 before:rounded-full before:border dark:border-white/10 dark:before:border-white/5">
@@ -152,7 +151,7 @@ export const Features = () => {
                   </div>
                 </CardContent>
               </Card>
-              <Card className="bg-card/40 relative col-span-full overflow-hidden lg:col-span-3">
+              <Card className="bg-card/40 hover:-translate-y-1 transition-all duration-500 hover:scale-[102%] ease-out relative col-span-full overflow-hidden lg:col-span-3">
                 <CardContent className="grid h-full pt-6 sm:grid-cols-2">
                   <div className="relative z-10 flex flex-col justify-between space-y-12 lg:space-y-6">
                     <div className="relative flex aspect-square size-12 rounded-full border before:absolute before:-inset-2 before:rounded-full before:border dark:border-white/10 dark:before:border-white/5">
