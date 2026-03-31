@@ -39,7 +39,7 @@ Required for Vite apps. Deduplicates React so your app and the bundled wallet li
 
 <CodeCollapsibleWrapper>
 
-```ts title="config/evm.config.ts" showLineNumbers
+```ts title="evm.config.ts" showLineNumbers
 import { create, Chains } from "@trezo/evm";
 
 const contractAbi = [...] as const;
@@ -84,7 +84,7 @@ Returns a hook (`config()`) plus static properties (`Provider`, `ConnectButton`,
 
 ## Add Provider
 
-```tsx showLineNumbers {1,6,8}
+```tsx title="index.tsx" showLineNumbers {1,6,8}
 import { Provider } from "@/config/evm.config";
 import App from "./App";
 
