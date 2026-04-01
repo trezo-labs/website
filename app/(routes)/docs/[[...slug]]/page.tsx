@@ -75,94 +75,317 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
   return (
     <div
       data-slot="docs"
-      className="flex scroll-mt-24 items-stretch pb-8 text-[1.05rem] sm:text-[15px] xl:w-full"
+      className="flex scroll-mt-24 items-stretch pb-8 xl:w-full"
+      style={{ fontSize: "11px", fontFamily: "Tahoma, Arial, sans-serif" }}
     >
       <div className="flex min-w-0 flex-1 flex-col">
         <div className="h-(--top-spacing) shrink-0" />
-        <div className="mx-auto flex w-full max-w-160 min-w-0 flex-1 flex-col gap-6 px-4 py-6 text-neutral-800 md:px-0 lg:py-8 dark:text-neutral-300">
-          <div className="flex flex-col gap-2">
-            <div className="flex flex-col gap-2">
-              <div className="flex items-center justify-between md:items-start">
-                <h1 className="scroll-m-24 text-3xl font-semibold tracking-tight sm:text-3xl">
-                  {doc.title}
-                </h1>
-                <div className="docs-nav flex items-center gap-2">
-                  <div className="ml-auto flex gap-2">
-                    {neighbours.previous && (
-                      <Link
-                        href={neighbours.previous.url as Route}
-                        className={buttonVariants({
-                          variant: "secondary",
-                          size: "icon-xs",
-                          className: "extend-touch-target shadow-none",
-                        })}
-                      >
-                        <Icons.ArrowLeft01Icon />
-                        <span className="sr-only">Previous</span>
-                      </Link>
-                    )}
-                    {neighbours.next && (
-                      <Link
-                        href={neighbours.next.url as Route}
-                        className={buttonVariants({
-                          variant: "secondary",
-                          size: "icon-xs",
-                          className: "extend-touch-target shadow-none",
-                        })}
-                      >
-                        <Icons.ArrowRight01Icon />
-                        <span className="sr-only">Next</span>
-                      </Link>
-                    )}
-                  </div>
-                </div>
-              </div>
-              {doc.description && (
-                <p className="text-[1.05rem] text-muted-foreground sm:text-base sm:text-balance">
-                  {doc.description}
-                </p>
+        {/* Win2k window chrome wrapper */}
+        <div
+          className="mx-auto flex w-full max-w-160 min-w-0 flex-1 flex-col"
+          style={{
+            margin: "8px 4px 8px 0",
+            borderTop: "2px solid #ffffff",
+            borderLeft: "2px solid #ffffff",
+            borderRight: "2px solid #404040",
+            borderBottom: "2px solid #404040",
+          }}
+        >
+          {/* Win2k title bar */}
+          <div
+            style={{
+              background: "linear-gradient(to right, #003399, #3a6ea5)",
+              padding: "3px 4px 3px 6px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              userSelect: "none",
+            }}
+          >
+            <span
+              style={{
+                color: "#ffffff",
+                fontFamily: "Tahoma, Arial, sans-serif",
+                fontSize: "11px",
+                fontWeight: "bold",
+                textShadow: "1px 1px 0 rgba(0,0,0,0.4)",
+              }}
+            >
+              {doc.title}
+            </span>
+            {/* Win2k window control buttons */}
+            <div style={{ display: "flex", gap: "2px" }}>
+              {/* Minimize */}
+              <span
+                style={{
+                  width: "16px",
+                  height: "14px",
+                  background: "#d4d0c8",
+                  borderTop: "2px solid #ffffff",
+                  borderLeft: "2px solid #ffffff",
+                  borderRight: "2px solid #404040",
+                  borderBottom: "2px solid #404040",
+                  display: "flex",
+                  alignItems: "flex-end",
+                  justifyContent: "center",
+                  paddingBottom: "2px",
+                  cursor: "default",
+                  fontSize: "10px",
+                  fontFamily: "Tahoma, Arial, sans-serif",
+                  fontWeight: "bold",
+                  lineHeight: 1,
+                  color: "#000000",
+                }}
+              >
+                _
+              </span>
+              {/* Maximize */}
+              <span
+                style={{
+                  width: "16px",
+                  height: "14px",
+                  background: "#d4d0c8",
+                  borderTop: "2px solid #ffffff",
+                  borderLeft: "2px solid #ffffff",
+                  borderRight: "2px solid #404040",
+                  borderBottom: "2px solid #404040",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "default",
+                  fontSize: "8px",
+                  lineHeight: 1,
+                  color: "#000000",
+                }}
+              >
+                □
+              </span>
+              {/* Close */}
+              <span
+                style={{
+                  width: "16px",
+                  height: "14px",
+                  background: "#d4d0c8",
+                  borderTop: "2px solid #ffffff",
+                  borderLeft: "2px solid #ffffff",
+                  borderRight: "2px solid #404040",
+                  borderBottom: "2px solid #404040",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "default",
+                  fontSize: "9px",
+                  fontWeight: "bold",
+                  lineHeight: 1,
+                  color: "#000000",
+                  marginLeft: "2px",
+                }}
+              >
+                ✕
+              </span>
+            </div>
+          </div>
+
+          {/* Win2k menu bar */}
+          <div
+            style={{
+              background: "#d4d0c8",
+              borderBottom: "1px solid #808080",
+              padding: "1px 4px",
+              display: "flex",
+              alignItems: "center",
+              gap: "2px",
+            }}
+          >
+            {["File", "Edit", "View", "Favorites", "Tools", "Help"].map(
+              (item) => (
+                <span
+                  key={item}
+                  style={{
+                    fontFamily: "Tahoma, Arial, sans-serif",
+                    fontSize: "11px",
+                    color: "#000000",
+                    padding: "1px 6px",
+                    cursor: "default",
+                  }}
+                  className="hover:bg-[#003399] hover:text-white"
+                >
+                  {item}
+                </span>
+              ),
+            )}
+            <div style={{ marginLeft: "auto", display: "flex", gap: "4px" }}>
+              {neighbours.previous && (
+                <Link
+                  href={neighbours.previous.url as Route}
+                  style={{
+                    fontSize: "11px",
+                    fontFamily: "Tahoma, Arial, sans-serif",
+                    color: "#000000",
+                    textDecoration: "none",
+                    padding: "1px 6px",
+                    background: "#d4d0c8",
+                    borderTop: "2px solid #ffffff",
+                    borderLeft: "2px solid #ffffff",
+                    borderRight: "2px solid #404040",
+                    borderBottom: "2px solid #404040",
+                  }}
+                >
+                  ← Back
+                </Link>
+              )}
+              {neighbours.next && (
+                <Link
+                  href={neighbours.next.url as Route}
+                  style={{
+                    fontSize: "11px",
+                    fontFamily: "Tahoma, Arial, sans-serif",
+                    color: "#000000",
+                    textDecoration: "none",
+                    padding: "1px 6px",
+                    background: "#d4d0c8",
+                    borderTop: "2px solid #ffffff",
+                    borderLeft: "2px solid #ffffff",
+                    borderRight: "2px solid #404040",
+                    borderBottom: "2px solid #404040",
+                  }}
+                >
+                  Next →
+                </Link>
               )}
             </div>
           </div>
 
-          <div className="w-full flex-1 pb-16 *:data-[slot=alert]:first:mt-0 sm:pb-0">
-            <MDX components={mdxComponents} />
+          {/* Content area */}
+          <div
+            style={{
+              background: "#ffffff",
+              flex: 1,
+              padding: "12px 16px",
+              overflowY: "auto",
+            }}
+          >
+            {doc.description && (
+              <p
+                style={{
+                  fontFamily: "Tahoma, Arial, sans-serif",
+                  fontSize: "11px",
+                  color: "#666666",
+                  marginBottom: "12px",
+                  borderBottom: "1px solid #d4d0c8",
+                  paddingBottom: "8px",
+                }}
+              >
+                {doc.description}
+              </p>
+            )}
+
+            <div className="w-full flex-1 pb-16 *:data-[slot=alert]:first:mt-0 sm:pb-0">
+              <MDX components={mdxComponents} />
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "8px",
+                paddingTop: "16px",
+                borderTop: "1px solid #d4d0c8",
+                marginTop: "16px",
+              }}
+            >
+              {neighbours.previous && (
+                <Link
+                  href={neighbours.previous.url as Route}
+                  style={{
+                    fontSize: "11px",
+                    fontFamily: "Tahoma, Arial, sans-serif",
+                    color: "#000000",
+                    textDecoration: "none",
+                    padding: "2px 8px",
+                    background: "#d4d0c8",
+                    borderTop: "2px solid #ffffff",
+                    borderLeft: "2px solid #ffffff",
+                    borderRight: "2px solid #404040",
+                    borderBottom: "2px solid #404040",
+                  }}
+                >
+                  ← {neighbours.previous.name}
+                </Link>
+              )}
+              {neighbours.next && (
+                <Link
+                  href={neighbours.next.url as Route}
+                  style={{
+                    marginLeft: "auto",
+                    fontSize: "11px",
+                    fontFamily: "Tahoma, Arial, sans-serif",
+                    color: "#000000",
+                    textDecoration: "none",
+                    padding: "2px 8px",
+                    background: "#d4d0c8",
+                    borderTop: "2px solid #ffffff",
+                    borderLeft: "2px solid #ffffff",
+                    borderRight: "2px solid #404040",
+                    borderBottom: "2px solid #404040",
+                  }}
+                >
+                  {neighbours.next.name} →
+                </Link>
+              )}
+            </div>
           </div>
 
-          <div className="hidden h-16 w-full items-center gap-2 px-4 sm:flex sm:px-0">
-            {neighbours.previous && (
-              <Link
-                href={neighbours.previous.url as Route}
-                className={buttonVariants({
-                  variant: "secondary",
-                  size: "sm",
-                  className: "shadow-none",
-                })}
-              >
-                <Icons.ArrowLeft01Icon />
-                <span>{neighbours.previous.name}</span>
-              </Link>
-            )}
-            {neighbours.next && (
-              <Link
-                href={neighbours.next.url as Route}
-                className={buttonVariants({
-                  variant: "secondary",
-                  size: "sm",
-                  className: "ml-auto shadow-none",
-                })}
-              >
-                <span>{neighbours.next.name}</span>
-                <Icons.ArrowRight01Icon />
-              </Link>
-            )}
+          {/* Win2k status bar */}
+          <div
+            style={{
+              background: "#d4d0c8",
+              borderTop: "2px solid #808080",
+              padding: "2px 6px",
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+            }}
+          >
+            <span
+              style={{
+                fontFamily: "Tahoma, Arial, sans-serif",
+                fontSize: "11px",
+                color: "#000000",
+                borderRight: "2px solid #808080",
+                paddingRight: "8px",
+              }}
+            >
+              Done
+            </span>
+            <span
+              style={{
+                fontFamily: "Tahoma, Arial, sans-serif",
+                fontSize: "11px",
+                color: "#000000",
+              }}
+            >
+              trezo-labs/docs/{doc.title?.toLowerCase().replace(/\s+/g, "-")}
+            </span>
           </div>
         </div>
       </div>
+
+      {/* TOC panel */}
       <div className="sticky top-[calc(var(--header-height)+1px)] z-30 ml-auto hidden h-[90svh] w-(--sidebar-width) flex-col gap-4 overflow-hidden overscroll-none pb-8 xl:flex">
         <div className="h-(--top-spacing) shrink-0"></div>
         {doc.toc?.length ? (
-          <div className="no-scrollbar flex flex-col gap-8 overflow-y-auto px-8">
+          <div
+            className="no-scrollbar flex flex-col gap-8 overflow-y-auto"
+            style={{
+              margin: "8px 4px 8px 0",
+              background: "#d4d0c8",
+              borderTop: "2px solid #ffffff",
+              borderLeft: "2px solid #ffffff",
+              borderRight: "2px solid #404040",
+              borderBottom: "2px solid #404040",
+            }}
+          >
             <DocsTableOfContents toc={doc.toc} />
           </div>
         ) : null}

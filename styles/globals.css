@@ -5,47 +5,62 @@
 @custom-variant dark (&:is(.dark *));
 @custom-variant fixed (&:is(.layout-fixed *));
 
+/* ─── Windows 2000 System Colors ─── */
 :root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
+  /* Win2k classic grey palette */
+  --win2k-face:       #d4d0c8;   /* button / window face */
+  --win2k-highlight:  #ffffff;   /* 3-D highlight */
+  --win2k-shadow:     #808080;   /* 3-D shadow */
+  --win2k-dark-shadow:#404040;   /* 3-D dark shadow */
+  --win2k-blue:       #003399;   /* title bar start */
+  --win2k-blue-end:   #3a6ea5;   /* title bar end */
+  --win2k-text:       #000000;
+  --win2k-link:       #0000cc;
+  --win2k-select-bg:  #003399;
+  --win2k-select-fg:  #ffffff;
+  --win2k-code-bg:    #ffffff;
+
+  /* Map design tokens → Win2k */
+  --background: #d4d0c8;
+  --foreground: #000000;
+  --card: #d4d0c8;
+  --card-foreground: #000000;
+  --popover: #d4d0c8;
+  --popover-foreground: #000000;
+  --primary: #003399;
+  --primary-foreground: #ffffff;
+  --secondary: #d4d0c8;
+  --secondary-foreground: #000000;
+  --muted: #c0bdb5;
+  --muted-foreground: #404040;
+  --accent: #003399;
+  --accent-foreground: #ffffff;
   --destructive: oklch(0.58 0.22 27);
-  --destructive-foreground: oklch(0.97 0.014 254.604);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-  --surface: oklch(0.98 0 0);
-  --surface-foreground: var(--foreground);
-  --code: var(--surface);
-  --code-foreground: var(--surface-foreground);
-  --code-highlight: oklch(0.96 0 0);
-  --code-number: oklch(0.56 0 0);
-  --selection: oklch(0.145 0 0);
-  --selection-foreground: oklch(1 0 0);
+  --destructive-foreground: #ffffff;
+  --border: #808080;
+  --input: #ffffff;
+  --ring: #003399;
+  --sidebar: #d4d0c8;
+  --sidebar-foreground: #000000;
+  --sidebar-primary: #003399;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #003399;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #808080;
+  --sidebar-ring: #003399;
+  --surface: #ffffff;
+  --surface-foreground: #000000;
+  --code: #ffffff;
+  --code-foreground: #000000;
+  --code-highlight: #ffffcc;
+  --code-number: #808080;
+  --selection: #003399;
+  --selection-foreground: #ffffff;
 
   --font-sans: var(--font-sans);
   --font-serif: var(--font-serif);
   --font-mono: var(--font-mono);
-  --radius: 0.75rem;
+  --radius: 0rem;
 
   --shadow-x: 0.25px;
   --shadow-y: 1px;
@@ -75,42 +90,43 @@
   --spacing: 0.25rem;
 }
 
+/* Dark mode keeps Win2k look but with darker greys */
 .dark {
-  --background: oklch(13.493% 0.00241 285.986);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --background: #2a2a2a;
+  --foreground: #d4d0c8;
+  --card: #3a3a3a;
+  --card-foreground: #d4d0c8;
+  --popover: #3a3a3a;
+  --popover-foreground: #d4d0c8;
+  --primary: #3a6ea5;
+  --primary-foreground: #ffffff;
+  --secondary: #484848;
+  --secondary-foreground: #d4d0c8;
+  --muted: #444444;
+  --muted-foreground: #a0a0a0;
+  --accent: #3a6ea5;
+  --accent-foreground: #ffffff;
   --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.97 0.014 254.604);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.439 0 0);
-  --surface: oklch(0.2 0 0);
-  --surface-foreground: oklch(0.708 0 0);
-  --code: var(--surface);
-  --code-foreground: var(--surface-foreground);
-  --code-highlight: oklch(0.27 0 0);
-  --code-number: oklch(0.72 0 0);
-  --selection: oklch(0.922 0 0);
-  --selection-foreground: oklch(0.205 0 0);
+  --destructive-foreground: #ffffff;
+  --border: #606060;
+  --input: #3a3a3a;
+  --ring: #3a6ea5;
+  --sidebar: #2e2e2e;
+  --sidebar-foreground: #d4d0c8;
+  --sidebar-primary: #3a6ea5;
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #3a6ea5;
+  --sidebar-accent-foreground: #ffffff;
+  --sidebar-border: #505050;
+  --sidebar-ring: #3a6ea5;
+  --surface: #323232;
+  --surface-foreground: #d4d0c8;
+  --code: #1a1a1a;
+  --code-foreground: #d4d0c8;
+  --code-highlight: #2a3a1a;
+  --code-number: #808080;
+  --selection: #3a6ea5;
+  --selection-foreground: #ffffff;
 
   --shadow-x: 0.25px;
   --shadow-y: 1px;
@@ -249,8 +265,7 @@
 }
 
 @utility corner-shape {
-  corner-shape: squircle;
-  @apply rounded-3xl md:rounded-4xl lg:rounded-[40px] xl:rounded-[48px];
+  border-radius: 0 !important;
 }
 
 @utility border-grid {
@@ -428,5 +443,371 @@
 @layer components {
   .dialog-ring {
     @apply rounded-xl border-none bg-clip-padding shadow-2xl ring-4 ring-neutral-200/80 dark:bg-neutral-900 dark:ring-neutral-800;
+  }
+}
+
+/* ════════════════════════════════════════════
+   WINDOWS 2000 SYSTEM THEME
+   ════════════════════════════════════════════ */
+
+/* Win2k raised border utility */
+@utility win2k-raised {
+  border-top: 2px solid var(--win2k-highlight);
+  border-left: 2px solid var(--win2k-highlight);
+  border-right: 2px solid var(--win2k-dark-shadow);
+  border-bottom: 2px solid var(--win2k-dark-shadow);
+}
+
+/* Win2k inset border utility */
+@utility win2k-inset {
+  border-top: 2px solid var(--win2k-shadow);
+  border-left: 2px solid var(--win2k-shadow);
+  border-right: 2px solid var(--win2k-highlight);
+  border-bottom: 2px solid var(--win2k-highlight);
+}
+
+@layer components {
+
+  /* ── Global body ── */
+  body {
+    background-color: #008080 !important;
+    font-family: "Tahoma", "Arial", sans-serif !important;
+    font-size: 11px !important;
+    color: var(--win2k-text) !important;
+    cursor: default !important;
+  }
+
+  /* ── Header / taskbar strip ── */
+  header {
+    background: linear-gradient(to right, var(--win2k-blue), var(--win2k-blue-end)) !important;
+    border-bottom: 2px solid var(--win2k-dark-shadow) !important;
+    backdrop-filter: none !important;
+    border-radius: 0 !important;
+  }
+
+  header * {
+    color: #ffffff !important;
+  }
+
+  /* ── Window panels (sidebar, main content) ── */
+  [data-slot="docs"],
+  .group\/sidebar-wrapper {
+    background-color: var(--win2k-face) !important;
+  }
+
+  /* Sidebar as a classic Explorer tree pane */
+  [data-sidebar="sidebar"] {
+    background-color: #ffffff !important;
+    border-top: 2px solid var(--win2k-shadow) !important;
+    border-left: 2px solid var(--win2k-shadow) !important;
+    border-right: 2px solid var(--win2k-highlight) !important;
+    border-bottom: 2px solid var(--win2k-highlight) !important;
+    border-radius: 0 !important;
+    margin: 4px 0 4px 4px !important;
+  }
+
+  /* Sidebar group labels */
+  [data-sidebar="group-label"] {
+    font-family: "Tahoma", "Arial", sans-serif !important;
+    font-weight: bold !important;
+    font-size: 11px !important;
+    color: var(--win2k-text) !important;
+    padding: 4px 6px 2px !important;
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+  }
+
+  /* Sidebar menu buttons */
+  [data-sidebar="menu-button"] {
+    border-radius: 0 !important;
+    font-family: "Tahoma", "Arial", sans-serif !important;
+    font-size: 11px !important;
+    color: var(--win2k-text) !important;
+    padding: 2px 6px !important;
+    height: auto !important;
+  }
+
+  [data-sidebar="menu-button"]:hover {
+    background-color: var(--win2k-select-bg) !important;
+    color: var(--win2k-select-fg) !important;
+  }
+
+  [data-sidebar="menu-button"][data-active="true"] {
+    background-color: var(--win2k-select-bg) !important;
+    color: var(--win2k-select-fg) !important;
+    border: 1px dotted #ffffff !important;
+    font-weight: normal !important;
+  }
+
+  /* ── Main doc content area ── */
+  [data-slot="docs"] > div:first-child {
+    background-color: var(--win2k-face) !important;
+  }
+
+  /* Inner content wrapper as white document window */
+  [data-slot="docs"] .mx-auto {
+    background-color: #ffffff !important;
+    border-top: 2px solid var(--win2k-shadow) !important;
+    border-left: 2px solid var(--win2k-shadow) !important;
+    border-right: 2px solid var(--win2k-highlight) !important;
+    border-bottom: 2px solid var(--win2k-highlight) !important;
+    padding: 12px 20px !important;
+    margin: 4px !important;
+  }
+
+  /* Doc title bar – blue gradient strip */
+  [data-slot="docs"] h1 {
+    font-family: "Tahoma", "Arial", sans-serif !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    color: #ffffff !important;
+    background: linear-gradient(to right, var(--win2k-blue), var(--win2k-blue-end)) !important;
+    padding: 3px 8px !important;
+    margin: -12px -20px 12px !important;
+    letter-spacing: 0 !important;
+  }
+
+  /* Description text */
+  [data-slot="docs"] .text-muted-foreground {
+    color: var(--win2k-shadow) !important;
+    font-size: 11px !important;
+  }
+
+  /* ── MDX headings ── */
+  .font-heading, h2, h3, h4, h5, h6 {
+    font-family: "Tahoma", "Arial", sans-serif !important;
+    letter-spacing: 0 !important;
+    font-weight: bold !important;
+  }
+
+  h2 {
+    font-size: 12px !important;
+    border-bottom: 1px solid var(--win2k-shadow) !important;
+    padding-bottom: 2px !important;
+    margin-top: 20px !important;
+  }
+
+  h3 {
+    font-size: 11px !important;
+    margin-top: 12px !important;
+  }
+
+  /* ── Paragraphs ── */
+  p {
+    font-family: "Tahoma", "Arial", sans-serif !important;
+    font-size: 11px !important;
+    line-height: 1.5 !important;
+    color: var(--win2k-text) !important;
+  }
+
+  /* ── Links ── */
+  a:not([class*="button"]) {
+    color: var(--win2k-link) !important;
+    text-decoration: underline !important;
+  }
+
+  /* ── Code blocks ── */
+  [data-rehype-pretty-code-figure] {
+    background-color: #ffffff !important;
+    border-top: 2px solid var(--win2k-shadow) !important;
+    border-left: 2px solid var(--win2k-shadow) !important;
+    border-right: 2px solid var(--win2k-highlight) !important;
+    border-bottom: 2px solid var(--win2k-highlight) !important;
+    border-radius: 0 !important;
+    margin-top: 8px !important;
+  }
+
+  [data-rehype-pretty-code-title] {
+    background: linear-gradient(to right, var(--win2k-blue), var(--win2k-blue-end)) !important;
+    color: #ffffff !important;
+    font-family: "Tahoma", "Arial", sans-serif !important;
+    font-size: 11px !important;
+    padding: 2px 8px !important;
+    border-bottom: 1px solid var(--win2k-dark-shadow) !important;
+  }
+
+  pre {
+    font-family: "Courier New", "Courier", monospace !important;
+    font-size: 11px !important;
+    background-color: #ffffff !important;
+    color: #000000 !important;
+  }
+
+  /* ── Inline code ── */
+  :not(pre) > code {
+    background-color: #ffffff !important;
+    border: 1px solid var(--win2k-shadow) !important;
+    border-radius: 0 !important;
+    padding: 0 3px !important;
+    font-family: "Courier New", "Courier", monospace !important;
+    font-size: 10px !important;
+    color: #000000 !important;
+  }
+
+  /* ── Tables ── */
+  table {
+    border-collapse: collapse !important;
+    font-size: 11px !important;
+    font-family: "Tahoma", "Arial", sans-serif !important;
+    border-radius: 0 !important;
+  }
+
+  th {
+    background-color: var(--win2k-face) !important;
+    border-top: 2px solid var(--win2k-highlight) !important;
+    border-left: 2px solid var(--win2k-highlight) !important;
+    border-right: 2px solid var(--win2k-shadow) !important;
+    border-bottom: 2px solid var(--win2k-shadow) !important;
+    font-weight: bold !important;
+    padding: 3px 8px !important;
+    color: #000000 !important;
+  }
+
+  td {
+    border: 1px solid var(--win2k-shadow) !important;
+    padding: 2px 8px !important;
+    color: #000000 !important;
+    background-color: #ffffff !important;
+  }
+
+  tr:hover td {
+    background-color: var(--win2k-select-bg) !important;
+    color: var(--win2k-select-fg) !important;
+  }
+
+  /* ── Buttons ── */
+  button, [role="button"] {
+    font-family: "Tahoma", "Arial", sans-serif !important;
+    font-size: 11px !important;
+    border-radius: 0 !important;
+    border-top: 2px solid var(--win2k-highlight) !important;
+    border-left: 2px solid var(--win2k-highlight) !important;
+    border-right: 2px solid var(--win2k-dark-shadow) !important;
+    border-bottom: 2px solid var(--win2k-dark-shadow) !important;
+    background-color: var(--win2k-face) !important;
+    color: #000000 !important;
+    padding: 2px 8px !important;
+    cursor: default !important;
+  }
+
+  button:active, [role="button"]:active {
+    border-top: 2px solid var(--win2k-dark-shadow) !important;
+    border-left: 2px solid var(--win2k-dark-shadow) !important;
+    border-right: 2px solid var(--win2k-highlight) !important;
+    border-bottom: 2px solid var(--win2k-highlight) !important;
+    padding-top: 3px !important;
+    padding-left: 9px !important;
+    opacity: 1 !important;
+  }
+
+  /* ── TOC panel ── */
+  .no-scrollbar.flex.flex-col.gap-8 {
+    background-color: var(--win2k-face) !important;
+    border-top: 2px solid var(--win2k-shadow) !important;
+    border-left: 2px solid var(--win2k-shadow) !important;
+    border-right: 2px solid var(--win2k-highlight) !important;
+    border-bottom: 2px solid var(--win2k-highlight) !important;
+    padding: 4px !important;
+    margin: 4px 4px 4px 0 !important;
+  }
+
+  /* "On This Page" label */
+  .no-scrollbar.flex.flex-col p {
+    font-family: "Tahoma", "Arial", sans-serif !important;
+    font-size: 11px !important;
+    font-weight: bold !important;
+    background: linear-gradient(to right, var(--win2k-blue), var(--win2k-blue-end)) !important;
+    color: #ffffff !important;
+    padding: 2px 6px !important;
+    margin: -4px -4px 6px !important;
+  }
+
+  /* TOC links */
+  .no-scrollbar.flex.flex-col a {
+    font-size: 11px !important;
+    font-family: "Tahoma", "Arial", sans-serif !important;
+    color: var(--win2k-link) !important;
+    text-decoration: none !important;
+    padding: 1px 4px !important;
+  }
+
+  .no-scrollbar.flex.flex-col a[data-active="true"] {
+    background-color: var(--win2k-select-bg) !important;
+    color: var(--win2k-select-fg) !important;
+    text-decoration: none !important;
+  }
+
+  /* ── Steps counter circles ── */
+  .step::before {
+    background-color: var(--win2k-face) !important;
+    border: 2px solid var(--win2k-shadow) !important;
+    border-radius: 0 !important;
+    color: #000000 !important;
+    font-family: "Tahoma", "Arial", sans-serif !important;
+  }
+
+  /* ── Separator ── */
+  [data-slot="separator"] {
+    background-color: var(--win2k-shadow) !important;
+  }
+
+  /* ── Horizontal rules ── */
+  hr {
+    border: none !important;
+    border-top: 2px solid var(--win2k-shadow) !important;
+    border-bottom: 1px solid var(--win2k-highlight) !important;
+    margin: 12px 0 !important;
+  }
+
+  /* ── Selection ── */
+  ::selection {
+    background-color: var(--win2k-select-bg) !important;
+    color: var(--win2k-select-fg) !important;
+  }
+
+  /* ── Command menu / search ── */
+  [data-slot="command"],
+  [role="combobox"] {
+    border-radius: 0 !important;
+    border-top: 2px solid var(--win2k-shadow) !important;
+    border-left: 2px solid var(--win2k-shadow) !important;
+    border-right: 2px solid var(--win2k-highlight) !important;
+    border-bottom: 2px solid var(--win2k-highlight) !important;
+    background-color: #ffffff !important;
+    font-family: "Tahoma", "Arial", sans-serif !important;
+    font-size: 11px !important;
+  }
+
+  /* Scrollbar Win2k style */
+  ::-webkit-scrollbar {
+    width: 16px;
+    height: 16px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background-color: var(--win2k-face);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--win2k-face);
+    border-top: 2px solid var(--win2k-highlight);
+    border-left: 2px solid var(--win2k-highlight);
+    border-right: 2px solid var(--win2k-dark-shadow);
+    border-bottom: 2px solid var(--win2k-dark-shadow);
+  }
+
+  ::-webkit-scrollbar-button {
+    background-color: var(--win2k-face);
+    border-top: 2px solid var(--win2k-highlight);
+    border-left: 2px solid var(--win2k-highlight);
+    border-right: 2px solid var(--win2k-dark-shadow);
+    border-bottom: 2px solid var(--win2k-dark-shadow);
+    display: block;
+    height: 16px;
+    width: 16px;
+  }
+
+  ::-webkit-scrollbar-corner {
+    background-color: var(--win2k-face);
   }
 }
