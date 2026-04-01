@@ -126,10 +126,10 @@ export default function App() {
 ```ts title="vite.config.ts" showLineNumbers {3,6}
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { trezoVitePlugin } from "@trezo/evm/plugins/vite";
+import { trezoStrkVitePlugin } from "@trezo/strk";
 
 export default defineConfig({
-  plugins: [react(), trezoVitePlugin()],
+  plugins: [react(), trezoStrkVitePlugin()],
 });
 ```
 
