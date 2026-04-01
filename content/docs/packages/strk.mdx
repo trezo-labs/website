@@ -15,19 +15,25 @@ npm install @trezo/strk
 
 ## Create Configuration
 
+<Steps>
+
+### Example
+
 <CodeCollapsibleWrapper>
 
-```ts title="strk.config.ts" showLineNumbers
+```ts title="hooks/useStrkConfig.ts" showLineNumbers
 import { create, StarknetChains } from "@trezo/strk";
 
 const contractAbi = [...] as const; // must be as const
+const infuraApiKey = "py7n3kjba74bflasfe738";
 
-export const config = create({
+export const useStrkConfig = create({
   address: "0x...",
   abi: contractAbi,
   chains: [StarknetChains.sepolia],
   rpcUrls: {
-    sepolia: "https://starknet-sepolia.public.blastapi.io"
+    sepolia: `https://starknet-sepolia.g.alchemy.com/starknet/version/rpc/v0_10/${infuraApiKey}`
+    mainnet: `https://starknet-mainnet.g.alchemy.com/starknet/version/rpc/v0_10/${infuraApiKey}`
   },
   modalConfig: {
     from: "starknetReact",
@@ -37,8 +43,8 @@ export const config = create({
   },
 });
 
-export const Provider = config.Provider;
-export const ConnectButton = config.ConnectButton;
+export const Provider = useStrkConfig.Provider;
+export const ConnectButton = useStrkConfig.ConnectButton;
 ```
 
 </CodeCollapsibleWrapper>
@@ -46,8 +52,27 @@ export const ConnectButton = config.ConnectButton;
 - **`address`** — deployed contract address
 - **`abi`** — contract ABI typed `as const`. Without `as const` you lose all type safety.
 - **`chains`** — supported network (`mainnet`, `sepolia`, or `devnet`).
-- **`rpcUrls`** — custom RPC endpoints keyed by chain ID. Avoids rate-limited public nodes.
-- **`modalConfig`** — wallet modal provider. TypeScript autocompletes all supported options.
+- **`rpcUrls`** — required custom RPC endpoints (do not rely on public nodes)
+- **`modalConfig`** — wallet modal provider (fully typed with autocomplete)
+
+### RPC Requirement
+
+Using a public node RPC may result in `CORS (Cross-Origin) errors` in browser environments.
+
+If no RPC is provided, the library falls back to a default public node, which will show this warning:
+
+```bash
+  INFO: Using default public node url,
+  please provide nodeUrl in provider options!
+```
+
+To avoid errors and ensure reliability, you `must provide your own RPC endpoint` from a provider such as:
+
+- [Infura](http://infura.io/)
+- [Alchemy](https://dashboard.alchemy.com/)
+- Any dedicated Starknet RPC provider
+
+</Steps>
 
 ---
 
@@ -70,10 +95,10 @@ export default function Root({ children }) {
 <CodeCollapsibleWrapper>
 
 ```tsx title="App.tsx" showLineNumbers
-import { config, ConnectButton } from "./strk.config";
+import { useStrkConfig, ConnectButton } from "./strk.config";
 
 export default function App() {
-  const { wallet, call } = config();
+  const { wallet, call } = useStrkConfig();
 
   // Read — view functions
   const fetchCounter = async () => {
@@ -94,18 +119,27 @@ export default function App() {
   // Listen — events
   useEffect(() => {
     return call.listenFn({
-      increase: { eventName: "CounterIncreased", listener: fetchCounter },
+      increase: {
+        eventName: "counter_starknetjs::test_session::CounterIncreased",
+        listener: fetchCounter,
+      },
     });
   }, [wallet.account.address]);
 
   return (
-    <ConnectButton>
-      {({ isConnected, truncatedAddress, open }) => (
-        <button onClick={() => open()}>
-          {isConnected ? truncatedAddress : "Connect"}
-        </button>
-      )}
-    </ConnectButton>
+    <>
+      <ConnectButton>
+        {({ isConnected, truncatedAddress, open }) => (
+          <button className="counter" onClick={() => open()}>
+            {isConnected ? truncatedAddress : "Connect"}
+          </button>
+        )}
+      </ConnectButton>
+      <button className="counter" onClick={increase}>
+        Increment by 1
+      </button>
+      <button className="counter">Count is {count}</button>
+    </>
   );
 }
 ```
