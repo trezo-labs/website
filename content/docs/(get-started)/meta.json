@@ -1,4 +1,4 @@
 {
   "title": "Get Started",
-  "pages": ["installation", "cli"]
+  "pages": ["installation", "cli", "[Changelog](/docs/changelog)"]
 }

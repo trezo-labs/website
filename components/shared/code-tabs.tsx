@@ -16,7 +16,7 @@ export function CodeTabs({ children }: React.ComponentProps<typeof Tabs>) {
     <Tabs
       value={installationType}
       onValueChange={(value) =>
-        setConfig({ ...config, installationType: value as "cli" | "manual" })
+        setConfig({ ...config, installationType: value })
       }
       className="relative mt-6 w-full *:data-[slot=tabs-list]:gap-6"
     >

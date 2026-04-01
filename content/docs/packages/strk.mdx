@@ -1,0 +1,150 @@
+---
+title: "@trezo/strk - Starknet"
+description: Type-safe toolkit for interacting with Starknet smart contracts and wallets.
+---
+
+## Install Package
+
+```bash
+npm install @trezo/strk
+```
+
+`@trezo/strk` provides a `type-safe layer` for building Starknet applications, with strongly typed contract interactions and seamless wallet integration for frontend developers.
+
+---
+
+## Create Configuration
+
+<CodeCollapsibleWrapper>
+
+```ts title="strk.config.ts" showLineNumbers
+import { create, StarknetChains } from "@trezo/strk";
+
+const contractAbi = [...] as const; // must be as const
+
+export const config = create({
+  address: "0x...",
+  abi: contractAbi,
+  chains: [StarknetChains.sepolia],
+  rpcUrls: {
+    sepolia: "https://starknet-sepolia.public.blastapi.io"
+  },
+  modalConfig: {
+    from: "starknetReact",
+    options: {
+      recommended: ["argent", "braavos"],
+    },
+  },
+});
+
+export const Provider = config.Provider;
+export const ConnectButton = config.ConnectButton;
+```
+
+</CodeCollapsibleWrapper>
+
+- **`address`** — deployed contract address
+- **`abi`** — contract ABI typed `as const`. Without `as const` you lose all type safety.
+- **`chains`** — supported network (`mainnet`, `sepolia`, or `devnet`).
+- **`rpcUrls`** — custom RPC endpoints keyed by chain ID. Avoids rate-limited public nodes.
+- **`modalConfig`** — wallet modal provider. TypeScript autocompletes all supported options.
+
+---
+
+## Add Provider
+
+Must wrap your entire app.
+
+```tsx title="layout.tsx" showLineNumbers {1,4}
+import { Provider } from "./strk.config";
+
+export default function Root({ children }) {
+  return <Provider>{children}</Provider>;
+}
+```
+
+---
+
+## Basic Usage
+
+<CodeCollapsibleWrapper>
+
+```tsx title="App.tsx" showLineNumbers
+import { config, ConnectButton } from "./strk.config";
+
+export default function App() {
+  const { wallet, call } = config();
+
+  // Read — view functions
+  const fetchCounter = async () => {
+    const { data, error } = await call.queryFn("get_counter", []);
+    if (error) console.error(error.message);
+    else console.log(data); // bigint
+  };
+
+  // Write — external functions
+  const increase = async () => {
+    const { data, error } = await call.mutateFn("increase_counter", [
+      BigInt(1),
+    ]);
+    if (error) console.error(error.message);
+    else console.log(data?.hash);
+  };
+
+  // Listen — events
+  useEffect(() => {
+    return call.listenFn({
+      increase: { eventName: "CounterIncreased", listener: fetchCounter },
+    });
+  }, [wallet.account.address]);
+
+  return (
+    <ConnectButton>
+      {({ isConnected, truncatedAddress, open }) => (
+        <button onClick={() => open()}>
+          {isConnected ? truncatedAddress : "Connect"}
+        </button>
+      )}
+    </ConnectButton>
+  );
+}
+```
+
+</CodeCollapsibleWrapper>
+
+- **`wallet`** — connection state
+- **`call`** — contract helpers (`queryFn`, `mutateFn`, `listenFn`)
+
+---
+
+## Plugins Setup
+
+<Steps>
+
+### Vite Plugin
+
+```ts title="vite.config.ts" showLineNumbers {3,6}
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { trezoVitePlugin } from "@trezo/evm/plugins/vite";
+
+export default defineConfig({
+  plugins: [react(), trezoVitePlugin()],
+});
+```
+
+Without it you'll get `"Invalid hook call"` errors. One-line fix, do it once.
+
+</Steps>
+
+---
+
+## ABI Type Mapping
+
+| Cairo Type                           | TypeScript Input | TypeScript Output |
+| ------------------------------------ | ---------------- | ----------------- |
+| `felt252`                            | `string`         | `string`          |
+| `u8 / u16 / u32 / u64 / u128 / u256` | `BigNumberish`   | `bigint`          |
+| `bool`                               | `boolean`        | `boolean`         |
+| `ContractAddress`                    | `string`         | `string`          |
+| `ClassHash`                          | `string`         | `string`          |

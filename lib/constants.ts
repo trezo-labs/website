@@ -27,9 +27,11 @@ export const CORE_PACKAGES = [
   },
   {
     name: "@trezo/strk",
+    package: "@trezo/strk",
     description:
-      "Type-safe toolkit for building Starknet applications and contract interactions.",
-    published: false,
+      "Type-safe toolkit for interacting with Starknet smart contracts and wallets.",
+    path: "/docs/packages/strk",
+    published: true,
   },
   {
     name: "@trezo/sol",

@@ -1,5 +1,5 @@
 ---
-title: "@trezo/evm – Ethereum"
+title: "@trezo/evm - EVM"
 description: Type-safe toolkit for interacting with EVM smart contracts and wallets.
 ---
 
@@ -9,29 +9,7 @@ description: Type-safe toolkit for interacting with EVM smart contracts and wall
 npm install @trezo/evm
 ```
 
-`@trezo/evm` gives you a **type-safe layer** for reading and writing to EVM smart contracts, connecting wallets, and reacting to on-chain events — all without having to wire up different packages or wallet providers yourself.
-
----
-
-## Plugins Setup
-
-<Steps>
-
-### Vite Plugin
-
-```ts title="vite.config.ts" showLineNumbers {3,6}
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-import { trezoVitePlugin } from "@trezo/evm/plugins/vite";
-
-export default defineConfig({
-  plugins: [react(), trezoVitePlugin()],
-});
-```
-
-Required for Vite apps. Deduplicates React so your app and the bundled wallet libraries share the same instance. Without it you'll get `"Invalid hook call"` errors. One-line fix, do it once.
-
-</Steps>
+`@trezo/evm` gives you a **type-safe layer** for reading and writing to EVM smart contracts, connecting wallets, and reacting to on-chain events
 
 ---
 
@@ -42,7 +20,7 @@ Required for Vite apps. Deduplicates React so your app and the bundled wallet li
 ```ts title="evm.config.ts" showLineNumbers
 import { create, Chains } from "@trezo/evm";
 
-const contractAbi = [...] as const;
+const contractAbi = [...] as const; // must be as const
 
 export const config = create({
   address: "0x...",
@@ -68,36 +46,25 @@ export const ConnectButton = config.ConnectButton;
 
 </CodeCollapsibleWrapper>
 
-The **single source of truth** for your entire Web3 setup. It takes:
-
 - **`address`** — deployed contract address
 - **`abi`** — contract ABI typed `as const`. Without `as const` you lose all type safety.
 - **`chains`** — supported chains. `Chains` re-exports all chains from `viem/chains`.
 - **`rpcUrls`** — custom RPC endpoints keyed by chain ID. Avoids rate-limited public nodes.
 - **`modalConfig`** — wallet modal provider. TypeScript autocompletes all supported options.
-  - `"family"` — ConnectKit
-  - `"reown"` — Reown AppKit
-
-Returns a hook (`config()`) plus static properties (`Provider`, `ConnectButton`, `call`, `getState`, `subscribe`) usable anywhere — inside or outside React.
 
 ---
 
 ## Add Provider
 
-```tsx title="index.tsx" showLineNumbers {1,6,8}
-import { Provider } from "@/config/evm.config";
-import App from "./App";
+Must wrap your entire app.
 
-export default function Root() {
-  return (
-    <Provider>
-      <App />
-    </Provider>
-  );
+```tsx title="index.tsx" showLineNumbers {1,4}
+import { Provider } from "@/config/evm.config";
+
+export default function Root({ children }) {
+  return <Provider>{children}</Provider>;
 }
 ```
-
-Must wrap your entire app. Sets up the wallet context, modal provider, and the internal store that bridges wallet state to contract calls. Without it, `config()` returns empty state and all calls run read-only with no signer.
 
 ---
 
@@ -135,8 +102,6 @@ export default function Home() {
 
 </CodeCollapsibleWrapper>
 
-`config()` is a React hook that gives you reactive access to wallet and contract state. Re-renders automatically when the wallet connects, disconnects, or the chain changes. Returns:
-
 - **`wallet`** — connection state
 - **`call`** — contract helpers (`queryFn`, `mutateFn`, `listenFn`)
 - **`web3Provider`** — injected provider info
@@ -145,7 +110,7 @@ export default function Home() {
 
 ## ConnectButton
 
-Renders wallet connection UI. Supports a render prop for full UI control, or a default button when no children are passed.
+Supports a render prop for full UI control, or a default button when no children are passed.
 
 <Steps>
 
@@ -237,8 +202,6 @@ useEffect(() => {
 }, [wallet.account.address, wallet.account.isConnecting]);
 ```
 
-The `isConnecting` guard matters — on page reload wallets reconnect asynchronously. Fetching before reconnection completes means `msg.sender` is `address(0)` and you get empty results.
-
 </Steps>
 
 ---
@@ -262,12 +225,6 @@ if (result.error) {
 }
 ```
 
-Under the hood, `mutateFn`:
-
-1. **Simulates** the transaction first via a direct RPC call, surfacing readable revert reasons before MetaMask opens.
-2. **Sends** the real transaction through the connected wallet if simulation passes.
-3. **Waits** for the transaction to mine and returns the receipt.
-
 ### Options
 
 ```ts
@@ -281,13 +238,11 @@ const result = await call.mutateFn("addTask", ["Buy groceries"], {
 });
 ```
 
-### Always guard writes
+Under the hood, `mutateFn`:
 
-```ts
-if (!wallet.account.isConnected) return;
-
-const result = await call.mutateFn("addTask", ["Buy groceries"]);
-```
+1. **Simulates** the transaction first via a direct RPC call, surfacing readable revert reasons before MetaMask opens.
+2. **Sends** the real transaction through the connected wallet if simulation passes.
+3. **Waits** for the transaction to mine and returns the receipt.
 
 </Steps>
 
@@ -295,7 +250,7 @@ const result = await call.mutateFn("addTask", ["Buy groceries"]);
 
 ## Listen to Events (`listenFn`)
 
-Subscribes to contract events and fires your listener each time. Automatically falls back to polling if the RPC doesn't support WebSocket filters.
+Subscribes to contract events and fires your listener each time.
 
 <Steps>
 
@@ -405,6 +360,28 @@ const unsubscribe = config.subscribe(() => {
 });
 unsubscribe();
 ```
+
+---
+
+## Plugins Setup
+
+<Steps>
+
+### Vite Plugin
+
+```ts title="vite.config.ts" showLineNumbers {3,6}
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import { trezoVitePlugin } from "@trezo/evm/plugins/vite";
+
+export default defineConfig({
+  plugins: [react(), trezoVitePlugin()],
+});
+```
+
+Without it you'll get `"Invalid hook call"` errors. One-line fix, do it once.
+
+</Steps>
 
 ---
 

@@ -4,6 +4,7 @@ import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
+import { PAGES_NEW } from "@/lib/docs";
 import { getAllPagesFromFolder } from "@/lib/page-tree";
 import type { source } from "@/lib/source";
 import {
@@ -54,6 +55,12 @@ export function DocsSidebar({
                             >
                               <span className="absolute inset-0 flex w-(--sidebar-menu-width) bg-transparent" />
                               <span>{page.name}</span>
+                              {PAGES_NEW.includes(page.url) && (
+                                <span
+                                  className="flex size-2 rounded-full bg-blue-500"
+                                  title="New"
+                                />
+                              )}
                             </SidebarMenuButton>
                           </Link>
                         </SidebarMenuItem>
