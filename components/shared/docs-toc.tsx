@@ -103,21 +103,61 @@ export function DocsTableOfContents({
   }
 
   return (
-    <div className={cn("flex flex-col gap-2 p-4 pt-0 text-sm", className)}>
-      <p className="sticky top-0 h-6 bg-background text-xs font-medium text-muted-foreground">
+    <div
+      className={cn("flex flex-col", className)}
+      style={{ fontFamily: "Tahoma, Arial, sans-serif" }}
+    >
+      {/* Win2k panel title bar */}
+      <div
+        style={{
+          background: "linear-gradient(to right, #003399, #3a6ea5)",
+          padding: "2px 6px",
+          fontSize: "11px",
+          fontWeight: "bold",
+          color: "#ffffff",
+          userSelect: "none",
+          flexShrink: 0,
+        }}
+      >
         On This Page
-      </p>
-      {toc.map((item) => (
-        <a
-          key={item.url}
-          href={item.url}
-          className="text-[0.8rem] text-muted-foreground no-underline transition-colors hover:text-foreground data-[active=true]:font-medium data-[active=true]:text-foreground data-[depth=3]:pl-4 data-[depth=4]:pl-6"
-          data-active={item.url === `#${activeHeading}`}
-          data-depth={item.depth}
-        >
-          {item.title}
-        </a>
-      ))}
+      </div>
+      <div
+        style={{
+          padding: "4px 0",
+          background: "#d4d0c8",
+          flex: 1,
+        }}
+      >
+        {toc.map((item) => {
+          const isActive = item.url === `#${activeHeading}`;
+          return (
+            <a
+              key={item.url}
+              href={item.url}
+              data-active={isActive}
+              data-depth={item.depth}
+              style={{
+                display: "block",
+                fontSize: "11px",
+                color: isActive ? "#ffffff" : "#0000cc",
+                backgroundColor: isActive ? "#003399" : "transparent",
+                textDecoration: "none",
+                padding: "1px 6px",
+                paddingLeft:
+                  item.depth === 3
+                    ? "18px"
+                    : item.depth === 4
+                      ? "28px"
+                      : "6px",
+                fontWeight: isActive ? "bold" : "normal",
+              }}
+            >
+              {item.depth > 2 ? "└ " : "• "}
+              {item.title}
+            </a>
+          );
+        })}
+      </div>
     </div>
   );
 }
