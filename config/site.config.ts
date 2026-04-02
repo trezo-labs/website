@@ -18,10 +18,6 @@ export const siteConfig = {
       href: "/docs",
     },
     {
-      label: "Wallets",
-      href: "/docs/wallets",
-    },
-    {
       label: "Changelog",
       href: "/docs/changelog",
     },

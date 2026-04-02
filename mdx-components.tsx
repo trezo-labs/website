@@ -359,14 +359,24 @@ export const mdxComponents = {
       {...props}
     />
   ),
-  LinkedCard: ({ className, ...props }: React.ComponentProps<typeof Link>) => (
-    <Link
-      className={cn(
-        "flex w-full flex-col items-center corner-shape bg-surface p-6 text-surface-foreground transition-colors hover:bg-surface/80 sm:p-10",
-        className,
-      )}
-      {...props}
-    />
-  ),
+  LinkedCard: ({ className, ...props }: React.ComponentProps<typeof Link>) =>
+    props.href ? (
+      <Link
+        className={cn(
+          "flex w-full flex-col items-center corner-shape bg-surface p-6 text-surface-foreground transition-colors hover:bg-surface/80 sm:p-10",
+          className,
+        )}
+        {...props}
+      />
+    ) : (
+      <div
+        className={cn(
+          "flex w-full flex-col items-center corner-shape bg-surface p-6 text-surface-foreground transition-colors pointer-events-none opacity-50 sm:p-10",
+          className,
+        )}
+      >
+        {props.children}
+      </div>
+    ),
   Kbd,
 };

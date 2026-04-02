@@ -3,9 +3,11 @@ title: Installation
 description: Scaffold a new Trezo project and automatically configure blockchain integrations.
 ---
 
-## Quick Start
+<Steps>
 
-To install Trezo and initialize a new project, run the following command in an empty directory:
+### Quick Start
+
+Run the command install Trezo and initialize a new project:
 
 ```bash
 npx trezo init
@@ -15,11 +17,11 @@ For the full details and updated flow, see the [CLI documentation](/docs/cli).
 
 ---
 
-## Packages
+### Core Packages
 
-Each network package provides a type-safe integration layer, wallet connectivity, and contract interaction APIs — all preconfigured and ready to use.
+Install only the package for the blockchain you're building on. Each package bundles its own dependencies, so a single install is all you need.
 
-<div className="my-8 grid gap-4 sm:grid-cols-2 sm:gap-6">
+<div className="my-8 grid gap-4 sm:grid-cols-2">
   <LinkedCard href="/docs/packages/evm">
     <figure className="flex flex-col items-center">
       <Image
@@ -27,9 +29,9 @@ Each network package provides a type-safe integration layer, wallet connectivity
         width="40"
         height="40"
         alt="Eth-logo"
-        className="size-10 -mt-0.5 border-none"
+        className="size-10 -mt-1 border-none"
       />
-      <figcaption className="mt-3 font-medium">@trezo/evm - EVM</figcaption>
+      <figcaption className="mt-2 font-medium">@trezo/evm</figcaption>
     </figure>
   </LinkedCard>
   <LinkedCard href="/docs/packages/strk">
@@ -38,14 +40,40 @@ Each network package provides a type-safe integration layer, wallet connectivity
         src="/packages/starknet-strk-logo.svg"
         width="40"
         height="40"
-        alt="Eth-logo"
-        className="size-10 -mt-0.5 border-none"
+        alt="Starknet-logo"
+        className="size-10 -mt-1 border-none"
       />
-      <figcaption className="mt-3 font-medium">
-        @trezo/strk - Starknet
-      </figcaption>
+      <figcaption className="mt-2 font-medium">@trezo/strk</figcaption>
+    </figure>
+  </LinkedCard>
+  <LinkedCard>
+    <figure className="flex flex-col items-center">
+      <Image
+        src="/packages/sui-sui-logo.svg"
+        width="40"
+        height="40"
+        alt="Sui-logo"
+        className="size-10 -mt-1 border-none"
+      />
+      <figcaption className="mt-2 font-medium">@trezo/sui</figcaption>
+    </figure>
+  </LinkedCard>
+  <LinkedCard>
+    <figure className="flex flex-col items-center">
+      <Image
+        src="/packages/solana-sol-logo.svg"
+        width="40"
+        height="40"
+        alt="Solana-logo"
+        className="size-10 -mt-1 border-none"
+      />
+      <figcaption className="mt-2 font-medium">@trezo/sol</figcaption>
     </figure>
   </LinkedCard>
 </div>
 
-> Install only the package for the blockchain you're building on. Each package bundles its own dependencies, so a single install is all you need.
+</Steps>
+
+---
+
+Each network package provides a type-safe integration layer, wallet connectivity, and contract interaction APIs — all preconfigured and ready to use.
