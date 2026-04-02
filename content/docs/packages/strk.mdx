@@ -32,13 +32,17 @@ export const useConfig = create({
   abi: contractAbi,
   chains: [StarknetChains.sepolia],
   rpcUrls: {
-    sepolia: `https://starknet-sepolia.g.alchemy.com/starknet/version/rpc/v0_10/${infuraApiKey}`
+    sepolia: `https://starknet-sepolia.g.alchemy.com/starknet/version/rpc/v0_10/${infuraApiKey}`,
     mainnet: `https://starknet-mainnet.g.alchemy.com/starknet/version/rpc/v0_10/${infuraApiKey}`
   },
   modalConfig: {
-    from: "starknetReact",
+    from: "starknetkit",
     options: {
-      recommended: ["argent", "braavos"],
+      connection: { autoConnect: true },
+      explorer: "voyager",
+      network: { provider: "jsonRpc", defaultChain: StarknetChains.sepolia },
+      ui: { modalTheme: "system", dappName: "My Dapp" },
+      wallets: { enabled: ["argent", "braavos", "webwallet"] },
     },
   },
 });
@@ -146,7 +150,7 @@ export default function App() {
 
 </CodeCollapsibleWrapper>
 
-- **`wallet`** — connection state
+- **`wallet`** — connection state (`isConnected`, `address`, etc.)
 - **`call`** — contract helpers (`queryFn`, `mutateFn`, `listenFn`)
 
 ---
@@ -162,10 +166,10 @@ Use plugins when you get `"Invalid hook call"` errors
 ```ts title="vite.config.ts" showLineNumbers {3,6}
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { trezoStrkVitePlugin } from "@trezo/strk";
+import trezoVitePlugin from "@trezo/strk/plugins/vite";
 
 export default defineConfig({
-  plugins: [react(), trezoStrkVitePlugin()],
+  plugins: [react(), trezoVitePlugin()],
 });
 ```
 
