@@ -6,9 +6,10 @@ import { source } from "@/lib/source";
 import { absoluteUrl } from "@/lib/utils";
 import { DocsTableOfContents } from "@/components/shared/docs-toc";
 import { mdxComponents } from "@/mdx-components";
-import { Button, buttonVariants } from "@/ui/button";
+import { buttonVariants } from "@/ui/button";
 import Link from "next/link";
 import { Icons } from "hugeicons-proxy";
+import { DocsCopyPage } from "@/components/shared/docs-copy-page";
 
 export const revalidate = false;
 export const dynamic = "force-static";
@@ -71,6 +72,7 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
   const MDX = doc.body;
 
   const neighbours = findNeighbour(source.pageTree, page.url);
+  const raw = await page.data.getText("raw");
 
   return (
     <div
@@ -87,6 +89,9 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
                   {doc.title}
                 </h1>
                 <div className="docs-nav flex items-center gap-2">
+                  <div className="hidden sm:block">
+                    <DocsCopyPage page={raw} url={absoluteUrl(page.url)} />
+                  </div>
                   <div className="ml-auto flex gap-2">
                     {neighbours.previous && (
                       <Link

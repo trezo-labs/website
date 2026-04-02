@@ -9,7 +9,7 @@ description: Type-safe toolkit for interacting with Starknet smart contracts and
 npm install @trezo/strk
 ```
 
-`@trezo/strk` provides a `type-safe layer` for building Starknet applications, with strongly typed contract interactions and seamless wallet integration for frontend developers.
+`@trezo/strk` provides a **type-safe layer** for building Starknet applications, with strongly typed contract interactions and seamless wallet integration for frontend developers.
 
 ---
 
@@ -21,13 +21,13 @@ npm install @trezo/strk
 
 <CodeCollapsibleWrapper>
 
-```ts title="hooks/useStrkConfig.ts" showLineNumbers
+```ts title="hooks/useConfig.ts" showLineNumbers
 import { create, StarknetChains } from "@trezo/strk";
 
 const contractAbi = [...] as const; // must be as const
 const infuraApiKey = "py7n3kjba74bflasfe738";
 
-export const useStrkConfig = create({
+export const useConfig = create({
   address: "0x...",
   abi: contractAbi,
   chains: [StarknetChains.sepolia],
@@ -43,8 +43,8 @@ export const useStrkConfig = create({
   },
 });
 
-export const Provider = useStrkConfig.Provider;
-export const ConnectButton = useStrkConfig.ConnectButton;
+export const Provider = useConfig.Provider;
+export const ConnectButton = useConfig.ConnectButton;
 ```
 
 </CodeCollapsibleWrapper>
@@ -81,7 +81,7 @@ To avoid errors and ensure reliability, you `must provide your own RPC endpoint`
 Must wrap your entire app.
 
 ```tsx title="layout.tsx" showLineNumbers {1,4}
-import { Provider } from "./strk.config";
+import { Provider } from "@/hooks/useConfig";
 
 export default function Root({ children }) {
   return <Provider>{children}</Provider>;
@@ -95,10 +95,10 @@ export default function Root({ children }) {
 <CodeCollapsibleWrapper>
 
 ```tsx title="App.tsx" showLineNumbers
-import { useStrkConfig, ConnectButton } from "./strk.config";
+import { useConfig, ConnectButton } from "@/hooks/useConfig";
 
 export default function App() {
-  const { wallet, call } = useStrkConfig();
+  const { wallet, call } = useConfig();
 
   // Read — view functions
   const fetchCounter = async () => {
@@ -153,6 +153,8 @@ export default function App() {
 
 ## Plugins Setup
 
+Use plugins when you get `"Invalid hook call"` errors
+
 <Steps>
 
 ### Vite Plugin
@@ -166,8 +168,6 @@ export default defineConfig({
   plugins: [react(), trezoStrkVitePlugin()],
 });
 ```
-
-Without it you'll get `"Invalid hook call"` errors. One-line fix, do it once.
 
 </Steps>
 

@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import { TbCopy, TbCopyCheckFilled } from "react-icons/tb";
-import { SiBun, SiNpm, SiPnpm, SiYarn } from "react-icons/si";
 
 import { useConfig } from "@/hooks/use-config";
 import { copyToClipboardWithMeta } from "@/components/shared/copy-button";

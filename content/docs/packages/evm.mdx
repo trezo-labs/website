@@ -17,12 +17,12 @@ npm install @trezo/evm
 
 <CodeCollapsibleWrapper>
 
-```ts title="evm.config.ts" showLineNumbers
+```ts title="hooks/useConfig.ts" showLineNumbers
 import { create, Chains } from "@trezo/evm";
 
 const contractAbi = [...] as const; // must be as const
 
-export const config = create({
+export const useConfig = create({
   address: "0x...",
   abi: contractAbi,
   chains: [Chains.optimismSepolia],
@@ -59,7 +59,7 @@ export const ConnectButton = config.ConnectButton;
 Must wrap your entire app.
 
 ```tsx title="index.tsx" showLineNumbers {1,4}
-import { Provider } from "@/config/evm.config";
+import { Provider } from "@/hooks/useConfig";
 
 export default function Root({ children }) {
   return <Provider>{children}</Provider>;
@@ -75,10 +75,10 @@ export default function Root({ children }) {
 ```tsx title="App.tsx" showLineNumbers
 "use client"; // required for Next.js
 
-import { config, ConnectButton } from "@/config/evm.config";
+import { useConfig, ConnectButton } from "@/hooks/useConfig";
 
 export default function Home() {
-  const { wallet, call, web3Provider } = config();
+  const { wallet, call, web3Provider } = useConfig();
 
   return (
     <div>
@@ -132,18 +132,6 @@ Supports a render prop for full UI control, or a default button when no children
 </ConnectButton>
 ```
 
-### Opening specific views
-
-```tsx
-<ConnectButton>
-  {({ isConnected, open, openAccountModal }) => (
-    <button onClick={isConnected ? openAccountModal : () => open()}>
-      {isConnected ? "Account" : "Connect"}
-    </button>
-  )}
-</ConnectButton>
-```
-
 ### Render props reference
 
 | Prop               | Type                          | Description                      |
@@ -169,13 +157,13 @@ For **view and pure** functions — reads that don't change state and cost no ga
 ### Example
 
 ```ts
-const result = await call.queryFn("fetchAllTasks", []);
+const { data, error } = await call.queryFn("fetchAllTasks", []);
 
-if (result.error) {
-  console.error(result.error.message); // human-readable, safe to show users
-  console.error(result.error.raw); // full Error object for debugging
+if (error) {
+  console.error(error.message); // human-readable, safe to show users
+  console.error(error.raw); // full Error object for debugging
 } else {
-  console.log(result.data); // typed from your ABI
+  console.log(data); // typed from your ABI
 }
 ```
 
@@ -215,13 +203,13 @@ For **nonpayable and payable** functions — writes that change on-chain state a
 ### Example
 
 ```ts
-const result = await call.mutateFn("addTask", ["Buy groceries"]);
+const { data, error } = await call.mutateFn("addTask", ["Buy groceries"]);
 
-if (result.error) {
-  toast.error(result.error.message); // e.g. "Content too long"
+if (error) {
+  toast.error(error.message); // e.g. "CONTRACT_ERROR_MESSAGE"
 } else {
-  console.log(result.data?.hash); // transaction hash
-  console.log(result.data?.receipt); // full TransactionReceipt
+  console.log(data?.hash); // transaction hash
+  console.log(data?.receipt); // full TransactionReceipt
 }
 ```
 
@@ -365,6 +353,8 @@ unsubscribe();
 
 ## Plugins Setup
 
+Use plugins when you get `"Invalid hook call"` errors
+
 <Steps>
 
 ### Vite Plugin
@@ -378,8 +368,6 @@ export default defineConfig({
   plugins: [react(), trezoVitePlugin()],
 });
 ```
-
-Without it you'll get `"Invalid hook call"` errors. One-line fix, do it once.
 
 </Steps>
 
