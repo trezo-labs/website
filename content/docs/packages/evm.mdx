@@ -45,6 +45,8 @@ export const evmConfig = create({
     },
   },
 });
+
+export const { useConfig } = evmConfig;
 ```
 
 </CodeCollapsibleWrapper>
@@ -97,14 +99,14 @@ export default function Root({ children }) {
 
 <CodeCollapsibleWrapper>
 
-```tsx title="App.tsx" showLineNumbers {7,10,14,19,20,21}
+```tsx title="App.tsx" showLineNumbers {3,4,7,10,14,19,20,21}
 "use client"; // required for Next.js
 
-import { useConfig, ConnectButton } from "@trezo/evm/react";
-import { contractAbi } from "./config/evm.config";
+import { ConnectButton } from "@trezo/evm/react";
+import { useConfig } from "@/config/evm.config";
 
 export default function Home() {
-  const { wallet, call, web3Provider } = useConfig<typeof contractAbi>();
+  const { wallet, call, web3Provider } = useConfig();
 
   async function fetchTask() {
     const { data } = await call.queryFn("getTask", [BigInt(1)]);
