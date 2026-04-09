@@ -82,14 +82,14 @@ To avoid errors and ensure reliability, you `must` provide your own RPC endpoint
 
 ### Wrap your app
 
-Pass the `config` as an argument in the `Provider`
+Pass the `config` as an argument in the `EvmProvider`
 
 ```tsx title="main.tsx" showLineNumbers {1,2,5}
-import { Provider } from "@trezo/evm/react";
+import { EvmProvider } from "@trezo/evm/react";
 import { evmConfig } from "@/config/evm.config";
 
 export default function Root({ children }) {
-  return <Provider config={evmConfig}>{children}</Provider>;
+  return <EvmProvider config={evmConfig}>{children}</EvmProvider>;
 }
 ```
 
@@ -436,11 +436,11 @@ export default defineConfig({
 
 ## Package Exports
 
-| Import path               | Contents                                 |
-| ------------------------- | ---------------------------------------- |
-| `@trezo/evm`              | `create`, `Chains`, all types            |
-| `@trezo/evm/react`        | `Provider`, `ConnectButton`, `useConfig` |
-| `@trezo/evm/plugins/vite` | `trezoVitePlugin`                        |
+| Import path               | Contents                                    |
+| ------------------------- | ------------------------------------------- |
+| `@trezo/evm`              | `create`, `Chains`, all types               |
+| `@trezo/evm/react`        | `EvmProvider`, `ConnectButton`, `useConfig` |
+| `@trezo/evm/plugins/vite` | `trezoVitePlugin`                           |
 
 ---
 
@@ -449,7 +449,7 @@ export default defineConfig({
 | API                            | Purpose                                           |
 | ------------------------------ | ------------------------------------------------- |
 | `create(config)`               | Initialize the entire Web3 setup                  |
-| `Provider`                     | App wrapper (React) — required                    |
+| `EvmProvider`                  | App wrapper (React) — required                    |
 | `ConnectButton`                | Wallet connection UI with render props (React)    |
 | `useConfig()`                  | React hook — access wallet, call, provider state  |
 | `call.queryFn`                 | Read contract data (view/pure functions)          |
