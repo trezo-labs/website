@@ -21,14 +21,14 @@ export const HomeHero = () => {
                   <span className="bg-secondary px-2 py-[3px] squircle text-sm font-medium">
                     {siteConfig.name}
                   </span>
-                  <span className="text-sm">
+                  {/* <span className="text-sm">
                     Introducing <strong>@trezo/strk</strong>
                   </span>
                   <span
                     className="flex size-2 rounded-full bg-blue-500"
                     title="New"
-                  />
-                  {/* <span className="text-sm">Open Source Web3 Framework</span> */}
+                  /> */}
+                  <span className="text-sm">Open Source Web3 Framework</span>
                 </Link>
 
                 <h1 className="mt-6 text-4xl font-serif leading-[1.2] font-medium sm:text-5xl">
@@ -63,22 +63,22 @@ export const HomeHero = () => {
 
             <div className="absolute inset-0 -ml-4 hidden sm:block">
               <div className="relative">
-                <div className="to-background absolute -inset-10 z-1 bg-radial-[at_85%_15%] from-transparent to-40%"></div>
+                <div className="to-background absolute -inset-10 z-1 bg-radial-[at_75%_25%] from-transparent to-40%"></div>
                 <Image
-                  className="hidden brightness-50 lg:brightness-100 dark:block"
-                  src="/images/shadcn-dark.png"
+                  className="hidden brightness-50 lg:brightness-100 ml-auto dark:block"
+                  src="/images/hero-dark.png"
                   alt="app illustration"
-                  width={2796}
-                  height={2008}
+                  width={896}
+                  height={408}
                   priority
                   quality={100}
                 />
                 <Image
-                  className="opacity-50 lg:opacity-100 dark:hidden"
-                  src="/images/shadcn-light.png"
+                  className="opacity-50 lg:opacity-100 dark:hidden ml-auto"
+                  src="/images/hero-light.png"
                   alt="app illustration"
-                  width={2796}
-                  height={2008}
+                  width={896}
+                  height={408}
                   priority
                   quality={100}
                 />
