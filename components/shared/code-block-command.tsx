@@ -72,7 +72,7 @@ export function CodeBlockCommand({
         }}
       >
         <div className="flex items-center gap-2 border-b border-border/50 px-3 py-1">
-          <div className="size-4 flex items-center bg-code-foreground corner-shape justify-center">
+          <div className="size-4 flex items-center bg-code-foreground squircle justify-center">
             <ActiveIcon className="size-3 text-code" />
           </div>
           <TabsList className="rounded-none bg-transparent p-0">

@@ -1,0 +1,32 @@
+---
+title: 10th April, 2026 - @trezo/evm v1.6.0
+description: Improved config API, wallet setup, and event handling with better DX and reliability.
+date: 2026-04-10
+---
+
+## Highlights
+
+- Updated config structure: replaced `modalConfig` with `wallet`
+- Improved type inference across `queryFn`, `mutateFn`, and `listenFn`
+- Added fallback event listening for RPCs without `eth_newFilter`
+- Exposed safer and clearer external store API (`_store`)
+- Improved wallet provider configuration (Family & Reown)
+- Better handling of RPC requirements and CORS issues
+
+---
+
+## Improvements
+
+- Cleaner `create()` setup with more intuitive naming
+- More predictable React usage via `useConfig`
+- Improved transaction simulation before execution
+- Better error messages for contract interactions
+- Optimized event subscriptions (shared connections for multiple listeners)
+
+---
+
+## Fixes
+
+- Fixed issues with public RPC usage causing browser CORS errors
+- Improved reliability when reconnecting wallets
+- Prevented stale listeners on wallet/account change

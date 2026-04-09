@@ -134,13 +134,13 @@ export const mdxComponents = {
     />
   ),
   img: ({ className, alt, ...props }: React.ComponentProps<"img">) => (
-    <img className={cn("corner-shape", className)} alt={alt} {...props} />
+    <img className={cn("squircle", className)} alt={alt} {...props} />
   ),
   hr: ({ ...props }: React.ComponentProps<"hr">) => (
     <hr className="my-4 md:my-8" {...props} />
   ),
   table: ({ className, ...props }: React.ComponentProps<"table">) => (
-    <div className="my-6 no-scrollbar w-full overflow-y-auto corner-shape border">
+    <div className="my-6 no-scrollbar w-full overflow-y-auto squircle border">
       <table
         className={cn(
           "relative w-full overflow-hidden border-none text-sm [&_tbody_tr:last-child]:border-b-0",
@@ -232,7 +232,7 @@ export const mdxComponents = {
       return (
         <code
           className={cn(
-            "relative bg-muted corner-shape px-[0.4rem] py-[0.2rem] font-mono text-[0.8rem] wrap-break-word outline-none",
+            "relative bg-muted squircle px-[0.4rem] py-[0.2rem] font-mono text-[0.8rem] wrap-break-word outline-none",
             className,
           )}
           {...props}
@@ -288,7 +288,7 @@ export const mdxComponents = {
     ...props
   }: React.ComponentProps<"img">) => (
     <Image
-      className={cn("mt-6 corner-shape border", className)}
+      className={cn("mt-6 squircle border", className)}
       src={(src as string) || ""}
       width={Number(width)}
       height={Number(height)}
@@ -363,7 +363,7 @@ export const mdxComponents = {
     props.href ? (
       <Link
         className={cn(
-          "flex w-full flex-col items-center corner-shape bg-surface p-6 text-surface-foreground transition-colors hover:bg-surface/80 sm:p-10",
+          "flex w-full flex-col items-center squircle bg-surface p-6 text-surface-foreground transition-colors hover:bg-surface/80 sm:p-10",
           className,
         )}
         {...props}
@@ -371,7 +371,7 @@ export const mdxComponents = {
     ) : (
       <div
         className={cn(
-          "flex w-full flex-col items-center corner-shape bg-surface p-6 text-surface-foreground transition-colors pointer-events-none opacity-50 sm:p-10",
+          "flex w-full flex-col items-center squircle bg-surface p-6 text-surface-foreground transition-colors pointer-events-none opacity-50 sm:p-10",
           className,
         )}
       >

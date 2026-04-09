@@ -216,7 +216,7 @@ export function CommandMenu({
       </DialogTrigger>
       <DialogContent
         showCloseButton={false}
-        className="bg-card overflow-hidden ring-secondary corner-shape border-none bg-clip-padding p-4 pb-11 shadow-2xl ring-4"
+        className="bg-card overflow-hidden ring-secondary squircle border-none bg-clip-padding p-4 pb-11 shadow-2xl ring-4"
       >
         <DialogHeader className="sr-only">
           <DialogTitle>Search documentation...</DialogTitle>
@@ -294,7 +294,7 @@ function CommandMenuItem({
     <CommandItem
       ref={ref}
       className={cn(
-        "h-9 corner-shape border border-transparent px-3! font-medium data-[selected=true]:border-input data-[selected=true]:bg-input/50",
+        "h-9 squircle border border-transparent px-3! font-medium data-[selected=true]:border-input data-[selected=true]:bg-input/50",
         className,
       )}
       {...props}
@@ -368,7 +368,7 @@ function SearchResults({
               router.push(item.url as Route);
               setOpen(false);
             }}
-            className="h-9 corner-shape border border-transparent px-3! font-normal data-[selected=true]:border-input data-[selected=true]:bg-input/50"
+            className="h-9 squircle border border-transparent px-3! font-normal data-[selected=true]:border-input data-[selected=true]:bg-input/50"
             keywords={[item.content]}
             value={`${item.content} ${item.type}`}
           >

@@ -10,13 +10,14 @@ export function Callout({
   ...props
 }: React.ComponentProps<typeof Alert> & {
   icon?: React.ReactNode;
-  variant?: "default" | "info" | "warning";
+  variant?: "default" | "info" | "warning" | "destructive";
 }) {
   return (
     <Alert
       data-variant={variant}
+      variant={variant}
       className={cn(
-        "mt-6 w-auto corner-shape border-surface bg-surface text-surface-foreground md:-mx-1 **:[code]:border",
+        "mt-6 w-auto squircle! md:-mx-1 **:[code]:border",
         className,
       )}
       {...props}

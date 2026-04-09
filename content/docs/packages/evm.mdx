@@ -3,37 +3,39 @@ title: "@trezo/evm - EVM"
 description: Type-safe toolkit for interacting with EVM smart contracts and wallets.
 ---
 
-## Install Package
+## Installation
 
 ```bash
 npm install @trezo/evm
 ```
 
-`@trezo/evm` gives you a **type-safe layer** for reading and writing to EVM smart contracts, connecting wallets, and reacting to on-chain events
+It gives you end-to-end `type safety` from your ABI — `function names`, `arguments`, `return values`, and `events` are all inferred automatically without manual typing.
 
 ---
 
-## Create Configuration
+## Quick Start
 
 <Steps>
 
-### Example Usage
+### Define your config
+
+Set this up once at the module level.
 
 <CodeCollapsibleWrapper>
 
-```ts title="hooks/useConfig.ts" showLineNumbers
+```ts title="config/evm.config.ts" showLineNumbers
 import { create, Chains } from "@trezo/evm";
 
-const contractAbi = [...] as const; // must be as const
+export const contractAbi = [...] as const; // must be as const
 
-export const useConfig = create({
+export const evmConfig = create({
   address: "0x...",
   abi: contractAbi,
   chains: [Chains.optimismSepolia],
   rpcUrls: {
     11155420: "https://optimism-sepolia-public.nodies.app",
   },
-  modalConfig: {
+  wallet: {
     from: "family", // "family" | "reown"
     options: {
       projectId: "your_wallet_connect_project_id",
@@ -43,48 +45,81 @@ export const useConfig = create({
     },
   },
 });
-
-export const Provider = config.Provider;
-export const ConnectButton = config.ConnectButton;
 ```
 
 </CodeCollapsibleWrapper>
 
+**Key fields:**
+
 - **`address`** — deployed contract address
 - **`abi`** — contract ABI typed `as const`. Without `as const` you lose all type safety.
-- **`chains`** — supported chains. `Chains` re-exports all chains from `viem/chains`.
+- **`chains`** — supported chains. `Chains` re-exports all chains from `wagmi/chains`.
 - **`rpcUrls`** — custom RPC endpoints keyed by chain ID. Avoids rate-limited public nodes.
-- **`modalConfig`** — wallet modal provider. TypeScript autocompletes all supported options.
-
-</Steps>
+- **`wallet`** — wallet modal provider. TypeScript autocompletes all supported options.
 
 ---
 
-## Add Provider
+#### RPC Requirement
 
-Must wrap your entire app.
+Using a public node RPC may result in `CORS (Cross-Origin) errors` in browser environments.
 
-```tsx title="index.tsx" showLineNumbers {1,4}
-import { Provider } from "@/hooks/useConfig";
+If no RPC is provided, the library falls back to a default public node, which will show this warning:
+
+<Callout variant="warning">
+  **INFO:** Using default public node url, please provide nodeUrl in provider
+  options!
+</Callout>
+
+To avoid errors and ensure reliability, you `must` provide your own RPC endpoint from a provider such as:
+
+- [Infura](http://infura.io/)
+- [Alchemy](https://dashboard.alchemy.com/)
+- Any dedicated RPC provider
+
+---
+
+### Wrap your app
+
+Pass the `config` as an argument in the `Provider`
+
+```tsx title="main.tsx" showLineNumbers {1,2,5}
+import { Provider } from "@trezo/evm/react";
+import { evmConfig } from "@/config/evm.config";
 
 export default function Root({ children }) {
-  return <Provider>{children}</Provider>;
+  return <Provider config={evmConfig}>{children}</Provider>;
 }
 ```
 
 ---
 
-## Basic Usage
+### Basic Usage
 
 <CodeCollapsibleWrapper>
 
-```tsx title="App.tsx" showLineNumbers
+```tsx title="App.tsx" showLineNumbers {7,10,14,19,20,21}
 "use client"; // required for Next.js
 
-import { useConfig, ConnectButton } from "@/hooks/useConfig";
+import { useConfig, ConnectButton } from "@trezo/evm/react";
+import { contractAbi } from "./config/evm.config";
 
 export default function Home() {
-  const { wallet, call, web3Provider } = useConfig();
+  const { wallet, call, web3Provider } = useConfig<typeof contractAbi>();
+
+  async function fetchTask() {
+    const { data } = await call.queryFn("getTask", [BigInt(1)]);
+  }
+
+  async function addTask() {
+    const { data } = await call.mutateFn("addTask", ["Buy milk"]);
+    console.log(data?.hash);
+  }
+
+  function listenForChanges() {
+    return call.listenFn("TaskAdded", (_, __, content) => {
+      console.log(content);
+    });
+  }
 
   return (
     <div>
@@ -112,43 +147,38 @@ export default function Home() {
 - **`call`** — contract helpers (`queryFn`, `mutateFn`, `listenFn`)
 - **`web3Provider`** — injected provider info
 
+</Steps>
+
 ---
 
 ## ConnectButton
 
 Supports a render prop for full UI control, or a default button when no children are passed.
+Import from `@trezo/evm/react`.
 
 <Steps>
 
 ### Default button
 
 ```tsx
-<ConnectButton label="Connect Wallet" />
+import { ConnectButton } from "@trezo/evm/react";
+
+<ConnectButton label="Connect Wallet" />;
 ```
 
 ### Custom render
 
 ```tsx
+import { ConnectButton } from "@trezo/evm/react";
+
 <ConnectButton>
   {({ isConnected, truncatedAddress, ensName, open, isConnecting }) => (
     <button onClick={() => open()}>
       {isConnected ? (ensName ?? truncatedAddress) : "Connect"}
     </button>
   )}
-</ConnectButton>
+</ConnectButton>;
 ```
-
-### Render props reference
-
-| Prop               | Type                          | Description                      |
-| ------------------ | ----------------------------- | -------------------------------- |
-| `isConnected`      | `boolean`                     | Whether a wallet is connected    |
-| `isConnecting`     | `boolean`                     | Whether the wallet is connecting |
-| `address`          | `string \| undefined`         | Full wallet address              |
-| `truncatedAddress` | `string \| undefined`         | Shortened e.g. `0x1234...5678`   |
-| `ensName`          | `string \| null \| undefined` | ENS name if available            |
-| `open`             | `(options?) => void`          | Opens the connect modal          |
-| `close`            | `() => void`                  | Closes the modal                 |
 
 </Steps>
 
@@ -182,18 +212,6 @@ const result = await call.queryFn("fetchAllTasks", [], {
   gasLimit: 100000n,
   value: 0n,
 });
-```
-
-### In a React component
-
-```tsx
-useEffect(() => {
-  if (wallet.account.isConnecting) return; // wait for reconnect to finish
-
-  call.queryFn("fetchAllTasks", []).then((result) => {
-    if (!result.error) setTasks(result.data);
-  });
-}, [wallet.account.address, wallet.account.isConnecting]);
 ```
 
 </Steps>
@@ -234,7 +252,7 @@ const result = await call.mutateFn("addTask", ["Buy groceries"], {
 
 Under the hood, `mutateFn`:
 
-1. **Simulates** the transaction first via a direct RPC call, surfacing readable revert reasons before MetaMask opens.
+1. **Simulates** the transaction first via a direct RPC call, surfacing readable revert reasons before the wallet prompt opens.
 2. **Sends** the real transaction through the connected wallet if simulation passes.
 3. **Waits** for the transaction to mine and returns the receipt.
 
@@ -244,7 +262,7 @@ Under the hood, `mutateFn`:
 
 ## Listen to Events (`listenFn`)
 
-Subscribes to contract events and fires your listener each time.
+Subscribes to contract events and fires your listener each time. Automatically falls back to block-polling on RPCs that don't support `eth_newFilter` (most public/free-tier nodes).
 
 <Steps>
 
@@ -275,21 +293,6 @@ cleanup(); // stops all listeners at once
 
 More efficient than multiple `listenFn` calls — all listeners share the same underlying connection.
 
-### In a React component
-
-```tsx
-useEffect(() => {
-  return call.listenFn({
-    add: { eventName: "TaskAdded", listener: fetchAllTasks },
-    update: { eventName: "TaskUpdated", listener: fetchAllTasks },
-    remove: { eventName: "TaskRemoved", listener: fetchAllTasks },
-    toggle: { eventName: "TaskToggled", listener: fetchAllTasks },
-  });
-}, [wallet.account.address]); // re-register when wallet changes
-```
-
-The `wallet.account.address` dependency ensures listeners re-attach after wallet reconnection, preventing stale connections.
-
 </Steps>
 
 ---
@@ -297,7 +300,7 @@ The `wallet.account.address` dependency ensures listeners re-attach after wallet
 ## Wallet State
 
 ```ts
-const { wallet } = config();
+const { wallet } = useConfig();
 
 wallet.account.isConnected; // true when wallet is connected
 wallet.account.isConnecting; // true during connection or page-reload reconnect
@@ -324,7 +327,7 @@ Use `isConnecting` to differentiate between "not connected" and "reconnecting on
 ## Provider State
 
 ```ts
-const { web3Provider } = config();
+const { web3Provider } = useConfig();
 
 web3Provider.isAvailable; // true if window.ethereum exists (MetaMask, etc.)
 ```
@@ -339,27 +342,77 @@ Use it to disable UI that requires an injected wallet:
 
 ## Outside React (Vanilla JS)
 
-Static methods for use outside React components — useful for utility functions or non-component files:
+`evmConfig` exposes static methods for use outside React components — useful for utility functions, server actions, or non-component files:
 
-```ts
-import { config } from "@/config/evm.config";
+```js showLineNumbers title="trezo.js"
+import { evmConfig } from "@/config/evm.config";
 
-const state = config.getState();
+// Read current state snapshot
+const state = evmConfig._store.getState();
 console.log(state.wallet.address);
 
-const result = await config.call.queryFn("fetchAllTasks", []);
+// Call contract functions
+const result = await evmConfig._store.call.queryFn("fetchAllTasks", []);
 
-const unsubscribe = config.subscribe(() => {
-  console.log("State changed:", config.getState());
+// Subscribe to state changes
+const unsubscribe = evmConfig._store.subscribe(() => {
+  console.log("State changed:", evmConfig._store.getState());
 });
 unsubscribe();
 ```
 
 ---
 
+## Wallet Providers
+
+| Key        | Package required                               | Notes                     |
+| ---------- | ---------------------------------------------- | ------------------------- |
+| `"family"` | `connectkit`                                   | ConnectKit styled modal   |
+| `"reown"`  | `@reown/appkit`, `@reown/appkit-adapter-wagmi` | AppKit (WalletConnect v2) |
+
+### Family (ConnectKit)
+
+```ts
+wallet: {
+  from: "family",
+  options: {
+    projectId: "your_walletconnect_project_id",
+    appInfo: {
+      name: "My App",
+      description: "My dApp description",
+      url: "https://myapp.xyz",
+      icon: "https://myapp.xyz/icon.png",
+    },
+  },
+},
+```
+
+### Reown (AppKit)
+
+```ts
+wallet: {
+  from: "reown",
+  options: {
+    projectId: "your_walletconnect_project_id",
+    metadata: {
+      name: "My App",
+      description: "My dApp description",
+      url: "https://myapp.xyz",
+      icons: ["https://myapp.xyz/icon.png"],
+    },
+    ssr: false,           // set true for Next.js SSR
+    features: {
+      analytics: true,    // optional, defaults to Cloud config
+    },
+  },
+},
+```
+
+---
+
 ## Plugins Setup
 
-Use plugins when you get `"Invalid hook call"` errors
+Avoid duplicate dependencies across packages.
 
 <Steps>
 
@@ -379,19 +432,29 @@ export default defineConfig({
 
 ---
 
+## Package Exports
+
+| Import path               | Contents                                 |
+| ------------------------- | ---------------------------------------- |
+| `@trezo/evm`              | `create`, `Chains`, all types            |
+| `@trezo/evm/react`        | `Provider`, `ConnectButton`, `useConfig` |
+| `@trezo/evm/plugins/vite` | `trezoVitePlugin`                        |
+
+---
+
 ## Summary
 
-| API                  | Purpose                                          |
-| -------------------- | ------------------------------------------------ |
-| `create(config)`     | Initialize the entire Web3 setup                 |
-| `Provider`           | App wrapper — required                           |
-| `ConnectButton`      | Wallet connection UI with render props           |
-| `config()`           | React hook — access wallet, call, provider state |
-| `call.queryFn`       | Read contract data (view/pure functions)         |
-| `call.mutateFn`      | Write to contract (nonpayable/payable functions) |
-| `call.listenFn`      | Single or multiple event listeners               |
-| `wallet`             | Connection state (address, chainId, isConnected) |
-| `web3Provider`       | Injected provider availability                   |
-| `config.getState()`  | Static access outside React                      |
-| `config.subscribe()` | Subscribe to state changes outside React         |
-| `trezoVitePlugin()`  | Vite plugin — prevents duplicate React           |
+| API                            | Purpose                                           |
+| ------------------------------ | ------------------------------------------------- |
+| `create(config)`               | Initialize the entire Web3 setup                  |
+| `Provider`                     | App wrapper (React) — required                    |
+| `ConnectButton`                | Wallet connection UI with render props (React)    |
+| `useConfig()`                  | React hook — access wallet, call, provider state  |
+| `call.queryFn`                 | Read contract data (view/pure functions)          |
+| `call.mutateFn`                | Write to contract (nonpayable/payable functions)  |
+| `call.listenFn`                | Single or multiple event listeners                |
+| `wallet`                       | Connection state (address, chainId, isConnected)  |
+| `web3Provider`                 | Injected provider availability                    |
+| `evmConfig._store.getState()`  | Static state access outside React                 |
+| `evmConfig._store.subscribe()` | Subscribe to state changes outside React          |
+| `trezoVitePlugin()`            | Vite plugin — prevents duplicate React/wagmi/viem |

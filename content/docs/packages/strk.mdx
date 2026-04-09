@@ -65,16 +65,16 @@ Using a public node RPC may result in `CORS (Cross-Origin) errors` in browser en
 
 If no RPC is provided, the library falls back to a default public node, which will show this warning:
 
-```bash
-  INFO: Using default public node url,
-  please provide nodeUrl in provider options!
-```
+<Callout variant="warning">
+  **INFO:** Using default public node url, please provide nodeUrl in provider
+  options!
+</Callout>
 
 To avoid errors and ensure reliability, you `must provide your own RPC endpoint` from a provider such as:
 
 - [Infura](http://infura.io/)
 - [Alchemy](https://dashboard.alchemy.com/)
-- Any dedicated Starknet RPC provider
+- Any dedicated RPC provider
 
 </Steps>
 

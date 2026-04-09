@@ -248,9 +248,9 @@
   }
 }
 
-@utility corner-shape {
+@utility squircle {
   corner-shape: squircle;
-  @apply rounded-3xl md:rounded-4xl lg:rounded-[40px] xl:rounded-[48px];
+  @apply rounded-3xl md:rounded-4xl lg:rounded-[40px];
 }
 
 @utility border-grid {

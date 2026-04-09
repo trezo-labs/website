@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     siteName: siteConfig.name,
     images: [
       {
-        url: `${BASE_URL}/assets/images/opengraph.png`,
+        url: `${BASE_URL}/images/opengraph.png`,
         width: 1200,
         height: 630,
         alt: siteConfig.name,
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: siteConfig.name,
     description: siteConfig.description,
-    images: [`${BASE_URL}/assets/images/opengraph.png`],
+    images: [`${BASE_URL}/images/opengraph.png`],
     creator: "@thelastofinusa",
   },
   icons: {

@@ -95,7 +95,7 @@ export function DocsCopyPage({ page, url }: { page: string; url: string }) {
 
   return (
     <Popover>
-      <div className="group/buttons relative flex corner-shape bg-secondary *:data-[slot=button]:focus-visible:relative *:data-[slot=button]:focus-visible:z-10">
+      <div className="group/buttons relative flex squircle bg-secondary *:data-[slot=button]:focus-visible:relative *:data-[slot=button]:focus-visible:z-10">
         <PopoverAnchor />
         <Button
           variant="secondary"
@@ -110,7 +110,7 @@ export function DocsCopyPage({ page, url }: { page: string; url: string }) {
           <DropdownMenuTrigger asChild className="hidden sm:flex">
             {trigger}
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="corner-shape w-48">
+          <DropdownMenuContent align="end" className="squircle w-48">
             {Object.entries(menuItems).map(([key, value]) => (
               <DropdownMenuItem key={key} asChild>
                 {value(url)}
@@ -126,7 +126,7 @@ export function DocsCopyPage({ page, url }: { page: string; url: string }) {
           {trigger}
         </PopoverTrigger>
         <PopoverContent
-          className="w-48 origin-center! corner-shape bg-background/70 p-1 shadow-none backdrop-blur-sm dark:bg-background/60"
+          className="w-48 origin-center! squircle bg-background/70 p-1 shadow-none backdrop-blur-sm dark:bg-background/60"
           align="start"
         >
           {Object.entries(menuItems).map(([key, value]) => (

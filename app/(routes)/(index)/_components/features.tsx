@@ -169,12 +169,12 @@ export const Features = () => {
                   <div className="relative mt-6 before:absolute before:inset-0 before:mx-auto before:w-px before:bg-(--color-border) sm:-my-6 sm:-mr-6">
                     <div className="relative flex h-full flex-col justify-center space-y-6 py-6">
                       <div className="relative flex w-[calc(50%+0.875rem)] items-center justify-end gap-2">
-                        <span className="block h-fit corner-shape border px-2 py-1 text-xs shadow-sm">
+                        <span className="block h-fit squircle border px-2 py-1 text-xs shadow-sm">
                           Holiday
                         </span>
                         <div className="ring-background size-7 ring-4">
                           <img
-                            className="size-full corner-shape"
+                            className="size-full squircle"
                             src="https://avatars.githubusercontent.com/u/232781140?v=4"
                             alt=""
                           />
@@ -183,22 +183,22 @@ export const Features = () => {
                       <div className="relative ml-[calc(50%-1rem)] flex items-center gap-2">
                         <div className="ring-background size-8 ring-4">
                           <img
-                            className="size-full corner-shape"
+                            className="size-full squircle"
                             src="https://avatars.githubusercontent.com/u/47919550?v=4"
                             alt=""
                           />
                         </div>
-                        <span className="block h-fit corner-shape border px-2 py-1 text-xs shadow-sm">
+                        <span className="block h-fit squircle border px-2 py-1 text-xs shadow-sm">
                           John Doe
                         </span>
                       </div>
                       <div className="relative flex w-[calc(50%+0.875rem)] items-center justify-end gap-2">
-                        <span className="block h-fit corner-shape border px-2 py-1 text-xs shadow-sm">
+                        <span className="block h-fit squircle border px-2 py-1 text-xs shadow-sm">
                           Jane Smith
                         </span>
                         <div className="ring-background size-7 ring-4">
                           <img
-                            className="size-full corner-shape"
+                            className="size-full squircle"
                             src="https://avatars.githubusercontent.com/u/31113941?v=4"
                             alt=""
                           />

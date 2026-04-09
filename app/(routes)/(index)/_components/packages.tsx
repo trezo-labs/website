@@ -24,26 +24,26 @@ export const Packages = async () => {
   }) {
     if (!pkg.published) {
       return (
-        <span className="px-1.5 py-0.5 bg-foreground text-background text-xs corner-shape">
+        <span className="px-1.5 py-0.5 bg-foreground text-background text-xs squircle">
           Upcoming
         </span>
       );
     }
 
     if (pkg.package && pkg.version === undefined) {
-      return <Skeleton className="h-5 w-14 corner-shape" />;
+      return <Skeleton className="h-5 w-14 squircle" />;
     }
 
     if (pkg.version) {
       return (
-        <span className="px-1.5 py-0.5 bg-foreground text-background text-xs corner-shape">
+        <span className="px-1.5 py-0.5 bg-foreground text-background text-xs squircle">
           v{pkg.version}
         </span>
       );
     }
 
     return (
-      <span className="px-1.5 py-0.5 bg-foreground text-background text-xs corner-shape">
+      <span className="px-1.5 py-0.5 bg-foreground text-background text-xs squircle">
         —
       </span>
     );

@@ -16,9 +16,9 @@ export const HomeHero = () => {
               <div className="relative z-10 mx-auto max-w-xl text-center lg:ml-0 lg:w-1/2 lg:text-left">
                 <Link
                   href="/docs/packages/strk"
-                  className="mx-auto flex w-fit items-center corner-shape gap-2 border p-1 pr-3 lg:ml-0"
+                  className="mx-auto flex w-fit items-center squircle gap-2 border p-1 pr-3 lg:ml-0"
                 >
-                  <span className="bg-secondary px-2 py-[3px] corner-shape text-sm font-medium">
+                  <span className="bg-secondary px-2 py-[3px] squircle text-sm font-medium">
                     {siteConfig.name}
                   </span>
                   <span className="text-sm">
@@ -66,7 +66,7 @@ export const HomeHero = () => {
                 <div className="to-background absolute -inset-10 z-1 bg-radial-[at_85%_15%] from-transparent to-40%"></div>
                 <Image
                   className="hidden brightness-50 lg:brightness-100 dark:block"
-                  src="/assets/images/shadcn-dark.png"
+                  src="/images/shadcn-dark.png"
                   alt="app illustration"
                   width={2796}
                   height={2008}
@@ -75,7 +75,7 @@ export const HomeHero = () => {
                 />
                 <Image
                   className="opacity-50 lg:opacity-100 dark:hidden"
-                  src="/assets/images/shadcn-light.png"
+                  src="/images/shadcn-light.png"
                   alt="app illustration"
                   width={2796}
                   height={2008}
