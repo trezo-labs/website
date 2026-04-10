@@ -14,22 +14,10 @@ Trezo CLI simplifies Web3 project setup. It handles; **Network Package selection
 ### Initialize Project
 
 ```bash
-npx trezo init
+npx trezo@latest init
 ```
 
 You can also specify your project name after the `init` command.
-
----
-
-### Global Installation
-
-You can also install the CLI globally:
-
-```bash
-npm install -g trezo
-```
-
-After installing, you can run `trezo init` directly without using `npx`.
 
 ---
 
@@ -45,19 +33,24 @@ You’ll be guided through a series of prompts to configure your project.
    ██║   ██║  ██║███████╗███████╗╚██████╔╝    ╚██████╗███████╗██║
    ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝ ╚═════╝      ╚═════╝╚══════╝╚═╝
 
-Welcome to Trezo CLI
-
-? What package would you like to use?
-> @trezo/evm – Ethereum
-  @trezo/strk – Starknet
-
-? Choose a template to start with:
-  NextJs 16 template with a demo Todo dApp
-> Vite template with a demo Todo dApp
-
-? What would you like to name your project? (trezo-app)
-
-✔ Project created successfully!
+┌  Welcome to Trezo CLI v1.1.0
+│
+◇  Templates resolved
+│
+◇  Select a package:
+│  ● @trezo/evm – Ethereum
+│  ○ @trezo/strk – Starknet
+│
+◇  Select a framework:
+│  ● Next.js (includes a demo Counter dApp)
+│  ○ Vite
+│
+◇  Project name:
+│  trezo-app
+│
+◇  Project created successfully
+│
+└  ✔ You're all set — time to ship 🚀
 ```
 
 Each template includes a **demo dApp** pre-integrated with your selected package.
@@ -69,16 +62,18 @@ Each template includes a **demo dApp** pre-integrated with your selected package
 Some templates include additional setup commands:
 
 ```bash
-The following post-setup commands will complete your project setup:
-
-1. cd trezo-project
-2. pnpm install
-
-? Would you like to run these commands now? (Y/n)
+◇  Optional post-setup commands: ─╮
+│                                 │
+│  1. cd trezo-app                │
+│  2. pnpm install                │
+│                                 │
+├─────────────────────────────────╯
+│
+◇  Run post-setup commands?
+|  ● Yes / ○ No
 ```
 
-- You can run them automatically from the CLI
-- If skipped, run them manually later
+You can run them automatically from the CLI or skip and run them manually later
 
 </Steps>
 
