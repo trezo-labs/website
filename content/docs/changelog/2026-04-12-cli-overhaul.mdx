@@ -4,8 +4,24 @@ description: New interactive project scaffolding with remote package registry an
 date: 2026-04-12
 ---
 
-- Introduce new `trezo init` command with interactive package and template selection
-- Add `-n, --name`, -p, --package`and`-t, --template` flags for non‑interactive scaffolding
-- Add `trezo list` command to display all available packages and templates in a tree view
-- Display post‑setup commands as actionable next steps after project creation
-- Improve CLI reliability with graceful cancellation (`Ctrl+C`) and clear error messages
+- Introduce new **`trezo list`** command to display all available packages and templates
+- Add **`-n, --name`, -p, --package`and`-t, --template`** flags for non‑interactive scaffolding
+- Display **post‑setup** commands as **actionable next steps** after project creation
+- Add **background update checker** – notifies users when a new version is available
+
+<figure className="flex flex-col gap-4">
+  <Image
+    src="/images/command-light.png"
+    width="1432"
+    height="860"
+    alt="Light Counter dApp"
+    className="mt-6 w-full overflow-hidden squircle border dark:hidden"
+  />
+  <Image
+    src="/images/command-dark.png"
+    width="1432"
+    height="860"
+    alt="Dark Counter dApp"
+    className="mt-6 hidden w-full overflow-hidden squircle border shadow-sm dark:block"
+  />
+</figure>

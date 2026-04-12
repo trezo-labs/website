@@ -5,7 +5,9 @@ description: A powerful command-line interface for scaffolding, configuring, and
 
 ## Overview
 
-The **Trezo CLI** is the fastest way to get started with building multi-chain Trezo dApps.
+The **Trezo CLI** is the fastest way to get started with building multi-chain Web3 applications.
+
+Instead of manually setting up dependencies, wallet integrations, and blockchain configurations, the CLI handles everything for you by:
 
 - Fetching **curated templates** from a remote registry
 - Cloning production-ready starters into your local environment
@@ -15,18 +17,28 @@ This ensures that every project follows a **consistent structure and developer e
 
 ---
 
-<Steps>
-### Initialize a Project
+## Why Use Trezo CLI?
+
+- **Zero setup friction** — no need to configure Web3 providers manually
+- **Multi-chain ready** — build across different ecosystems using a unified pattern
+- **Framework flexibility** — choose from templates like Vite, Next.js, and more
+- **Opinionated structure** — best practices built-in from the start
+
+---
+
+## Initialize a Project
 
 ```bash
 npx trezo init
 ```
 
+You can run the CLI directly without installing it globally.
+
 This command starts an interactive setup that walks you through creating your project step-by-step.
 
 ---
 
-### Commands
+## Commands
 
 <Steps>
 
@@ -93,9 +105,22 @@ trezo init --name my-dapp --package @trezo/evm --template vite-app
 
 ---
 
+#### After Setup
+
+Once your project is created, the CLI will display recommended next steps such as:
+
+```bash
+pnpm install
+pnpm dev
+```
+
+These commands are defined by the selected template and should be run manually.
+
+---
+
 ### **trezo list**
 
-View all available Trezo packages and templates.
+View all available blockchain packages and templates.
 
 ```bash
 npx trezo list
@@ -111,17 +136,17 @@ npx trezo list
 
 #### Example Output
 
-```bash
-✔ Found 2 package(s)
+```txt
+📦 @trezo/evm – Ethereum { package: evm }
+  ├─ Next.js → evm-next-js
+  └─ Vite → evm-vite
 
-📦 @trezo/evm – EVM { package: @trezo/evm }
-  ├─ Next.js → next-app
-  └─ Vite → vite-app
-
-📦 @trezo/strk – Starknet { package: @trezo/strk }
+📦 @trezo/strk – Starknet { package: strk }
   └─ Starknet React → strk-react
 
-ℹ Usage: trezo init -p <package> -t <template>
+Found 2 package(s)
+
+Usage: trezo init -p <package> -t <template>
 ```
 
 ---
@@ -138,19 +163,17 @@ Use `trezo list` when you:
 
 ---
 
-### Generated Project
+## Generated Project
 
 After initialization, your project comes fully set up with:
 
-- Pre-configured Trezo integration
-- Selected blockchain package installed
-- Wallet connection support
-- Clean and scalable project structure
-- Ready-to-run development environment
+- ✅ Pre-configured Trezo integration
+- ✅ Selected blockchain package installed
+- ✅ Wallet connection support
+- ✅ Clean and scalable project structure
+- ✅ Ready-to-run development environment
 
 You can start building immediately without worrying about boilerplate or setup complexity.
-
-</Steps>
 
 ---
 
