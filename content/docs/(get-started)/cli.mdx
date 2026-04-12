@@ -5,75 +5,90 @@ description: The entry point for creating and configuring Trezo applications.
 
 ## Overview
 
-Trezo CLI simplifies Web3 project setup. It handles; **Network Package selection**, **Project templates**, **Post-setup commands**
+The CLI fetches curated Trezo templates from a remote registry and clones them directly into your local environment
 
 ---
+
+## Initialize Project
+
+```bash
+npx trezo init
+```
+
+Run the CLI directly **without installation** using your package manager of choice
+
+---
+
+## Commands
 
 <Steps>
 
-### Initialize Project
+### **trezo init**
+
+Initialize a new multi‑chain Web3 project.
 
 ```bash
-npx trezo@latest init
+trezo init [options]
 ```
 
-You can also specify your project name after the `init` command.
+#### Options
+
+- `-n, --name <name>`: Project name / directory name. If omitted, you will be prompted.
+- `-p, --package <name>`: Skip interactive package selection and use the specified package ID.
+- `-t, --template <name>`: Skip interactive template selection and use the specified template ID.
+
+#### Interactive Flow
+
+When you run `trezo init` without flags, the CLI will guide you through:
+
+1. **Package selection** – Choose from available protocol packages.
+2. **Template selection** – Pick a framework or starter.
+3. **Project directory** – Confirm or change the target folder name.
+4. **Template download** – The selected GitHub template is cloned locally.
+
+#### Example Usage
+
+```bash
+# Fully interactive
+trezo init
+
+# Skip prompts with flags
+trezo init -n my-dapp -p @trezo/evm -t vite-app
+
+# Full usage
+trezo init --name my-dapp --package @trezo/evm --template vite-app
+```
+
+#### Post‑Setup Instructions
+
+After scaffolding, the CLI displays any recommended post‑setup commands (e.g., `pnpm install`) defined by the template. You can copy and run them manually.
 
 ---
 
-### Interactive Setup Flow
+### **trezo list**
 
-You’ll be guided through a series of prompts to configure your project.
-
-```bash
-████████╗██████╗ ███████╗███████╗ ██████╗      ██████╗██╗     ██╗
-╚══██╔══╝██╔══██╗██╔════╝╚══███╔╝██╔═══██╗    ██╔════╝██║     ██║
-   ██║   ██████╔╝█████╗    ███╔╝ ██║   ██║    ██║     ██║     ██║
-   ██║   ██╔══██╗██╔══╝   ███╔╝  ██║   ██║    ██║     ██║     ██║
-   ██║   ██║  ██║███████╗███████╗╚██████╔╝    ╚██████╗███████╗██║
-   ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝ ╚═════╝      ╚═════╝╚══════╝╚═╝
-
-┌  Welcome to Trezo CLI v1.1.0
-│
-◇  Templates resolved
-│
-◇  Select a package:
-│  ● @trezo/evm – Ethereum
-│  ○ @trezo/strk – Starknet
-│
-◇  Select a framework:
-│  ● Next.js (includes a demo Counter dApp)
-│  ○ Vite
-│
-◇  Project name:
-│  trezo-app
-│
-◇  Project created successfully
-│
-└  ✔ You're all set — time to ship 🚀
-```
-
-Each template includes a **demo dApp** pre-integrated with your selected package.
-
----
-
-### Post-Setup Commands
-
-Some templates include additional setup commands:
+Display all available packages and their templates in a readable tree format.
 
 ```bash
-◇  Optional post-setup commands: ─╮
-│                                 │
-│  1. cd trezo-app                │
-│  2. pnpm install                │
-│                                 │
-├─────────────────────────────────╯
-│
-◇  Run post-setup commands?
-|  ● Yes / ○ No
+npx trezo list
 ```
 
-You can run them automatically from the CLI or skip and run them manually later
+#### Example Output
+
+```txt
+📦 @trezo/evm – Ethereum { package: evm }
+  ├─ Next.js → evm-next-js
+  └─ Vite → evm-vite
+
+📦 @trezo/strk – Starknet { package: strk }
+  └─ Starknet React → strk-react
+
+Found 2 package(s)
+
+Usage: `trezo init -p <package> -t <template>`
+```
+
+Use this command to browse available scaffolds before running `trezo init`.
 
 </Steps>
 
