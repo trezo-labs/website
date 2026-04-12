@@ -54,7 +54,7 @@ export const Packages = async () => {
       <Container className="border-dashed md:border-x">
         <Container
           size="sm"
-          className="px-0! py-16 md:py-32 md:space-y-12 space-y-6"
+          className="px-0! py-16 md:py-32 md:space-y-8 space-y-6"
         >
           <div className="relative z-10 mx-auto max-w-xl space-y-4 text-center">
             <h2 className="text-balance text-3xl font-medium lg:text-4xl">

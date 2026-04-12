@@ -14,22 +14,27 @@ export const HomeHero = () => {
           <div className="relative overflow-hidden">
             <div className="lg:flex lg:items-center lg:gap-12">
               <div className="relative z-10 mx-auto max-w-xl text-center lg:ml-0 lg:w-1/2 lg:text-left">
-                <Link
+                {/* <Link
                   href="/docs/packages/strk"
                   className="mx-auto flex w-fit items-center squircle gap-2 border p-1 pr-3 lg:ml-0"
                 >
                   <span className="bg-secondary px-2 py-[3px] squircle text-sm font-medium">
                     {siteConfig.name}
                   </span>
-                  {/* <span className="text-sm">
+                  <span className="text-sm">
                     Introducing <strong>@trezo/strk</strong>
                   </span>
                   <span
                     className="flex size-2 rounded-full bg-blue-500"
                     title="New"
-                  /> */}
+                  />
+                </Link> */}
+                <div className="mx-auto flex w-fit items-center squircle gap-2 border p-1 pr-3 lg:ml-0">
+                  <span className="bg-secondary px-2 py-[3px] squircle text-sm font-medium">
+                    {siteConfig.name}
+                  </span>
                   <span className="text-sm">Open Source Web3 Framework</span>
-                </Link>
+                </div>
 
                 <h1 className="mt-6 text-4xl font-serif leading-[1.2] font-medium sm:text-5xl">
                   Build Modern dApps Without Complexity
@@ -43,7 +48,7 @@ export const HomeHero = () => {
                     <span>Get Started</span>
                   </Link>
                   <Link
-                    href="/docs/installation#packages"
+                    href="/docs/installation#core-packages"
                     className={buttonVariants({
                       variant: "link",
                     })}
