@@ -44,7 +44,7 @@ export const mdxComponents = {
   h1: ({ className, ...props }: React.ComponentProps<"h1">) => (
     <h1
       className={cn(
-        "font-heading mt-2 scroll-m-28 text-3xl font-bold tracking-tight",
+        "font-heading mt-2 scroll-m-28 text-2xl font-bold tracking-tight",
         className,
       )}
       {...props}
@@ -111,7 +111,7 @@ export const mdxComponents = {
   ),
   p: ({ className, ...props }: React.ComponentProps<"p">) => (
     <p
-      className={cn("leading-relaxed [&:not(:first-child)]:mt-6", className)}
+      className={cn("leading-relaxed not-first:mt-6", className)}
       {...props}
     />
   ),
@@ -156,7 +156,7 @@ export const mdxComponents = {
   th: ({ className, ...props }: React.ComponentProps<"th">) => (
     <th
       className={cn(
-        "px-4 py-2 text-left font-bold [&[align=center]]:text-center [&[align=right]]:text-right",
+        "px-4 py-2 text-left font-bold [[align=center]]:text-center [[align=right]]:text-right",
         className,
       )}
       {...props}
@@ -165,7 +165,7 @@ export const mdxComponents = {
   td: ({ className, ...props }: React.ComponentProps<"td">) => (
     <td
       className={cn(
-        "px-4 py-3 text-left whitespace-nowrap [&[align=center]]:text-center [&[align=right]]:text-right",
+        "px-4 py-3 text-left whitespace-nowrap [[align=center]]:text-center [[align=right]]:text-right",
         className,
       )}
       {...props}
@@ -175,7 +175,7 @@ export const mdxComponents = {
     return (
       <pre
         className={cn(
-          "no-scrollbar min-w-0 overflow-x-auto overflow-y-auto overscroll-x-contain overscroll-y-auto px-4 py-3.5 outline-none has-[[data-highlighted-line]]:px-0 has-[[data-line-numbers]]:px-0 has-[[data-slot=tabs]]:p-0",
+          "no-scrollbar min-w-0 overflow-x-auto overflow-y-auto overscroll-x-contain overscroll-y-auto px-4 py-3.5 outline-none has-data-highlighted-line:px-0 has-data-line-numbers:px-0 has-data-[slot=tabs]:p-0",
           className,
         )}
         {...props}
@@ -363,7 +363,7 @@ export const mdxComponents = {
     props.href ? (
       <Link
         className={cn(
-          "flex w-full flex-col items-center squircle bg-surface p-6 text-surface-foreground transition-colors hover:bg-surface/80 sm:p-10",
+          "flex w-full flex-col hover:-translate-y-1 transition-all duration-500 hover:scale-[102%] ease-out items-center squircle bg-card ring-1 ring-border p-6 text-surface-foreground sm:p-10",
           className,
         )}
         {...props}
@@ -371,7 +371,7 @@ export const mdxComponents = {
     ) : (
       <div
         className={cn(
-          "flex w-full flex-col items-center squircle bg-surface p-6 text-surface-foreground transition-colors pointer-events-none opacity-50 sm:p-10",
+          "flex w-full flex-col items-center squircle bg-card ring-1 ring-border p-6 text-surface-foreground transition-colors pointer-events-none opacity-50 sm:p-10",
           className,
         )}
       >

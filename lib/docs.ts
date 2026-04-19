@@ -1,6 +1,6 @@
 export const PAGES_NEW = [
   "/docs/changelog",
-  "/docs/packages/evm",
+  // "/docs/packages/evm",
   "/docs/cli",
-  "/docs/changelog",
+  // "/docs/changelog",
 ];

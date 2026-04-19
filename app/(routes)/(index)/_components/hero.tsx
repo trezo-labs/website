@@ -30,7 +30,7 @@ export const HomeHero = () => {
                   />
                 </Link> */}
                 <div className="mx-auto flex w-fit items-center squircle gap-2 border p-1 pr-3 lg:ml-0">
-                  <span className="bg-secondary px-2 py-[3px] squircle text-sm font-medium">
+                  <span className="bg-secondary px-2 py-0.75 squircle text-sm font-medium">
                     {siteConfig.name}
                   </span>
                   <span className="text-sm">Open Source Web3 Framework</span>
@@ -53,8 +53,8 @@ export const HomeHero = () => {
                       variant: "link",
                     })}
                   >
-                    <span>Explore Packages</span>
-                    <Icons.ArrowRight02Icon />
+                    <span>Core Packages</span>
+                    <Icons.ArrowRight01Icon />
                   </Link>
                 </div>
 

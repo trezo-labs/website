@@ -45,7 +45,7 @@ export async function StarsCount({ githubApi }: { githubApi: string }) {
 
   return (
     <span className="text-muted-foreground mt-px text-xs font-mono">
-      {repo.stargazers_count >= 1000
+      {repo.stargazers_count <= 50 ? <span className="font-sans">GitHub</span> : repo.stargazers_count >= 1000
         ? `${(repo.stargazers_count / 1000).toFixed(0)}k`
         : repo.stargazers_count.toLocaleString()}
     </span>

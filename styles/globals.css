@@ -270,7 +270,7 @@
 }
 
 @utility container {
-  @apply mx-auto max-w-[1430px] px-5;
+  @apply mx-auto max-w-357.5 px-5;
 }
 
 @utility no-scrollbar {

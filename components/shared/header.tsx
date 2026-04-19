@@ -9,6 +9,7 @@ import { CommandMenu } from "./command-menu";
 import { SiteConfig } from "./site-config";
 import { Icons } from "./icons";
 import { source } from "@/lib/source";
+import { GitHubLink } from "./github-link";
 
 export const Header = () => {
   return (
@@ -37,11 +38,11 @@ export const Header = () => {
             <div className="hidden w-full flex-1 md:flex md:w-auto md:flex-none">
               <CommandMenu tree={source.pageTree} />
             </div>
-            {/* <Separator
+            <Separator
               orientation="vertical"
               className="ml-2 hidden mt-2 lg:block"
             />
-            <GitHubLink /> */}
+            <GitHubLink />
             <Separator
               orientation="vertical"
               className="hidden mt-2 2xl:flex"

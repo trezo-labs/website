@@ -10,6 +10,7 @@ import { buttonVariants } from "@/ui/button";
 import Link from "next/link";
 import { Icons } from "hugeicons-proxy";
 import { DocsCopyPage } from "@/components/shared/docs-copy-page";
+import { Kbd, KbdGroup } from "@/ui/kbd";
 
 export const revalidate = false;
 export const dynamic = "force-static";
@@ -85,7 +86,7 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
           <div className="flex flex-col gap-2">
             <div className="flex flex-col gap-2">
               <div className="flex items-center justify-between md:items-start">
-                <h1 className="scroll-m-24 text-3xl font-semibold tracking-tight sm:text-3xl">
+                <h1 className="scroll-m-24 text-2xl md:text-[26px] font-semibold tracking-tight">
                   {doc.title}
                 </h1>
                 <div className="docs-nav flex items-center gap-2">
@@ -123,7 +124,7 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
                 </div>
               </div>
               {doc.description && (
-                <p className="text-[1.05rem] text-muted-foreground sm:text-base sm:text-balance">
+                <p className="text-[1.05rem] text-muted-foreground sm:text-sm sm:text-balance">
                   {doc.description}
                 </p>
               )}
@@ -134,14 +135,13 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
             <MDX components={mdxComponents} />
           </div>
 
-          <div className="hidden h-16 w-full items-center gap-2 px-4 sm:flex sm:px-0">
+          <div className="hidden w-full items-center gap-8 px-4 sm:flex sm:px-0">
             {neighbours.previous && (
               <Link
                 href={neighbours.previous.url as Route}
                 className={buttonVariants({
                   variant: "secondary",
                   size: "sm",
-                  className: "shadow-none",
                 })}
               >
                 <Icons.ArrowLeft01Icon />
@@ -154,7 +154,7 @@ export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
                 className={buttonVariants({
                   variant: "secondary",
                   size: "sm",
-                  className: "ml-auto shadow-none",
+                  className: "ml-auto",
                 })}
               >
                 <span>{neighbours.next.name}</span>

@@ -3,19 +3,21 @@ title: "@trezo/evm - EVM"
 description: Type-safe toolkit for interacting with EVM smart contracts and wallets.
 ---
 
-## Installation
+## Quick Overview
+
+`@trezo/evm` gives you a `type-safe layer` for reading and writing to EVM smart contracts, connecting wallets, and reacting to on-chain events
+
+<Steps>
+
+### Installation
+
+Run the below command with your desired package manager
 
 ```bash
 npm install @trezo/evm
 ```
 
-`@trezo/evm` gives you a `type-safe layer` for reading and writing to EVM smart contracts, connecting wallets, and reacting to on-chain events
-
 ---
-
-## Quick Start
-
-<Steps>
 
 ### Define your config
 
@@ -33,7 +35,7 @@ export const evmConfig = create({
   abi: contractAbi,
   chains: [Chains.optimismSepolia],
   rpcUrls: {
-    11155420: "https://optimism-sepolia-public.nodies.app",
+    "sepolia": "https://optimism-sepolia-public.nodies.app",
   },
   wallet: {
     from: "family", // "family" | "reown"
@@ -58,25 +60,6 @@ export const { useConfig } = evmConfig;
 - **`chains`** — supported chains. `Chains` re-exports all chains from `wagmi/chains`.
 - **`rpcUrls`** — custom RPC endpoints keyed by chain ID. Avoids rate-limited public nodes.
 - **`wallet`** — wallet modal provider. TypeScript autocompletes all supported options.
-
----
-
-#### RPC Requirement
-
-Using a public node RPC may result in `CORS (Cross-Origin) errors` in browser environments.
-
-If no RPC is provided, the library falls back to a default public node, which will show this warning:
-
-<Callout variant="warning">
-  **INFO:** Using default public node url, please provide nodeUrl in provider
-  options!
-</Callout>
-
-To avoid errors and ensure reliability, you `must` provide your own RPC endpoint from a provider such as:
-
-- [Infura](http://infura.io/)
-- [Alchemy](https://dashboard.alchemy.com/)
-- Any dedicated RPC provider
 
 ---
 
