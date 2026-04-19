@@ -136,6 +136,99 @@ export default function Home() {
 
 ---
 
+## Call methods
+
+<Steps>
+
+### Read from Contract
+
+For **view and pure** functions — reads that don't change state and cost no gas.
+
+#### Example Usage
+
+```ts
+const { data, error } = await call.queryFn("fetchAllTasks", []);
+
+if (error) {
+  console.error(error.message); // human-readable, safe to show users
+  console.error(error.raw); // full Error object for debugging
+} else {
+  console.log(data); // typed from your ABI
+}
+```
+
+**Options:**
+
+- **from**: override sender (defaults to connected address)
+- **blockTag**: `latest`, `earliest`, `pending`, or `number`
+- **gasLimit**
+- **value**
+
+---
+
+### Write to Contract
+
+For **nonpayable and payable** functions — writes that change on-chain state and require a wallet signature.
+
+#### Example Usage
+
+```ts
+const { data, error } = await call.mutateFn("addTask", ["Buy groceries"]);
+
+if (error) {
+  toast.error(error.message); // e.g. "CONTRACT_ERROR_MESSAGE"
+} else {
+  console.log(data?.hash); // transaction hash
+  console.log(data?.receipt); // full TransactionReceipt
+}
+```
+
+**Options:**
+
+- **estimateGas**: `true` or `false`
+- **gasLimit**
+- **value**
+- **maxFeePerGas**
+- **maxPriorityFeePerGas**
+- **nonce**
+
+---
+
+### Listen to Events
+
+Subscribes to contract events and fires your listener each time. Automatically falls back to block-polling on RPCs that don't support `eth_newFilter` (most public/free-tier nodes).
+
+#### Single event
+
+```ts
+const cleanup = call.listenFn("TaskAdded", (user, taskId, content) => {
+  console.log("Task added:", { user, taskId, content });
+});
+
+cleanup(); // stop listening
+```
+
+Listener args are fully typed from your ABI.
+
+#### Multiple events
+
+```ts
+const cleanup = call.listenFn({
+  add: { eventName: "TaskAdded", listener: fetchAllTasks },
+  update: { eventName: "TaskUpdated", listener: fetchAllTasks },
+  remove: { eventName: "TaskRemoved", listener: fetchAllTasks },
+  toggle: { eventName: "TaskToggled", listener: fetchAllTasks },
+});
+
+cleanup(); // stops all listeners at once
+```
+
+More efficient than multiple `listenFn` calls — all listeners share the same underlying connection.
+
+</Steps>
+
+---
+
 ## ConnectButton
 
 Supports a render prop for full UI control, or a default button when no children are passed.
@@ -164,119 +257,6 @@ import { ConnectButton } from "@trezo/evm/react";
   )}
 </ConnectButton>;
 ```
-
-</Steps>
-
----
-
-## Read from Contract (`queryFn`)
-
-For **view and pure** functions — reads that don't change state and cost no gas.
-
-<Steps>
-
-### Example
-
-```ts
-const { data, error } = await call.queryFn("fetchAllTasks", []);
-
-if (error) {
-  console.error(error.message); // human-readable, safe to show users
-  console.error(error.raw); // full Error object for debugging
-} else {
-  console.log(data); // typed from your ABI
-}
-```
-
-### Options
-
-```ts
-const result = await call.queryFn("fetchAllTasks", [], {
-  from: "0x123...", // override sender (defaults to connected address)
-  blockTag: "latest", // "latest" | "earliest" | "pending" | number
-  gasLimit: 100000n,
-  value: 0n,
-});
-```
-
-</Steps>
-
----
-
-## Write to Contract (`mutateFn`)
-
-For **nonpayable and payable** functions — writes that change on-chain state and require a wallet signature.
-
-<Steps>
-
-### Example
-
-```ts
-const { data, error } = await call.mutateFn("addTask", ["Buy groceries"]);
-
-if (error) {
-  toast.error(error.message); // e.g. "CONTRACT_ERROR_MESSAGE"
-} else {
-  console.log(data?.hash); // transaction hash
-  console.log(data?.receipt); // full TransactionReceipt
-}
-```
-
-### Options
-
-```ts
-const result = await call.mutateFn("addTask", ["Buy groceries"], {
-  estimateGas: true,
-  gasLimit: 200000n,
-  value: ethers.parseEther("0.01"),
-  maxFeePerGas: ethers.parseUnits("20", "gwei"),
-  maxPriorityFeePerGas: ethers.parseUnits("1", "gwei"),
-  nonce: 42,
-});
-```
-
-Under the hood, `mutateFn`:
-
-1. **Simulates** the transaction first via a direct RPC call, surfacing readable revert reasons before the wallet prompt opens.
-2. **Sends** the real transaction through the connected wallet if simulation passes.
-3. **Waits** for the transaction to mine and returns the receipt.
-
-</Steps>
-
----
-
-## Listen to Events (`listenFn`)
-
-Subscribes to contract events and fires your listener each time. Automatically falls back to block-polling on RPCs that don't support `eth_newFilter` (most public/free-tier nodes).
-
-<Steps>
-
-### Single event
-
-```ts
-const cleanup = call.listenFn("TaskAdded", (user, taskId, content) => {
-  console.log("Task added:", { user, taskId, content });
-});
-
-cleanup(); // stop listening
-```
-
-Listener args are fully typed from your ABI.
-
-### Multiple events
-
-```ts
-const cleanup = call.listenFn({
-  add: { eventName: "TaskAdded", listener: fetchAllTasks },
-  update: { eventName: "TaskUpdated", listener: fetchAllTasks },
-  remove: { eventName: "TaskRemoved", listener: fetchAllTasks },
-  toggle: { eventName: "TaskToggled", listener: fetchAllTasks },
-});
-
-cleanup(); // stops all listeners at once
-```
-
-More efficient than multiple `listenFn` calls — all listeners share the same underlying connection.
 
 </Steps>
 
